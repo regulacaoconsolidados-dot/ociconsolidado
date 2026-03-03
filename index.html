@@ -3,1629 +3,1365 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Diretoria de Regulação do Acesso</title>
+  <title>Painel OCI — Diretoria de Regulação do Acesso</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
   <style>
-    :root {
-      --primary: #1a3a6b;
-      --primary-light: #2a5298;
-      --primary-dark: #0f2448;
-      --accent: #3b82f6;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --orange: #f97316;
-      --dark-red: #8b1a1a;
-      --crimson: #c0392b;
-      --bg: #f0f4f8;
-      --card: #ffffff;
-      --text: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
-      --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06);
-      --shadow-lg: 0 10px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
-      --radius: 12px;
-      --radius-sm: 8px;
+    :root{
+      --primary:#0f2f5f;
+      --primary2:#1a3a6b;
+      --accent:#3b82f6;
+      --success:#10b981;
+      --warning:#f59e0b;
+      --danger:#ef4444;
+
+      --bg:#f3f6fb;
+      --card:#ffffff;
+      --text:#0f172a;
+      --muted:#64748b;
+      --border:#e2e8f0;
+
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+      --shadow2: 0 8px 20px rgba(2,6,23,.10);
+      --r:14px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      font-size: 14px;
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background:var(--bg);
+      color:var(--text);
+      font-size:14px;
     }
 
-    /* ── HEADER ── */
-    .header {
-      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%);
-      color: #fff;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      min-height: 80px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    /* HEADER (maior, como você pediu) */
+    .header{
+      position:sticky; top:0; z-index:50;
+      background:linear-gradient(135deg, #081a36 0%, var(--primary) 40%, #2a5298 100%);
+      color:#fff;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      padding:16px 22px;
+      display:flex; gap:14px; align-items:center;
     }
-    .header-icon {
-      width: 52px; height: 52px;
-      background: rgba(255,255,255,0.15);
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
-      border: 1px solid rgba(255,255,255,0.2);
+    .h-icon{
+      width:58px; height:58px;
+      border-radius:14px;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.18);
+      display:flex; align-items:center; justify-content:center;
+      font-size:26px;
+      flex:0 0 auto;
     }
-    .header-info { flex: 1; }
-    .header-info h1 {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      line-height: 1.2;
+    .h-info{flex:1; min-width:240px}
+    .h-title{
+      font-size:22px;
+      font-weight:800;
+      letter-spacing:.2px;
+      line-height:1.1;
     }
-    .header-info .subtitle {
-      font-size: 11px;
-      opacity: 0.85;
-      font-weight: 500;
-      margin-top: 2px;
-      letter-spacing: 0.3px;
+    .h-sub{
+      margin-top:6px;
+      font-size:13px;
+      opacity:.9;
+      font-weight:500;
     }
-    .header-info .creator {
-      font-size: 10px;
-      opacity: 0.65;
-      margin-top: 3px;
-      font-style: italic;
+    .h-meta{
+      margin-top:6px;
+      font-size:11px;
+      opacity:.75;
     }
-    .header-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
+    .h-actions{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
     }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      transition: all 0.2s ease;
-      white-space: nowrap;
+    .btn{
+      border:none;
+      cursor:pointer;
+      border-radius:10px;
+      padding:10px 12px;
+      font-weight:700;
+      font-size:12px;
+      display:inline-flex; align-items:center; gap:8px;
+      transition:.18s ease;
+      white-space:nowrap;
     }
-    .btn-connected {
-      background: rgba(16,185,129,0.2);
-      color: #6ee7b7;
-      border: 1px solid rgba(16,185,129,0.4);
+    .btn-primary{
+      background:rgba(59,130,246,.18);
+      color:#dbeafe;
+      border:1px solid rgba(59,130,246,.35);
     }
-    .btn-connected::before {
-      content: '';
-      width: 8px; height: 8px;
-      background: #10b981;
-      border-radius: 50%;
-      box-shadow: 0 0 6px #10b981;
-      animation: pulse 2s infinite;
+    .btn-primary:hover{background:rgba(59,130,246,.28)}
+    .btn-excel{
+      background:rgba(16,185,129,.16);
+      color:#d1fae5;
+      border:1px solid rgba(16,185,129,.35);
     }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
+    .btn-excel:hover{background:rgba(16,185,129,.26)}
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      font-size:12px;
+      background:rgba(16,185,129,.14);
+      border:1px solid rgba(16,185,129,.32);
+      color:#bbf7d0;
+      font-weight:800;
     }
-    .btn-refresh {
-      background: rgba(59,130,246,0.2);
-      color: #93c5fd;
-      border: 1px solid rgba(59,130,246,0.4);
+    .dot{
+      width:9px; height:9px; border-radius:50%;
+      background:var(--success);
+      box-shadow:0 0 10px rgba(16,185,129,.9);
     }
-    .btn-refresh:hover { background: rgba(59,130,246,0.35); }
-    .btn-excel {
-      background: rgba(34,197,94,0.2);
-      color: #86efac;
-      border: 1px solid rgba(34,197,94,0.4);
-    }
-    .btn-excel:hover { background: rgba(34,197,94,0.35); }
-    .spinning { animation: spin 1s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
+    .lastUpdate{margin-top:4px; font-size:11px; opacity:.70}
 
-    /* ── MAIN CONTENT ── */
-    .main { padding: 20px 24px; max-width: 1600px; margin: 0 auto; }
-
-    /* ── FILTERS ── */
-    .filter-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      margin-bottom: 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-    }
-    .filter-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-    }
-    .filter-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-      color: var(--primary);
-      font-size: 14px;
-    }
-    .filter-title i { color: var(--accent); }
-    .btn-clear {
-      background: none;
-      border: 1px solid var(--border);
-      padding: 5px 12px;
-      border-radius: 6px;
-      font-size: 11px;
-      cursor: pointer;
-      color: var(--text-muted);
-      display: flex; align-items: center; gap: 5px;
-      transition: all 0.2s;
-    }
-    .btn-clear:hover { background: #fee2e2; border-color: #fca5a5; color: #dc2626; }
-    .filters-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 12px;
-    }
-    .filter-group label {
-      display: block;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-      text-transform: uppercase;
-      letter-spacing: 0.4px;
-    }
-    .filter-group select,
-    .filter-group input {
-      width: 100%;
-      padding: 8px 10px;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      font-size: 12px;
-      font-family: inherit;
-      background: #f8fafc;
-      color: var(--text);
-      transition: all 0.2s;
-      appearance: none;
-      cursor: pointer;
-    }
-    .filter-group select:focus,
-    .filter-group input:focus {
-      outline: none;
-      border-color: var(--accent);
-      background: #fff;
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
-    }
-    .select-wrapper { position: relative; }
-    .select-wrapper::after {
-      content: '▾';
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-      pointer-events: none;
-      font-size: 10px;
+    .wrap{max-width:1600px; margin:0 auto; padding:18px 22px;}
+    .grid{
+      display:grid;
+      gap:14px;
     }
 
-    /* ── KPI CARDS ── */
-    .kpi-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-bottom: 20px;
+    /* FILTERS */
+    .card{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
     }
-    .kpi-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow-md);
-      border-left: 5px solid;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: transform 0.2s, box-shadow 0.2s;
+    .filters{
+      padding:14px 16px;
     }
-    .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-    .kpi-card:nth-child(1) { border-color: var(--primary-light); }
-    .kpi-card:nth-child(2) { border-color: var(--success); }
-    .kpi-card:nth-child(3) { border-color: var(--warning); }
-    .kpi-icon {
-      width: 50px; height: 50px;
-      border-radius: 12px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 22px;
-      flex-shrink: 0;
+    .filtersTop{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; flex-wrap:wrap;
+      margin-bottom:12px;
     }
-    .kpi-card:nth-child(1) .kpi-icon { background: rgba(42,82,152,0.12); color: var(--primary-light); }
-    .kpi-card:nth-child(2) .kpi-icon { background: rgba(16,185,129,0.12); color: var(--success); }
-    .kpi-card:nth-child(3) .kpi-icon { background: rgba(245,158,11,0.12); color: var(--warning); }
-    .kpi-info { flex: 1; }
-    .kpi-label {
-      font-size: 10px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--text-muted);
-      margin-bottom: 4px;
+    .filtersTitle{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900; color:var(--primary2);
+      font-size:14px;
     }
-    .kpi-value {
-      font-size: 32px;
-      font-weight: 800;
-      line-height: 1;
-      color: var(--text);
+    .filtersGrid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:12px;
     }
-    .kpi-sub {
-      font-size: 10px;
-      color: var(--text-muted);
-      margin-top: 2px;
+    .fg{grid-column: span 6;}
+    .fg label{
+      display:block;
+      font-size:11px;
+      color:var(--muted);
+      font-weight:800;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      margin-bottom:6px;
+    }
+    select{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1.5px solid var(--border);
+      background:#f8fafc;
+      font-weight:700;
+      color:var(--text);
+      outline:none;
+    }
+    select:focus{
+      border-color:rgba(59,130,246,.65);
+      box-shadow:0 0 0 3px rgba(59,130,246,.14);
+      background:#fff;
+    }
+    .btn-clear{
+      background:#fff;
+      border:1px solid var(--border);
+      color:var(--muted);
+      padding:9px 12px;
+      border-radius:10px;
+      font-weight:900;
+      font-size:12px;
+      cursor:pointer;
+    }
+    .btn-clear:hover{
+      border-color:#fecaca;
+      color:#b91c1c;
+      background:#fff5f5;
     }
 
-    /* ── LOADING & STATUS ── */
-    .loading-bar {
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--primary-light), var(--accent));
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
-      border-radius: 2px;
-      margin-bottom: 20px;
-      display: none;
+    /* KPI */
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:14px;
     }
-    .loading-bar.active { display: block; }
-    @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+    .kpi{
+      padding:16px;
+      border-radius:var(--r);
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      box-shadow:var(--shadow);
+      display:flex; gap:12px; align-items:center;
+      min-height:96px;
+    }
+    .kpiIcon{
+      width:52px; height:52px; border-radius:14px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:22px;
+      flex:0 0 auto;
+    }
+    .kpi .label{
+      font-size:11px;
+      color:var(--muted);
+      font-weight:900;
+      letter-spacing:.45px;
+      text-transform:uppercase;
+    }
+    .kpi .val{
+      font-size:28px;
+      font-weight:900;
+      margin-top:3px;
+      line-height:1;
+    }
+    .kpi .sub{
+      font-size:11px;
+      color:var(--muted);
+      margin-top:6px;
+      font-weight:700;
+    }
 
-    /* ── CHART SECTIONS ── */
-    .section-title {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding-bottom: 10px;
-      border-bottom: 2px solid var(--border);
+    .kpi.ag .kpiIcon{background:rgba(59,130,246,.12); color:var(--accent)}
+    .kpi.rec .kpiIcon{background:rgba(16,185,129,.12); color:var(--success)}
+    .kpi.apac .kpiIcon{background:rgba(245,158,11,.12); color:var(--warning)}
+    .kpi.fat .kpiIcon{background:rgba(239,68,68,.10); color:var(--danger)}
+
+    /* Charts */
+    .section{
+      padding:16px;
     }
-    .section-title i { color: var(--accent); font-size: 14px; }
-    .charts-row {
-      display: grid;
+    .sectionTitle{
+      display:flex; align-items:center; gap:10px;
+      font-weight:900;
+      color:var(--primary2);
+      margin-bottom:12px;
+      font-size:14px;
+    }
+    .row2{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:14px;
+    }
+    .row2eq{
+      display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
+      gap:14px;
     }
-    .charts-row-3 {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
+    .chartCard{
+      padding:14px;
+      border-radius:var(--r);
+      border:1px solid var(--border);
+      background:var(--card);
+      box-shadow:var(--shadow);
     }
-    .chart-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
+    .chartHead{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
     }
-    .chart-card.full-width {
-      grid-column: 1 / -1;
+    .chartHead h3{
+      margin:0;
+      font-size:13px;
+      color:var(--text);
+      font-weight:900;
     }
-    .chart-container {
-      position: relative;
-      width: 100%;
+    .chartSub{
+      font-size:11px;
+      color:var(--muted);
+      font-weight:700;
+      margin-top:4px;
     }
-    .chart-container canvas { max-width: 100%; }
+    .chartWrap{position:relative; height:320px;}
+    .chartWrap.sm{height:260px;}
+    canvas{max-width:100%}
 
-    /* ── TABLE ── */
-    .table-card {
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 20px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      margin-bottom: 20px;
+    /* Tabs */
+    .tabs{
+      display:flex; gap:6px;
+      padding:6px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:var(--card);
+      box-shadow:var(--shadow);
+      overflow:auto;
     }
-    .table-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
-      gap: 10px;
+    .tab{
+      border:none;
+      background:transparent;
+      cursor:pointer;
+      padding:10px 14px;
+      border-radius:999px;
+      font-weight:900;
+      color:var(--muted);
+      font-size:12px;
+      display:flex; align-items:center; gap:8px;
+      white-space:nowrap;
     }
-    .table-search {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: #f8fafc;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 7px 12px;
+    .tab.active{
+      background:var(--primary2);
+      color:#fff;
+      box-shadow:var(--shadow);
     }
-    .table-search i { color: var(--text-muted); font-size: 13px; }
-    .table-search input {
-      border: none;
-      background: none;
-      font-size: 12px;
-      font-family: inherit;
-      color: var(--text);
-      width: 200px;
-      outline: none;
-    }
-    .table-info {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    .table-wrapper {
-      overflow-x: auto;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 12px;
-    }
-    thead {
-      background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-      color: #fff;
-      position: sticky;
-      top: 0;
-    }
-    thead th {
-      padding: 11px 14px;
-      text-align: left;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      white-space: nowrap;
-      font-size: 11px;
-      text-transform: uppercase;
-    }
-    thead th.sortable { cursor: pointer; user-select: none; }
-    thead th.sortable:hover { background: rgba(255,255,255,0.1); }
-    thead th .sort-icon { margin-left: 4px; opacity: 0.6; font-size: 10px; }
-    tbody tr {
-      border-bottom: 1px solid var(--border);
-      transition: background 0.15s;
-    }
-    tbody tr:hover { background: #f0f7ff; }
-    tbody tr:last-child { border-bottom: none; }
-    tbody td { padding: 9px 14px; white-space: nowrap; }
-    .badge {
-      display: inline-block;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 10px;
-      font-weight: 600;
-    }
-    .badge-blue { background: #dbeafe; color: #1d4ed8; }
-    .badge-green { background: #d1fae5; color: #065f46; }
-    .badge-orange { background: #ffedd5; color: #9a3412; }
-    .badge-red { background: #fee2e2; color: #991b1b; }
-    .pagination {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 12px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .pagination-info { font-size: 11px; color: var(--text-muted); }
-    .pagination-controls { display: flex; gap: 4px; }
-    .page-btn {
-      padding: 5px 10px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--card);
-      font-size: 11px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .page-btn:hover, .page-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .tabContent{display:none}
+    .tabContent.active{display:block}
 
-    /* ── FOOTER ── */
-    .footer {
-      text-align: center;
-      padding: 16px;
-      color: var(--text-muted);
-      font-size: 11px;
-      border-top: 1px solid var(--border);
-      background: var(--card);
-      margin-top: 8px;
+    /* Table */
+    .tableTop{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; flex-wrap:wrap;
+      margin-bottom:10px;
     }
-    .footer strong { color: var(--primary); }
+    .search{
+      display:flex; align-items:center; gap:8px;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1.5px solid var(--border);
+      background:#f8fafc;
+      min-width:260px;
+    }
+    .search input{
+      border:none; outline:none; background:transparent;
+      width:100%;
+      font-weight:700;
+    }
+    table{width:100%; border-collapse:collapse; font-size:12px;}
+    thead th{
+      text-align:left;
+      padding:10px 12px;
+      background:linear-gradient(135deg, #0b2246, #1a3a6b);
+      color:#fff;
+      position:sticky;
+      top:0;
+      font-size:11px;
+      letter-spacing:.35px;
+      text-transform:uppercase;
+    }
+    tbody td{
+      padding:10px 12px;
+      border-bottom:1px solid var(--border);
+      font-weight:650;
+      white-space:nowrap;
+    }
+    tbody tr:hover{background:#f2f7ff}
+    .muted{color:var(--muted); font-weight:800; font-size:12px}
 
-    /* ── STATUS BADGE ── */
-    .status-dot {
-      display: inline-block;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      margin-right: 4px;
+    .toastBox{
+      position:fixed; right:18px; top:92px; z-index:999;
+      display:flex; flex-direction:column; gap:8px;
     }
-    .online { background: #10b981; box-shadow: 0 0 6px #10b981; }
+    .toast{
+      background:#0b1d3a;
+      color:#fff;
+      border-left:4px solid var(--accent);
+      padding:10px 12px;
+      border-radius:12px;
+      box-shadow:var(--shadow2);
+      font-weight:750;
+      font-size:12px;
+      max-width:340px;
+      display:flex; gap:10px; align-items:flex-start;
+    }
+    .toast.success{border-left-color:var(--success)}
+    .toast.error{border-left-color:var(--danger)}
 
-    /* ── TOAST ── */
-    .toast-container {
-      position: fixed;
-      top: 90px; right: 20px;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+    .loading{
+      height:3px;
+      background:linear-gradient(90deg, var(--accent), #60a5fa, var(--accent));
+      background-size:200% 100%;
+      animation:shimmer 1.2s infinite linear;
+      display:none;
     }
-    .toast {
-      background: var(--primary-dark);
-      color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 12px;
-      box-shadow: var(--shadow-lg);
-      display: flex; align-items: center; gap: 8px;
-      animation: slideIn 0.3s ease;
-      max-width: 300px;
-    }
-    @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-    .toast.success { border-left: 3px solid #10b981; }
-    .toast.error { border-left: 3px solid #ef4444; }
-    .toast.info { border-left: 3px solid #3b82f6; }
+    .loading.on{display:block}
+    @keyframes shimmer{0%{background-position:-200% 0} 100%{background-position:200% 0}}
 
-    /* ── LAST UPDATE ── */
-    .last-update {
-      font-size: 10px;
-      color: rgba(255,255,255,0.6);
-      margin-top: 4px;
+    @media (max-width: 1100px){
+      .row2{grid-template-columns:1fr}
     }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 1100px) {
-      .charts-row-3 { grid-template-columns: 1fr 1fr; }
+    @media (max-width: 900px){
+      .kpis{grid-template-columns:1fr 1fr}
+      .fg{grid-column: span 12;}
+      .header{flex-wrap:wrap}
+      .h-actions{width:100%; justify-content:flex-start}
     }
-    @media (max-width: 768px) {
-      .header { flex-wrap: wrap; padding: 12px 16px; gap: 10px; }
-      .header-info h1 { font-size: 14px; }
-      .main { padding: 14px 16px; }
-      .kpi-grid { grid-template-columns: 1fr; }
-      .charts-row, .charts-row-3 { grid-template-columns: 1fr; }
-      .filters-grid { grid-template-columns: 1fr 1fr; }
-      .header-actions { width: 100%; justify-content: flex-start; }
+    @media (max-width: 560px){
+      .kpis{grid-template-columns:1fr}
+      .wrap{padding:14px 14px;}
+      .h-title{font-size:18px}
     }
-    @media (max-width: 480px) {
-      .filters-grid { grid-template-columns: 1fr; }
-      .header-actions .btn span { display: none; }
-    }
-
-    /* ── EMPTY STATE ── */
-    .empty-state {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 40px;
-      color: var(--text-muted);
-      gap: 10px;
-    }
-    .empty-state i { font-size: 36px; opacity: 0.3; }
-
-    /* ── TABS ── */
-    .tab-container { margin-bottom: 20px; }
-    .tab-nav {
-      display: flex;
-      gap: 4px;
-      background: var(--card);
-      border-radius: var(--radius);
-      padding: 4px;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border);
-      overflow-x: auto;
-    }
-    .tab-btn {
-      padding: 8px 16px;
-      border-radius: 8px;
-      border: none;
-      background: none;
-      font-size: 12px;
-      font-weight: 600;
-      cursor: pointer;
-      color: var(--text-muted);
-      white-space: nowrap;
-      transition: all 0.2s;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .tab-btn.active {
-      background: var(--primary);
-      color: #fff;
-      box-shadow: var(--shadow);
-    }
-    .tab-btn:hover:not(.active) { background: #f0f4f8; color: var(--text); }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
   </style>
 </head>
+
 <body>
+  <header class="header">
+    <div class="h-icon"><i class="fa-solid fa-hospital-user"></i></div>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-icon"><i class="fas fa-hospital-user"></i></div>
-  <div class="header-info">
-    <h1>DIRETORIA DE REGULAÇÃO DO ACESSO</h1>
-    <div class="subtitle">
-      OCI — OFERTA DE CONSULTAS E INTERNAÇÕES &nbsp;|&nbsp; CENTRAL DE MARCAÇÃO DE CONSULTAS
-    </div>
-    <div class="creator">
-      Superintendente em Regulação: <strong style="color:#93c5fd">Yara Ariane M.S.Souza</strong> &nbsp;|&nbsp;
-      Diretora: <strong style="color:#93c5fd">Paloma Morais</strong> &nbsp;|&nbsp;
-      Página criada por <strong style="color:#93c5fd">Ana P. A. Silva</strong> — Matr: 201704 / Assistente Adm. Diretoria de Regulação
-    </div>
-    <div class="last-update" id="lastUpdate">Carregando dados...</div>
-  </div>
-  <div class="header-actions">
-    <button class="btn btn-connected" id="connectionBtn">
-      <span>Conectado</span>
-    </button>
-    <button class="btn btn-refresh" id="refreshBtn" onclick="loadData()">
-      <i class="fas fa-sync-alt" id="refreshIcon"></i>
-      <span>Atualizar</span>
-    </button>
-    <button class="btn btn-excel" onclick="exportToExcel()">
-      <i class="fas fa-file-excel"></i>
-      <span>Excel</span>
-    </button>
-  </div>
-</header>
-
-<div class="loading-bar" id="loadingBar"></div>
-<div class="toast-container" id="toastContainer"></div>
-
-<main class="main">
-
-  <!-- FILTERS -->
-  <div class="filter-card">
-    <div class="filter-header">
-      <div class="filter-title">
-        <i class="fas fa-filter"></i>
-        Filtros
+    <div class="h-info">
+      <div class="h-title">DIRETORIA DE REGULAÇÃO DO ACESSO — OCI</div>
+      <div class="h-sub">Painel Inteligente • Oferta de Consultas e Internações • Central de Marcação</div>
+      <div class="h-meta">
+        Superintendente: <b style="color:#bfdbfe">Yara Ariane M.S.Souza</b> • Diretora: <b style="color:#bfdbfe">Paloma Morais</b> • Desenvolvido por <b style="color:#bfdbfe">Ana P. A. Silva</b>
       </div>
-      <button class="btn-clear" onclick="clearFilters()">
-        <i class="fas fa-times"></i> Limpar filtros
-      </button>
+      <div class="lastUpdate" id="lastUpdate">Carregando dados…</div>
     </div>
-    <div class="filters-grid">
-      <div class="filter-group">
-        <label><i class="fas fa-calendar-alt"></i> Mês/Ano</label>
-        <div class="select-wrapper">
-          <select id="filterMes" onchange="applyFilters()">
+
+    <div class="h-actions">
+      <div class="pill"><span class="dot"></span> Conectado</div>
+      <button class="btn btn-primary" id="btnRefresh"><i class="fa-solid fa-rotate"></i> Atualizar</button>
+      <button class="btn btn-excel" id="btnExcel"><i class="fa-solid fa-file-excel"></i> Excel</button>
+    </div>
+  </header>
+
+  <div class="loading" id="loading"></div>
+  <div class="toastBox" id="toastBox"></div>
+
+  <main class="wrap">
+    <!-- Filters -->
+    <div class="card filters">
+      <div class="filtersTop">
+        <div class="filtersTitle"><i class="fa-solid fa-filter" style="color:var(--accent)"></i> Filtros</div>
+        <button class="btn-clear" id="btnClear"><i class="fa-solid fa-xmark"></i> Limpar</button>
+      </div>
+
+      <div class="filtersGrid">
+        <div class="fg">
+          <label><i class="fa-solid fa-stethoscope"></i> Especialidade</label>
+          <select id="fEspecialidade">
+            <option value="">Todas</option>
+          </select>
+        </div>
+
+        <div class="fg">
+          <label><i class="fa-solid fa-calendar-days"></i> Mês/Ano</label>
+          <select id="fMesAno">
             <option value="">Todos</option>
           </select>
         </div>
       </div>
-      <div class="filter-group">
-        <label><i class="fas fa-stethoscope"></i> Especialidade</label>
-        <div class="select-wrapper">
-          <select id="filterEspecialidade" onchange="applyFilters()">
-            <option value="">Todas</option>
-          </select>
-        </div>
-      </div>
-      <div class="filter-group">
-        <label><i class="fas fa-user"></i> Faixa Etária</label>
-        <div class="select-wrapper">
-          <select id="filterIdade" onchange="applyFilters()">
-            <option value="">Todas</option>
-          </select>
-        </div>
-      </div>
-      <div class="filter-group">
-        <label><i class="fas fa-check-circle"></i> Status Faturamento</label>
-        <div class="select-wrapper">
-          <select id="filterStatus" onchange="applyFilters()">
-            <option value="">Todos</option>
-            <option value="faturado">Com Faturamento</option>
-            <option value="semfaturamento">Sem Faturamento</option>
-          </select>
-        </div>
-      </div>
-      <div class="filter-group">
-        <label><i class="fas fa-sort-amount-down"></i> Ordenar por</label>
-        <div class="select-wrapper">
-          <select id="filterSort" onchange="applyFilters()">
-            <option value="agendado_desc">Agendado (Maior)</option>
-            <option value="agendado_asc">Agendado (Menor)</option>
-            <option value="faturado_desc">Faturado (Maior)</option>
-            <option value="especialidade_asc">Especialidade A-Z</option>
-          </select>
-        </div>
-      </div>
-      <div class="filter-group">
-        <label><i class="fas fa-search"></i> Buscar</label>
-        <input type="text" id="filterSearch" placeholder="Especialidade, mês..." oninput="applyFilters()"/>
-      </div>
     </div>
-  </div>
 
-  <!-- KPI CARDS -->
-  <div class="kpi-grid">
-    <div class="kpi-card">
-      <div class="kpi-icon"><i class="fas fa-chart-line"></i></div>
-      <div class="kpi-info">
-        <div class="kpi-label">Total Geral Agendado</div>
-        <div class="kpi-value" id="kpiTotal">0</div>
-        <div class="kpi-sub">Todos os registros filtrados</div>
+    <!-- KPI -->
+    <div class="kpis" style="margin-top:14px;">
+      <div class="kpi ag">
+        <div class="kpiIcon"><i class="fa-solid fa-calendar-check"></i></div>
+        <div>
+          <div class="label">Total Agendados</div>
+          <div class="val" id="kAg">0</div>
+          <div class="sub" id="kAgSub">—</div>
+        </div>
+      </div>
+      <div class="kpi rec">
+        <div class="kpiIcon"><i class="fa-solid fa-user-check"></i></div>
+        <div>
+          <div class="label">Total Recepcionados</div>
+          <div class="val" id="kRec">0</div>
+          <div class="sub" id="kRecSub">—</div>
+        </div>
+      </div>
+      <div class="kpi apac">
+        <div class="kpiIcon"><i class="fa-solid fa-file-medical"></i></div>
+        <div>
+          <div class="label">Total APAC Geradas</div>
+          <div class="val" id="kApac">0</div>
+          <div class="sub" id="kApacSub">—</div>
+        </div>
+      </div>
+      <div class="kpi fat">
+        <div class="kpiIcon"><i class="fa-solid fa-money-bill-wave"></i></div>
+        <div>
+          <div class="label">Total Faturados</div>
+          <div class="val" id="kFat">0</div>
+          <div class="sub" id="kFatSub">—</div>
+        </div>
       </div>
     </div>
-    <div class="kpi-card">
-      <div class="kpi-icon"><i class="fas fa-calendar-check"></i></div>
-      <div class="kpi-info">
-        <div class="kpi-label">Total Recepcionado</div>
-        <div class="kpi-value" id="kpiRecepcionado">0</div>
-        <div class="kpi-sub">Total de recepcionamentos</div>
-      </div>
-    </div>
-    <div class="kpi-card">
-      <div class="kpi-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-      <div class="kpi-info">
-        <div class="kpi-label">Total Faturado</div>
-        <div class="kpi-value" id="kpiFaturado">0</div>
-        <div class="kpi-sub">Produção faturada</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- TABS -->
-  <div class="tab-container">
-    <div class="tab-nav">
-      <button class="tab-btn active" onclick="switchTab('oferta')">
-        <i class="fas fa-chart-bar"></i> Oferta / Agendamento
-      </button>
-      <button class="tab-btn" onclick="switchTab('pendencias')">
-        <i class="fas fa-exclamation-triangle"></i> Pendências
-      </button>
-      <button class="tab-btn" onclick="switchTab('distrito')">
-        <i class="fas fa-map-marked-alt"></i> Distrito / Território
-      </button>
-      <button class="tab-btn" onclick="switchTab('profissionais')">
-        <i class="fas fa-user-md"></i> Profissionais
-      </button>
-      <button class="tab-btn" onclick="switchTab('tabela')">
-        <i class="fas fa-table"></i> Tabela de Dados
-      </button>
+    <!-- Tabs -->
+    <div class="tabs" style="margin-top:14px;">
+      <button class="tab active" onclick="switchTab('visao', this)"><i class="fa-solid fa-chart-line"></i> Visão Geral</button>
+      <button class="tab" onclick="switchTab('idade', this)"><i class="fa-solid fa-people-group"></i> Faixa Etária</button>
+      <button class="tab" onclick="switchTab('tabela', this)"><i class="fa-solid fa-table"></i> Tabela</button>
     </div>
-  </div>
 
-  <!-- TAB: OFERTA -->
-  <div class="tab-content active" id="tab-oferta">
-    <div class="charts-row">
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-chart-bar"></i>
-          Top 10 Especialidades — Agendado
-        </div>
-        <div class="chart-container" style="height:320px">
-          <canvas id="chartTopEspecialidades"></canvas>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-chart-bar"></i>
-          Top 10 Especialidades — Faturado
-        </div>
-        <div class="chart-container" style="height:320px">
-          <canvas id="chartTopFaturado"></canvas>
-        </div>
-      </div>
-    </div>
-    <div class="charts-row">
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-calendar"></i>
-          Agendamentos por Mês
-        </div>
-        <div class="chart-container" style="height:280px">
-          <canvas id="chartPorMes"></canvas>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-chart-pie"></i>
-          Distribuição por Faixa Etária
-        </div>
-        <div class="chart-container" style="height:280px">
-          <canvas id="chartIdade"></canvas>
-        </div>
-      </div>
-    </div>
-    <div class="chart-card" style="margin-bottom:16px">
-      <div class="section-title">
-        <i class="fas fa-layer-group"></i>
-        Agendado vs Recepcionado vs APAC vs Faturado por Mês
-      </div>
-      <div class="chart-container" style="height:300px">
-        <canvas id="chartComparativo"></canvas>
-      </div>
-    </div>
-  </div>
+    <!-- Tab: Visão -->
+    <section class="tabContent active" id="tab-visao" style="margin-top:14px;">
+      <div class="card section">
+        <div class="sectionTitle"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent)"></i> Gráficos inteligentes (adaptam conforme o filtro)</div>
 
-  <!-- TAB: PENDÊNCIAS -->
-  <div class="tab-content" id="tab-pendencias">
-    <!-- KPI Pendências -->
-    <div class="kpi-grid" style="grid-template-columns: repeat(4,1fr); margin-bottom:16px">
-      <div class="kpi-card" style="border-color:#10b981">
-        <div class="kpi-icon" style="background:rgba(16,185,129,0.12);color:#10b981"><i class="fas fa-check-circle"></i></div>
-        <div class="kpi-info">
-          <div class="kpi-label">Resolvidos</div>
-          <div class="kpi-value" style="font-size:24px">995</div>
-        </div>
-      </div>
-      <div class="kpi-card" style="border-color:#f97316">
-        <div class="kpi-icon" style="background:rgba(249,115,22,0.12);color:#f97316"><i class="fas fa-clock"></i></div>
-        <div class="kpi-info">
-          <div class="kpi-label">Pendentes</div>
-          <div class="kpi-value" style="font-size:24px">146</div>
-        </div>
-      </div>
-      <div class="kpi-card" style="border-color:#ef4444">
-        <div class="kpi-icon" style="background:rgba(239,68,68,0.12);color:#ef4444"><i class="fas fa-times-circle"></i></div>
-        <div class="kpi-info">
-          <div class="kpi-label">Cancelado</div>
-          <div class="kpi-value" style="font-size:24px">183</div>
-        </div>
-      </div>
-      <div class="kpi-card" style="border-color:#8b1a1a">
-        <div class="kpi-icon" style="background:rgba(139,26,26,0.12);color:#8b1a1a"><i class="fas fa-calendar-times"></i></div>
-        <div class="kpi-info">
-          <div class="kpi-label">Cancel./Venc. Prazo</div>
-          <div class="kpi-value" style="font-size:24px">107</div>
-        </div>
-      </div>
-    </div>
-    <div class="charts-row">
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-clipboard-list"></i>
-          Registros de Pendências por Status
-        </div>
-        <div class="chart-container" style="height:300px">
-          <canvas id="chartPendenciaStatus"></canvas>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-stethoscope"></i>
-          Pendências Não Resolvidas por Especialidade — TOP 10
-        </div>
-        <div class="chart-container" style="height:300px">
-          <canvas id="chartPendenciaEspecialidade"></canvas>
-        </div>
-      </div>
-    </div>
-    <div class="chart-card" style="max-width:500px;margin-bottom:16px">
-      <div class="section-title">
-        <i class="fas fa-map"></i>
-        Pendências Não Resolvidas por Distrito
-      </div>
-      <div class="chart-container" style="height:280px">
-        <canvas id="chartPendenciaDistrito"></canvas>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB: DISTRITO -->
-  <div class="tab-content" id="tab-distrito">
-    <div class="charts-row">
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-city"></i>
-          Distrito Sanitário Eldorado — População por Unidade de Saúde (2022)
-        </div>
-        <div class="chart-container" style="height:380px">
-          <canvas id="chartDistritoPopulacao"></canvas>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-chart-pie"></i>
-          Distribuição Proporcional da População
-        </div>
-        <div class="chart-container" style="height:380px">
-          <canvas id="chartDistritoPie"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB: PROFISSIONAIS -->
-  <div class="tab-content" id="tab-profissionais">
-    <div class="kpi-grid" style="margin-bottom:16px">
-      <div class="kpi-card" style="border-color:#1a3a6b">
-        <div class="kpi-icon" style="background:rgba(26,58,107,0.12);color:#1a3a6b"><i class="fas fa-user-md"></i></div>
-        <div class="kpi-info">
-          <div class="kpi-label">Total Profissionais</div>
-          <div class="kpi-value">416</div>
-          <div class="kpi-sub">Ativos no sistema</div>
-        </div>
-      </div>
-      <div class="kpi-card" style="border-color:#3b82f6">
-        <div class="kpi-icon" style="background:rgba(59,130,246,0.12);color:#3b82f6"><i class="fas fa-sun"></i></div>
-        <div class="kpi-info">
-          <div class="kpi-label">Turno Integral</div>
-          <div class="kpi-value">293</div>
-          <div class="kpi-sub">70,4% do total</div>
-        </div>
-      </div>
-      <div class="kpi-card" style="border-color:#10b981">
-        <div class="kpi-icon" style="background:rgba(16,185,129,0.12);color:#10b981"><i class="fas fa-clock"></i></div>
-        <div class="kpi-info">
-          <div class="kpi-label">Turno Manhã</div>
-          <div class="kpi-value">55</div>
-          <div class="kpi-sub">13,2% do total</div>
-        </div>
-      </div>
-    </div>
-    <div class="charts-row">
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-chart-pie"></i>
-          Total de Profissionais Ativos por Turno
-        </div>
-        <div class="chart-container" style="height:360px">
-          <canvas id="chartProfTurno"></canvas>
-        </div>
-      </div>
-      <div class="chart-card">
-        <div class="section-title">
-          <i class="fas fa-chart-bar"></i>
-          Distribuição por Turno (Barras)
-        </div>
-        <div class="chart-container" style="height:360px">
-          <canvas id="chartProfTurnoBar"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB: TABELA -->
-  <div class="tab-content" id="tab-tabela">
-    <div class="table-card">
-      <div class="table-toolbar">
-        <div class="section-title" style="margin-bottom:0; border-bottom:none; padding-bottom:0">
-          <i class="fas fa-table"></i>
-          Tabela Completa de Dados OCI
-        </div>
-        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-          <div class="table-search">
-            <i class="fas fa-search"></i>
-            <input type="text" id="tableSearch" placeholder="Buscar na tabela..." oninput="filterTable()"/>
+        <div class="row2">
+          <div class="chartCard">
+            <div class="chartHead">
+              <div>
+                <h3 id="titleEvolucao">Evolução Mensal (Agendado, Recepcionado, APAC, Faturado)</h3>
+                <div class="chartSub" id="subEvolucao">Selecione uma especialidade para detalhar • Mês/Ano = Todos mostra a linha do tempo</div>
+              </div>
+            </div>
+            <div class="chartWrap">
+              <canvas id="cEvolucao"></canvas>
+            </div>
           </div>
-          <div class="table-info" id="tableInfo">Carregando...</div>
+
+          <div class="chartCard">
+            <div class="chartHead">
+              <div>
+                <h3 id="titleTop">Top Especialidades (por Agendado e Faturado)</h3>
+                <div class="chartSub" id="subTop">Aparece quando Especialidade = Todas</div>
+              </div>
+            </div>
+            <div class="chartWrap">
+              <canvas id="cTop"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="row2eq" style="margin-top:14px;">
+          <div class="chartCard">
+            <div class="chartHead">
+              <div>
+                <h3 id="titleFunil">Funil do Mês (Agendado → Recepcionado → APAC → Faturado)</h3>
+                <div class="chartSub">Aparece quando você seleciona um Mês/Ano específico</div>
+              </div>
+            </div>
+            <div class="chartWrap sm">
+              <canvas id="cFunil"></canvas>
+            </div>
+          </div>
+
+          <div class="chartCard">
+            <div class="chartHead">
+              <div>
+                <h3 id="titleDistrib">Distribuição no Período (participação por métrica)</h3>
+                <div class="chartSub">Ajuda a enxergar “onde está o volume” rapidamente</div>
+              </div>
+            </div>
+            <div class="chartWrap sm">
+              <canvas id="cDistrib"></canvas>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="table-wrapper">
-        <table id="dataTable">
-          <thead>
-            <tr>
-              <th class="sortable" onclick="sortTable('especialidade')">Especialidade <span class="sort-icon">↕</span></th>
-              <th class="sortable" onclick="sortTable('idade')">Faixa Etária <span class="sort-icon">↕</span></th>
-              <th class="sortable" onclick="sortTable('mes')">Mês <span class="sort-icon">↕</span></th>
-              <th class="sortable" onclick="sortTable('agendado')">Agendado <span class="sort-icon">↕</span></th>
-              <th class="sortable" onclick="sortTable('recepcionado')">Recepcionado <span class="sort-icon">↕</span></th>
-              <th class="sortable" onclick="sortTable('apac')">APAC <span class="sort-icon">↕</span></th>
-              <th class="sortable" onclick="sortTable('faturado')">Faturado <span class="sort-icon">↕</span></th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            <tr><td colspan="7"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><span>Carregando dados...</span></div></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="pagination">
-        <div class="pagination-info" id="paginationInfo">-</div>
-        <div class="pagination-controls" id="paginationControls"></div>
-      </div>
-    </div>
-  </div>
+    </section>
 
-</main>
+    <!-- Tab: Idade -->
+    <section class="tabContent" id="tab-idade" style="margin-top:14px;">
+      <div class="card section">
+        <div class="sectionTitle"><i class="fa-solid fa-chart-column" style="color:var(--accent)"></i> Especialidade × Faixa Etária (no mês)</div>
 
-<footer class="footer">
-  <strong>Diretoria de Regulação do Acesso</strong> — Sistema OCI &nbsp;|&nbsp;
-  Superintendente: <strong>Yara Ariane M.S.Souza</strong> &nbsp;|&nbsp;
-  Diretora: <strong>Paloma Morais</strong> &nbsp;|&nbsp;
-  Desenvolvido por <strong>Ana P. A. Silva</strong> — Matr: 201704
-</footer>
+        <div class="row2eq">
+          <div class="chartCard">
+            <div class="chartHead">
+              <div>
+                <h3>Quantidade por Faixa Etária (4 métricas)</h3>
+                <div class="chartSub">Para a especialidade selecionada, veja por idade quantos foram agendados/recepcionados/APAC/faturados</div>
+              </div>
+            </div>
+            <div class="chartWrap">
+              <canvas id="cIdadeQtd"></canvas>
+            </div>
+          </div>
+
+          <div class="chartCard">
+            <div class="chartHead">
+              <div>
+                <h3>Taxas por Faixa Etária (eficiência)</h3>
+                <div class="chartSub">Recepção% (Rec/Ag), APAC% (APAC/Rec) e Faturamento% (Fat/Rec)</div>
+              </div>
+            </div>
+            <div class="chartWrap">
+              <canvas id="cIdadeTaxas"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Tabela -->
+    <section class="tabContent" id="tab-tabela" style="margin-top:14px;">
+      <div class="card section">
+        <div class="tableTop">
+          <div class="sectionTitle" style="margin:0"><i class="fa-solid fa-table" style="color:var(--accent)"></i> Tabela filtrada (dados reais)</div>
+          <div class="search">
+            <i class="fa-solid fa-magnifying-glass" style="color:var(--muted)"></i>
+            <input id="tSearch" placeholder="Buscar (especialidade, idade, mês)..." />
+          </div>
+          <div class="muted" id="tInfo">—</div>
+        </div>
+
+        <div style="overflow:auto; border-radius:12px; border:1px solid var(--border); max-height:520px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Especialidade</th>
+                <th>Idade</th>
+                <th>Mês/Ano</th>
+                <th>Agendado</th>
+                <th>Recepcionado</th>
+                <th>APAC</th>
+                <th>Faturado</th>
+              </tr>
+            </thead>
+            <tbody id="tBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
 
 <script>
-// ─────────────────────────────────────────────
-//  CONFIG
-// ─────────────────────────────────────────────
-const SHEET_ID  = '1BONeij455aKawVr1iyskMLAJMKeBHzWmUZp_E-TDUWo';
-const GID       = '2108990586';
-const CSV_URL   = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
+  Chart.register(ChartDataLabels);
 
-Chart.register(ChartDataLabels);
+  // ===== CONFIG (seu Sheets) =====
+  const SHEET_ID = "1BONeij455aKawVr1iyskMLAJMKeBHzWmUZp_E-TDUWo";
+  const GID = "2108990586";
+  const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
 
-let allData       = [];
-let filteredData  = [];
-let currentPage   = 1;
-const PAGE_SIZE   = 20;
-let sortConfig    = { col: 'agendado', dir: 'desc' };
-let chartsMap     = {};
-let tableSearchVal = '';
+  // ===== STATE =====
+  let allData = [];
+  let dataF = [];
 
-// ─────────────────────────────────────────────
-//  TOAST
-// ─────────────────────────────────────────────
-function showToast(msg, type='info', duration=3500) {
-  const c = document.getElementById('toastContainer');
-  const t = document.createElement('div');
-  const icons = { info:'info-circle', success:'check-circle', error:'exclamation-circle' };
-  t.className = `toast ${type}`;
-  t.innerHTML = `<i class="fas fa-${icons[type]||'info-circle'}"></i> ${msg}`;
-  c.appendChild(t);
-  setTimeout(() => { t.style.opacity='0'; t.style.transition='opacity 0.4s'; setTimeout(()=>t.remove(),400); }, duration);
-}
+  const charts = {};
+  const PT_MONTH = { jan:1, fev:2, mar:3, abr:4, mai:5, jun:6, jul:7, ago:8, set:9, out:10, nov:11, dez:12 };
+  const PT_LABEL = ["","Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 
-// ─────────────────────────────────────────────
-//  LOAD DATA
-// ─────────────────────────────────────────────
-async function loadData() {
-  const bar  = document.getElementById('loadingBar');
-  const icon = document.getElementById('refreshIcon');
-  bar.classList.add('active');
-  icon.classList.add('spinning');
-  showToast('Sincronizando com Google Sheets...', 'info');
+  // ===== UI HOOKS =====
+  const el = (id) => document.getElementById(id);
 
-  try {
-    const res = await fetch(CSV_URL, { cache: 'no-cache' });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const text = await res.text();
-    const parsed = Papa.parse(text, { header: false, skipEmptyLines: true });
-    allData = parseRows(parsed.data);
-    filteredData = [...allData];
-    populateFilters();
-    applyFilters();
-    const now = new Date();
-    document.getElementById('lastUpdate').textContent =
-      `Última atualização: ${now.toLocaleDateString('pt-BR')} às ${now.toLocaleTimeString('pt-BR')}`;
-    showToast(`${allData.length} registros carregados com sucesso!`, 'success');
-  } catch(e) {
-    console.error(e);
-    showToast('Erro ao carregar dados. Usando demonstração.', 'error');
-    allData = getDemoData();
-    filteredData = [...allData];
-    populateFilters();
-    applyFilters();
-  } finally {
-    bar.classList.remove('active');
-    icon.classList.remove('spinning');
-  }
-}
+  el("btnRefresh").addEventListener("click", () => loadData(true));
+  el("btnExcel").addEventListener("click", exportExcel);
+  el("btnClear").addEventListener("click", clearFilters);
+  el("fEspecialidade").addEventListener("change", applyFilters);
+  el("fMesAno").addEventListener("change", applyFilters);
+  el("tSearch").addEventListener("input", renderTable);
 
-function parseRows(rows) {
-  const result = [];
-  // Skip header row(s) - look for first row with data
-  let dataStart = 0;
-  for (let i = 0; i < Math.min(5, rows.length); i++) {
-    if (rows[i][0] && rows[i][0].toString().toUpperCase().includes('ESPECIALIDADE')) {
-      dataStart = i + 1;
-      break;
-    }
-  }
-  for (let i = dataStart; i < rows.length; i++) {
-    const r = rows[i];
-    if (!r[0] || r[0].toString().trim() === '') continue;
-    const obj = {
-      especialidade: clean(r[0]),
-      idade:         clean(r[1]),
-      mes:           clean(r[2]),
-      agendado:      toNum(r[3]),
-      recepcionado:  toNum(r[4]),
-      apac:          toNum(r[5]),
-      faturado:      toNum(r[6])
-    };
-    if (obj.especialidade) result.push(obj);
-  }
-  return result;
-}
-
-function clean(v) {
-  if (v == null) return '';
-  return v.toString().trim()
-    .replace(/Ã£/g,'ã').replace(/Ã©/g,'é').replace(/Ã/g,'Á')
-    .replace(/Ã§/g,'ç').replace(/Ãµ/g,'õ').replace(/Ã³/g,'ó')
-    .replace(/Ã/g,'Í').replace(/Ã¢/g,'â');
-}
-function toNum(v) {
-  if (v == null || v === '' || v === 'SEM DADOS') return 0;
-  return parseInt(v.toString().replace(/\D/g,'')) || 0;
-}
-
-// ─────────────────────────────────────────────
-//  POPULATE FILTERS
-// ─────────────────────────────────────────────
-function populateFilters() {
-  const meses = [...new Set(allData.map(d=>d.mes).filter(Boolean))].sort();
-  const esp   = [...new Set(allData.map(d=>d.especialidade).filter(Boolean))].sort();
-  const ids   = [...new Set(allData.map(d=>d.idade).filter(Boolean))].sort();
-  fillSelect('filterMes', meses);
-  fillSelect('filterEspecialidade', esp);
-  fillSelect('filterIdade', ids);
-}
-function fillSelect(id, vals) {
-  const sel = document.getElementById(id);
-  const cur = sel.value;
-  while (sel.options.length > 1) sel.remove(1);
-  vals.forEach(v => {
-    const o = document.createElement('option');
-    o.value = v; o.textContent = v;
-    sel.appendChild(o);
-  });
-  if (cur) sel.value = cur;
-}
-
-// ─────────────────────────────────────────────
-//  APPLY FILTERS
-// ─────────────────────────────────────────────
-function applyFilters() {
-  const mes  = document.getElementById('filterMes').value;
-  const esp  = document.getElementById('filterEspecialidade').value;
-  const ida  = document.getElementById('filterIdade').value;
-  const sta  = document.getElementById('filterStatus').value;
-  const srt  = document.getElementById('filterSort').value;
-  const srch = document.getElementById('filterSearch').value.toLowerCase();
-
-  filteredData = allData.filter(d => {
-    if (mes && d.mes !== mes) return false;
-    if (esp && d.especialidade !== esp) return false;
-    if (ida && d.idade !== ida) return false;
-    if (sta === 'faturado' && d.faturado === 0) return false;
-    if (sta === 'semfaturamento' && d.faturado > 0) return false;
-    if (srch && !d.especialidade.toLowerCase().includes(srch) && !d.mes.toLowerCase().includes(srch)) return false;
-    return true;
-  });
-
-  const [col, dir] = srt.split('_');
-  const keyMap = { agendado:'agendado', faturado:'faturado', especialidade:'especialidade' };
-  const key = keyMap[col] || 'agendado';
-  filteredData.sort((a,b) => {
-    const va = typeof a[key]==='number' ? a[key] : a[key].toLowerCase();
-    const vb = typeof b[key]==='number' ? b[key] : b[key].toLowerCase();
-    return dir==='asc' ? (va>vb?1:-1) : (va<vb?1:-1);
-  });
-
-  updateKPIs();
-  updateAllCharts();
-  currentPage = 1;
-  renderTable();
-}
-
-function clearFilters() {
-  ['filterMes','filterEspecialidade','filterIdade','filterStatus','filterSort'].forEach(id => {
-    document.getElementById(id).value = id==='filterSort' ? 'agendado_desc' : '';
-  });
-  document.getElementById('filterSearch').value = '';
-  applyFilters();
-}
-
-// ─────────────────────────────────────────────
-//  KPIs
-// ─────────────────────────────────────────────
-function updateKPIs() {
-  const total = filteredData.reduce((s,d)=>s+d.agendado,0);
-  const rec   = filteredData.reduce((s,d)=>s+d.recepcionado,0);
-  const fat   = filteredData.reduce((s,d)=>s+d.faturado,0);
-  animateNum('kpiTotal', total);
-  animateNum('kpiRecepcionado', rec);
-  animateNum('kpiFaturado', fat);
-}
-function animateNum(id, target) {
-  const el = document.getElementById(id);
-  const start = parseInt(el.textContent.replace(/\D/g,''))||0;
-  const dur = 600, step = 16;
-  let curr = start, frames = Math.ceil(dur/step);
-  const inc = (target-start)/frames;
-  const t = setInterval(()=>{
-    curr = Math.min(target, curr + inc);
-    el.textContent = Math.round(curr).toLocaleString('pt-BR');
-    if (Math.round(curr)===target) clearInterval(t);
-  }, step);
-}
-
-// ─────────────────────────────────────────────
-//  CHARTS
-// ─────────────────────────────────────────────
-function destroyChart(id) {
-  if (chartsMap[id]) { chartsMap[id].destroy(); delete chartsMap[id]; }
-}
-
-function updateAllCharts() {
-  buildTopEspecialidades();
-  buildTopFaturado();
-  buildPorMes();
-  buildIdade();
-  buildComparativo();
-  buildPendenciaStatus();
-  buildPendenciaEspecialidade();
-  buildPendenciaDistrito();
-  buildDistritoPopulacao();
-  buildDistritoPie();
-  buildProfTurno();
-  buildProfTurnoBar();
-}
-
-// Top 10 Especialidades — Agendado
-function buildTopEspecialidades() {
-  const agg = {};
-  filteredData.forEach(d => { agg[d.especialidade] = (agg[d.especialidade]||0) + d.agendado; });
-  const sorted = Object.entries(agg).sort((a,b)=>b[1]-a[1]).slice(0,10);
-  destroyChart('chartTopEspecialidades');
-  const ctx = document.getElementById('chartTopEspecialidades').getContext('2d');
-  chartsMap['chartTopEspecialidades'] = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: sorted.map(e=>truncLabel(e[0],28)),
-      datasets: [{ data: sorted.map(e=>e[1]), backgroundColor: '#2a5298', borderRadius: 4, borderSkipped:false }]
-    },
-    options: barOpts('Agendamentos', true)
-  });
-}
-
-// Top 10 Especialidades — Faturado
-function buildTopFaturado() {
-  const agg = {};
-  filteredData.forEach(d => { agg[d.especialidade] = (agg[d.especialidade]||0) + d.faturado; });
-  const sorted = Object.entries(agg).filter(e=>e[1]>0).sort((a,b)=>b[1]-a[1]).slice(0,10);
-  destroyChart('chartTopFaturado');
-  const ctx = document.getElementById('chartTopFaturado').getContext('2d');
-  chartsMap['chartTopFaturado'] = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: sorted.map(e=>truncLabel(e[0],28)),
-      datasets: [{ data: sorted.map(e=>e[1]), backgroundColor: '#8b1a1a', borderRadius: 4, borderSkipped:false }]
-    },
-    options: barOpts('Faturado', true)
-  });
-}
-
-// Por Mês
-function buildPorMes() {
-  const agg = {};
-  filteredData.forEach(d => { agg[d.mes] = (agg[d.mes]||0) + d.agendado; });
-  const sorted = Object.entries(agg).sort((a,b)=>mesSort(a[0])-mesSort(b[0]));
-  destroyChart('chartPorMes');
-  const ctx = document.getElementById('chartPorMes').getContext('2d');
-  chartsMap['chartPorMes'] = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: sorted.map(e=>e[0]),
-      datasets: [{
-        label: 'Agendado',
-        data: sorted.map(e=>e[1]),
-        borderColor: '#3b82f6',
-        backgroundColor: 'rgba(59,130,246,0.08)',
-        borderWidth: 2.5,
-        pointRadius: 5,
-        pointBackgroundColor: '#3b82f6',
-        fill: true,
-        tension: 0.35
-      }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        datalabels: { display: false }
-      },
-      scales: {
-        y: { beginAtZero:true, grid:{ color:'rgba(0,0,0,0.05)' }, ticks:{ font:{ size:10 }}},
-        x: { grid:{ display:false }, ticks:{ font:{ size:10 }}}
-      }
-    }
-  });
-}
-
-// Faixa Etária
-function buildIdade() {
-  const agg = {};
-  filteredData.forEach(d => { agg[d.idade||'Não informado'] = (agg[d.idade||'Não informado']||0) + d.agendado; });
-  const sorted = Object.entries(agg).sort((a,b)=>b[1]-a[1]);
-  destroyChart('chartIdade');
-  const ctx = document.getElementById('chartIdade').getContext('2d');
-  chartsMap['chartIdade'] = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: sorted.map(e=>e[0]),
-      datasets: [{ data: sorted.map(e=>e[1]), backgroundColor: PALETTE, borderWidth:2, borderColor:'#fff' }]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins: {
-        legend: { position:'right', labels:{ font:{size:10}, boxWidth:12 } },
-        datalabels: {
-          formatter:(v,ctx)=>{ const t=ctx.dataset.data.reduce((a,b)=>a+b,0); return t>0?((v/t)*100).toFixed(1)+'%':''; },
-          color:'#fff', font:{ size:9, weight:'bold' }
-        }
-      },
-      cutout:'55%'
-    }
-  });
-}
-
-// Comparativo
-function buildComparativo() {
-  const agg = {};
-  filteredData.forEach(d => {
-    if (!agg[d.mes]) agg[d.mes] = { ag:0, rec:0, apac:0, fat:0 };
-    agg[d.mes].ag   += d.agendado;
-    agg[d.mes].rec  += d.recepcionado;
-    agg[d.mes].apac += d.apac;
-    agg[d.mes].fat  += d.faturado;
-  });
-  const sorted = Object.entries(agg).sort((a,b)=>mesSort(a[0])-mesSort(b[0]));
-  destroyChart('chartComparativo');
-  const ctx = document.getElementById('chartComparativo').getContext('2d');
-  chartsMap['chartComparativo'] = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: sorted.map(e=>e[0]),
-      datasets: [
-        { label:'Agendado',     data: sorted.map(e=>e[1].ag),   backgroundColor:'rgba(42,82,152,0.8)',  borderRadius:3 },
-        { label:'Recepcionado', data: sorted.map(e=>e[1].rec),  backgroundColor:'rgba(16,185,129,0.8)', borderRadius:3 },
-        { label:'APAC',         data: sorted.map(e=>e[1].apac), backgroundColor:'rgba(245,158,11,0.8)', borderRadius:3 },
-        { label:'Faturado',     data: sorted.map(e=>e[1].fat),  backgroundColor:'rgba(239,68,68,0.8)',  borderRadius:3 }
-      ]
-    },
-    options: {
-      responsive:true, maintainAspectRatio:false,
-      plugins: {
-        legend: { position:'top', labels:{ font:{size:11}, boxWidth:12 }},
-        datalabels: { display:false }
-      },
-      scales: {
-        y: { beginAtZero:true, grid:{color:'rgba(0,0,0,0.05)'}, ticks:{font:{size:10}}},
-        x: { grid:{display:false}, ticks:{font:{size:10}}}
-      }
-    }
-  });
-}
-
-// Pendências por Status (FIXED DATA)
-function buildPendenciaStatus() {
-  destroyChart('chartPendenciaStatus');
-  const ctx = document.getElementById('chartPendenciaStatus').getContext('2d');
-  chartsMap['chartPendenciaStatus'] = new Chart(ctx, {
-    type:'bar',
-    data:{
-      labels:['Resolvidos','Pendentes','Cancelado','Cancelado/Venc. Prazo'],
-      datasets:[{ data:[995,146,183,107], backgroundColor:['#f97316','#f97316','#f97316','#f97316'], borderRadius:4 }]
-    },
-    options: barOpts('Registros',false,false)
-  });
-}
-
-// Pendências por Especialidade
-function buildPendenciaEspecialidade() {
-  destroyChart('chartPendenciaEspecialidade');
-  const ctx = document.getElementById('chartPendenciaEspecialidade').getContext('2d');
-  chartsMap['chartPendenciaEspecialidade'] = new Chart(ctx, {
-    type:'bar',
-    data:{
-      labels:['Nefrologia Adulto','Ortopedia','Colposcopia','Cardiologia Adulto','Cirurgia Geral','Dermatologia Geral','Cirurgia Plástica','Neurologia Adulto','Urologia','Angiologia'],
-      datasets:[{ data:[19,13,13,12,12,10,10,9,9,8], backgroundColor:'#8b1a1a', borderRadius:4 }]
-    },
-    options: barOpts('Pendências', true)
-  });
-}
-
-// Pendências por Distrito
-function buildPendenciaDistrito() {
-  destroyChart('chartPendenciaDistrito');
-  const ctx = document.getElementById('chartPendenciaDistrito').getContext('2d');
-  chartsMap['chartPendenciaDistrito'] = new Chart(ctx, {
-    type:'bar',
-    data:{
-      labels:['RESSACA','SEDE','ELDORADO','PETROLÂNDIA'],
-      datasets:[{ data:[37,32,17,17], backgroundColor:'#c0392b', borderRadius:4 }]
-    },
-    options: barOpts('Pendências',false,false)
-  });
-}
-
-// Distrito População
-function buildDistritoPopulacao() {
-  destroyChart('chartDistritoPopulacao');
-  const ctx = document.getElementById('chartDistritoPopulacao').getContext('2d');
-  const labels = ['Água Branca','Bela Vista','CSU Eldorado','Jardim Bandeirantes','Jardim Eldorado','Novo Eldorado','Parque São João','Perobas','Santa Cruz','Unidade XV'];
-  const vals   = [13584,5882,21056,12380,9510,13300,13080,5983,11627,22126];
-  chartsMap['chartDistritoPopulacao'] = new Chart(ctx, {
-    type:'bar',
-    data:{
-      labels,
-      datasets:[{ data:vals, backgroundColor:'#c0392b', borderRadius:4 }]
-    },
-    options:{
-      indexAxis:'y',
-      responsive:true, maintainAspectRatio:false,
-      plugins:{
-        legend:{display:false},
-        datalabels:{
-          anchor:'end', align:'end',
-          formatter:v=>v.toLocaleString('pt-BR'),
-          color:'#1e293b', font:{size:10,weight:'bold'}
-        }
-      },
-      scales:{
-        x:{ beginAtZero:true, grid:{color:'rgba(0,0,0,0.05)'}, ticks:{font:{size:10}, callback:v=>v.toLocaleString('pt-BR')} },
-        y:{ grid:{display:false}, ticks:{font:{size:10}} }
-      }
-    }
-  });
-}
-
-// Distrito Pie
-function buildDistritoPie() {
-  destroyChart('chartDistritoPie');
-  const ctx = document.getElementById('chartDistritoPie').getContext('2d');
-  chartsMap['chartDistritoPie'] = new Chart(ctx, {
-    type:'doughnut',
-    data:{
-      labels:['Água Branca','Bela Vista','CSU Eldorado','Jd. Bandeirantes','Jd. Eldorado','Novo Eldorado','Parque São João','Perobas','Santa Cruz','Unidade XV'],
-      datasets:[{ data:[13584,5882,21056,12380,9510,13300,13080,5983,11627,22126], backgroundColor:PALETTE_RED, borderWidth:2, borderColor:'#fff' }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{
-        legend:{ position:'right', labels:{font:{size:10},boxWidth:12}},
-        datalabels:{
-          formatter:(v,ctx)=>{ const t=ctx.dataset.data.reduce((a,b)=>a+b,0); return ((v/t)*100).toFixed(1)+'%'; },
-          color:'#fff', font:{size:9,weight:'bold'}
-        }
-      },
-      cutout:'50%'
-    }
-  });
-}
-
-// Profissionais Turno Donut
-function buildProfTurno() {
-  destroyChart('chartProfTurno');
-  const ctx = document.getElementById('chartProfTurno').getContext('2d');
-  chartsMap['chartProfTurno'] = new Chart(ctx, {
-    type:'doughnut',
-    data:{
-      labels:['Integral','Não informado','Manhã','Tarde','Tarde/noite'],
-      datasets:[{ data:[293,13,55,36,19], backgroundColor:['#1a3a6b','#ef4444','#10b981','#f59e0b','#06b6d4'], borderWidth:3, borderColor:'#fff' }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{
-        legend:{ position:'bottom', labels:{font:{size:11},boxWidth:14,padding:10}},
-        datalabels:{
-          formatter:(v,ctx)=>`${v}`,
-          color:'#fff', font:{size:11,weight:'bold'}
-        }
-      },
-      cutout:'55%'
-    }
-  });
-}
-
-// Profissionais Turno Bar
-function buildProfTurnoBar() {
-  destroyChart('chartProfTurnoBar');
-  const ctx = document.getElementById('chartProfTurnoBar').getContext('2d');
-  chartsMap['chartProfTurnoBar'] = new Chart(ctx, {
-    type:'bar',
-    data:{
-      labels:['Integral','Manhã','Tarde','Tarde/noite','Não informado'],
-      datasets:[{ data:[293,55,36,19,13], backgroundColor:['#1a3a6b','#10b981','#f59e0b','#06b6d4','#ef4444'], borderRadius:6 }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{
-        legend:{display:false},
-        datalabels:{ anchor:'end', align:'top', color:'#1e293b', font:{size:11,weight:'bold'} }
-      },
-      scales:{
-        y:{ beginAtZero:true, grid:{color:'rgba(0,0,0,0.05)'}, ticks:{font:{size:11}} },
-        x:{ grid:{display:false}, ticks:{font:{size:11}} }
-      }
-    }
-  });
-}
-
-// ─── HELPERS ───
-function barOpts(label, horizontal=false, showLabels=true) {
-  return {
-    indexAxis: horizontal ? 'y' : 'x',
-    responsive:true, maintainAspectRatio:false,
-    plugins:{
-      legend:{display:false},
-      datalabels: showLabels ? { anchor:'end', align:'end', color:'#1e293b', font:{size:10,weight:'bold'} } : { display:false }
-    },
-    scales:{
-      x:{ beginAtZero:true, grid:{color:'rgba(0,0,0,0.05)',display:!horizontal}, ticks:{font:{size:10}} },
-      y:{ beginAtZero:true, grid:{display:horizontal, color:'rgba(0,0,0,0.05)'}, ticks:{font:{size:10}} }
-    }
-  };
-}
-
-function truncLabel(s, n) {
-  return s.length > n ? s.substring(0,n)+'…' : s;
-}
-
-const MESES_ORDER = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-function mesSort(m) {
-  if (!m) return 999;
-  const lm = m.toLowerCase();
-  for (let i=0;i<MESES_ORDER.length;i++) if (lm.includes(MESES_ORDER[i])) return i;
-  return 999;
-}
-
-const PALETTE = ['#1a3a6b','#2a5298','#3b82f6','#60a5fa','#10b981','#34d399','#f59e0b','#fbbf24','#ef4444','#f97316','#8b5cf6','#a78bfa'];
-const PALETTE_RED = ['#7f1d1d','#991b1b','#b91c1c','#c0392b','#dc2626','#e53e3e','#ef4444','#f87171','#fca5a5','#fee2e2'];
-
-// ─────────────────────────────────────────────
-//  TABLE
-// ─────────────────────────────────────────────
-function renderTable() {
-  const search   = document.getElementById('tableSearch').value.toLowerCase();
-  let data = filteredData.filter(d => {
-    if (!search) return true;
-    return d.especialidade.toLowerCase().includes(search) ||
-           d.mes.toLowerCase().includes(search) ||
-           d.idade.toLowerCase().includes(search);
-  });
-
-  const total = data.length;
-  const start = (currentPage-1)*PAGE_SIZE;
-  const end   = Math.min(start+PAGE_SIZE, total);
-  const page  = data.slice(start, end);
-
-  const tbody = document.getElementById('tableBody');
-  if (!page.length) {
-    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><i class="fas fa-search"></i><span>Nenhum registro encontrado</span></div></td></tr>`;
-  } else {
-    tbody.innerHTML = page.map((d,i) => `
-      <tr>
-        <td><span title="${d.especialidade}">${truncLabel(d.especialidade,40)}</span></td>
-        <td>${d.idade || '<span class="badge badge-orange">Não inf.</span>'}</td>
-        <td>${d.mes}</td>
-        <td>${d.agendado.toLocaleString('pt-BR')}</td>
-        <td>${d.recepcionado.toLocaleString('pt-BR')}</td>
-        <td>${d.apac.toLocaleString('pt-BR')}</td>
-        <td>${d.faturado > 0 ? `<span class="badge badge-green">${d.faturado.toLocaleString('pt-BR')}</span>` : '<span class="badge badge-orange">0</span>'}</td>
-      </tr>`).join('');
+  // ===== TOAST =====
+  function toast(msg, type="info"){
+    const box = el("toastBox");
+    const d = document.createElement("div");
+    const icon = type==="success" ? "circle-check" : type==="error" ? "triangle-exclamation" : "circle-info";
+    d.className = "toast " + (type==="success"?"success":type==="error"?"error":"");
+    d.innerHTML = `<i class="fa-solid fa-${icon}" style="margin-top:1px"></i><div>${msg}</div>`;
+    box.appendChild(d);
+    setTimeout(()=>{ d.style.opacity="0"; d.style.transition="opacity .35s"; setTimeout(()=>d.remove(), 380); }, 3400);
   }
 
-  document.getElementById('tableInfo').textContent = `${total.toLocaleString('pt-BR')} registro(s)`;
-  document.getElementById('paginationInfo').textContent = `Exibindo ${start+1}–${end} de ${total}`;
-  buildPagination(total);
-}
+  // ===== NORMALIZERS =====
+  function normStr(v){
+    if (v === null || v === undefined) return "";
+    return String(v)
+      .normalize("NFC")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
 
-function filterTable() {
-  currentPage = 1;
-  renderTable();
-}
+  function normHeader(h){
+    return normStr(h).toUpperCase();
+  }
 
-function buildPagination(total) {
-  const pages = Math.ceil(total/PAGE_SIZE);
-  const ctrl  = document.getElementById('paginationControls');
-  let html = `<button class="page-btn" onclick="goPage(${currentPage-1})" ${currentPage<=1?'disabled':''}>‹</button>`;
-  const range = getPageRange(currentPage, pages);
-  range.forEach(p => {
-    if (p==='...') html += `<button class="page-btn" disabled>…</button>`;
-    else html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="goPage(${p})">${p}</button>`;
-  });
-  html += `<button class="page-btn" onclick="goPage(${currentPage+1})" ${currentPage>=pages?'disabled':''}>›</button>`;
-  ctrl.innerHTML = html;
-}
+  function toInt(v){
+    const s = normStr(v).toUpperCase();
+    if (!s || s === "SEM DADOS") return 0;
+    const cleaned = s.replace(/[^\d-]/g, "");
+    const n = parseInt(cleaned, 10);
+    return Number.isFinite(n) ? n : 0;
+  }
 
-function getPageRange(cur, total) {
-  if (total <= 7) return Array.from({length:total},(_,i)=>i+1);
-  const r = [1];
-  if (cur > 3) r.push('...');
-  for (let i=Math.max(2,cur-1); i<=Math.min(total-1,cur+1); i++) r.push(i);
-  if (cur < total-2) r.push('...');
-  r.push(total);
-  return r;
-}
+  // "ago.-25" => { key:"2025-08", label:"Ago/2025", y:2025, m:8 }
+  function parseMesAno(raw){
+    const s = normStr(raw).toLowerCase();
+    if(!s) return { key:"", label:"", y:0, m:0 };
 
-function goPage(p) {
-  const total = filteredData.length;
-  const pages = Math.ceil(total/PAGE_SIZE);
-  if (p < 1 || p > pages) return;
-  currentPage = p;
-  renderTable();
-}
+    // pega "ago" e "25" do padrão "ago.-25"
+    const mon = (s.match(/(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)/) || [])[1];
+    const yy = (s.match(/(\d{2})\b/) || [])[1];
 
-function sortTable(col) {
-  if (sortConfig.col===col) sortConfig.dir = sortConfig.dir==='asc'?'desc':'asc';
-  else { sortConfig.col=col; sortConfig.dir='desc'; }
-  filteredData.sort((a,b)=>{
-    const va = typeof a[col]==='number'?a[col]:a[col].toLowerCase();
-    const vb = typeof b[col]==='number'?b[col]:b[col].toLowerCase();
-    return sortConfig.dir==='asc'?(va>vb?1:-1):(va<vb?1:-1);
-  });
-  currentPage=1; renderTable();
-}
+    const m = mon ? (PT_MONTH[mon] || 0) : 0;
+    const y = yy ? (2000 + parseInt(yy,10)) : 0;
 
-// ─────────────────────────────────────────────
-//  TABS
-// ─────────────────────────────────────────────
-function switchTab(id) {
-  document.querySelectorAll('.tab-content').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el=>el.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  event.currentTarget.classList.add('active');
-  // Re-render table if switching to tabela tab
-  if (id==='tabela') setTimeout(renderTable,50);
-  // Rebuild charts to fix resize issues
-  setTimeout(()=>{ Object.values(chartsMap).forEach(c=>c.resize&&c.resize()); },100);
-}
+    if(!m || !y) return { key:s, label:raw, y:0, m:0 };
 
-// ─────────────────────────────────────────────
-//  EXPORT EXCEL
-// ─────────────────────────────────────────────
-function exportToExcel() {
-  if (!filteredData.length) { showToast('Sem dados para exportar','error'); return; }
-  const wb = XLSX.utils.book_new();
-  const ws_data = [
-    ['Especialidade','Faixa Etária','Mês','Agendado','Recepcionado','APAC','Faturado'],
-    ...filteredData.map(d=>[d.especialidade,d.idade,d.mes,d.agendado,d.recepcionado,d.apac,d.faturado])
-  ];
-  const ws = XLSX.utils.aoa_to_sheet(ws_data);
-  ws['!cols'] = [{wch:45},{wch:15},{wch:12},{wch:12},{wch:14},{wch:12},{wch:12}];
-  XLSX.utils.book_append_sheet(wb, ws, 'OCI');
-  XLSX.writeFile(wb, `OCI_Regulacao_${new Date().toLocaleDateString('pt-BR').replace(/\//g,'-')}.xlsx`);
-  showToast('Arquivo Excel exportado!','success');
-}
+    const key = `${y}-${String(m).padStart(2,"0")}`;
+    const label = `${PT_LABEL[m]}/${y}`;
+    return { key, label, y, m };
+  }
 
-// ─────────────────────────────────────────────
-//  DEMO DATA (fallback)
-// ─────────────────────────────────────────────
-function getDemoData() {
-  const especialidades = [
-    'OFTALMOLOGIA','ORTOPEDIA','CIRURGIA GERAL','DERMATOLOGIA GERAL','CARDIOLOGIA ADULTO',
-    'UROLOGIA','CIRURGIA PLÁSTICA','OTORRINOLARINGOLOGIA','ANGIOLOGIA','NEFROLOGIA ADULTO',
-    'NEUROLOGIA ADULTO','COLPOSCOPIA','PNEUMOLOGIA ADULTO','INVESTIGAÇÃO DIAGNÓSTICA DE CANCER COLO DO ÚTERO',
-    'INVESTIGAÇÃO DIAGNÓSTICA DE CANCER DE MAMA','OFTALMOLOGIA PEDIATRIA','REUMATOLOGIA','ENDOCRINOLOGIA'
-  ];
-  const idades = ['SEM DADOS','0 8 ANOS','09 ANOS','10 A 14','15 A 17','18 A 59','60 ANOS OU MAIS'];
-  const meses  = ['ago.-25','set.-25','out.-25','nov.-25','dez.-25','jan.-26','fev.-26'];
-  const rows = [];
-  especialidades.forEach(esp => {
-    meses.forEach(mes => {
-      idades.slice(0,3).forEach(ida => {
-        const ag  = Math.floor(Math.random()*150)+5;
-        const rec = Math.floor(ag*0.85);
-        const ap  = Math.floor(rec*0.7);
-        const fat = Math.floor(ap*0.8);
-        rows.push({ especialidade:esp, idade:ida, mes, agendado:ag, recepcionado:rec, apac:ap, faturado:fat });
+  function mesSortKey(d){
+    return (d.mesY * 100) + d.mesM;
+  }
+
+  // Ordenação “humana” das faixas etárias
+  function idadeKey(s){
+    const v = normStr(s).toUpperCase();
+    if(!v || v === "SEM DADOS") return 999999;
+
+    // "0 Á 8 ANOS" / "0 A 8" => min = 0
+    let m = v.match(/(\d{1,3})\s*(A|Á|À)\s*(\d{1,3})/);
+    if(m) return parseInt(m[1],10);
+
+    // "60 ANOS OU MAIS" => 60
+    m = v.match(/(\d{1,3})/);
+    if(m) return parseInt(m[1],10);
+
+    return 999998;
+  }
+
+  // ===== LOAD DATA =====
+  async function loadData(showMsg=false){
+    el("loading").classList.add("on");
+    if(showMsg) toast("Sincronizando com Google Sheets…", "info");
+
+    try{
+      const res = await fetch(CSV_URL, { cache:"no-cache" });
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      const csv = await res.text();
+
+      // Parse robusto por header
+      const parsed = Papa.parse(csv, {
+        header: true,
+        skipEmptyLines: true,
+        dynamicTyping: false,
+        transformHeader: normHeader
       });
-    });
-  });
-  return rows;
-}
 
-// ─────────────────────────────────────────────
-//  INIT
-// ─────────────────────────────────────────────
-window.addEventListener('DOMContentLoaded', () => {
-  loadData();
-});
+      // Mapeia campos (considerando nomes reais)
+      allData = (parsed.data || [])
+        .map(r => {
+          const especialidade = normStr(r["ESPECIALIDADE"]);
+          const idade = normStr(r["IDADE"]); // header vem "IDADE " mas normalizamos
+          const mesRaw = normStr(r["MÊS/2025"] || r["MES/2025"] || r["MÊS"] || r["MES"]);
+          const mes = parseMesAno(mesRaw);
+
+          return {
+            especialidade: especialidade.replace(/\s+/g," ").trim(),
+            idade: idade,
+            mesRaw: mesRaw,
+            mesKey: mes.key,
+            mesLabel: mes.label,
+            mesY: mes.y,
+            mesM: mes.m,
+            agendado: toInt(r["AGENDADO"]),
+            recepcionado: toInt(r["RECEPCIONADO"]),
+            apac: toInt(r["APAC GERADAS"] || r["APAC"] || r["APACGERADAS"]),
+            faturado: toInt(r["FATURADO"])
+          };
+        })
+        .filter(x => x.especialidade); // descarta linhas vazias
+
+      // Ordena por tempo (para consistência)
+      allData.sort((a,b)=> mesSortKey(a) - mesSortKey(b) || a.especialidade.localeCompare(b.especialidade));
+
+      fillFilters();
+      applyFilters();
+
+      const now = new Date();
+      el("lastUpdate").textContent = `Última atualização: ${now.toLocaleDateString("pt-BR")} às ${now.toLocaleTimeString("pt-BR")}`;
+      toast(`Dados carregados: ${allData.length.toLocaleString("pt-BR")} registros.`, "success");
+    }catch(err){
+      console.error(err);
+      toast("Falha ao carregar o CSV do Sheets. Verifique permissões/compartilhamento.", "error");
+      allData = [];
+      dataF = [];
+      fillFilters();
+      applyFilters();
+    }finally{
+      el("loading").classList.remove("on");
+    }
+  }
+
+  function fillFilters(){
+    const especs = [...new Set(allData.map(x=>x.especialidade).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+    const meses = [...new Map(
+      allData
+        .filter(x=>x.mesKey)
+        .sort((a,b)=> mesSortKey(a)-mesSortKey(b))
+        .map(x=>[x.mesKey, x.mesLabel])
+    ).entries()]; // [key,label]
+
+    const sEsp = el("fEspecialidade");
+    const sMes = el("fMesAno");
+
+    const curEsp = sEsp.value;
+    const curMes = sMes.value;
+
+    while(sEsp.options.length>1) sEsp.remove(1);
+    while(sMes.options.length>1) sMes.remove(1);
+
+    especs.forEach(v=>{
+      const o=document.createElement("option");
+      o.value=v; o.textContent=v;
+      sEsp.appendChild(o);
+    });
+
+    meses.forEach(([k,label])=>{
+      const o=document.createElement("option");
+      o.value=k; o.textContent=label;
+      sMes.appendChild(o);
+    });
+
+    if(curEsp) sEsp.value = curEsp;
+    if(curMes) sMes.value = curMes;
+  }
+
+  function clearFilters(){
+    el("fEspecialidade").value = "";
+    el("fMesAno").value = "";
+    applyFilters();
+  }
+
+  // ===== FILTER =====
+  function applyFilters(){
+    const esp = el("fEspecialidade").value;
+    const mes = el("fMesAno").value;
+
+    dataF = allData.filter(x=>{
+      if(esp && x.especialidade !== esp) return false;
+      if(mes && x.mesKey !== mes) return false;
+      return true;
+    });
+
+    updateKPIs();
+    updateCharts();
+    renderTable();
+  }
+
+  // ===== KPIs =====
+  function sum(col){
+    return dataF.reduce((acc,x)=>acc + (x[col]||0), 0);
+  }
+
+  function pct(a,b){
+    if(!b) return 0;
+    return (a/b)*100;
+  }
+
+  function setNum(id, n){
+    el(id).textContent = (n||0).toLocaleString("pt-BR");
+  }
+
+  function updateKPIs(){
+    const ag = sum("agendado");
+    const rec = sum("recepcionado");
+    const apac = sum("apac");
+    const fat = sum("faturado");
+
+    setNum("kAg", ag);
+    setNum("kRec", rec);
+    setNum("kApac", apac);
+    setNum("kFat", fat);
+
+    el("kAgSub").textContent = `Recepção: ${pct(rec, ag).toFixed(1)}%`;
+    el("kRecSub").textContent = `APAC/Recep.: ${pct(apac, rec).toFixed(1)}%`;
+    el("kApacSub").textContent = `Fat./Recep.: ${pct(fat, rec).toFixed(1)}%`;
+    el("kFatSub").textContent = `Fat./Ag.: ${pct(fat, ag).toFixed(1)}%`;
+  }
+
+  // ===== CHART HELPERS =====
+  function destroy(id){
+    if(charts[id]){ charts[id].destroy(); delete charts[id]; }
+  }
+
+  function baseOptions(){
+    return {
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{
+        legend:{ labels:{ font:{ size:12, weight:"700" } } },
+        datalabels:{ display:false },
+        tooltip:{ titleFont:{ size:12, weight:"800" }, bodyFont:{ size:12 } }
+      },
+      scales:{
+        x:{ ticks:{ font:{ size:11, weight:"700" } }, grid:{ display:false } },
+        y:{ ticks:{ font:{ size:11, weight:"700" } }, grid:{ color:"rgba(2,6,23,.06)" }, beginAtZero:true }
+      }
+    };
+  }
+
+  // ===== CHARTS =====
+  function updateCharts(){
+    const esp = el("fEspecialidade").value;
+    const mes = el("fMesAno").value;
+
+    buildEvolucao(esp, mes);
+    buildTop(esp, mes);
+    buildFunil(esp, mes);
+    buildDistrib(esp, mes);
+
+    // Tab Idade
+    buildIdadeQtd(esp, mes);
+    buildIdadeTaxas(esp, mes);
+
+    // Ajustes de títulos
+    el("subEvolucao").textContent = esp ? `Especialidade: ${esp} • ${mes ? ("Mês: " + labelMes(mes)) : "Todos os meses"}` :
+                                         `Especialidade: Todas • ${mes ? ("Mês: " + labelMes(mes)) : "Todos os meses"}`;
+  }
+
+  function labelMes(key){
+    const found = allData.find(x=>x.mesKey===key);
+    return found ? found.mesLabel : key;
+  }
+
+  // 1) Evolução mensal (sempre baseada nos dados filtrados, mas se mês selecionado vira 1 ponto)
+  function buildEvolucao(esp, mes){
+    destroy("cEvolucao");
+
+    // Para evitar gráfico “1 ponto” feio: quando mês selecionado, a evolução ignora o filtro de mês
+    // e mostra a evolução da especialidade no tempo (mantém o painel útil).
+    const source = mes
+      ? allData.filter(x => !esp || x.especialidade === esp)
+      : dataF;
+
+    const map = new Map(); // mesKey -> {label, ag, rec, apac, fat}
+    source.forEach(x=>{
+      if(!x.mesKey) return;
+      if(!map.has(x.mesKey)){
+        map.set(x.mesKey, { label:x.mesLabel, y:x.mesY, m:x.mesM, ag:0, rec:0, apac:0, fat:0 });
+      }
+      const o = map.get(x.mesKey);
+      o.ag += x.agendado;
+      o.rec += x.recepcionado;
+      o.apac += x.apac;
+      o.fat += x.faturado;
+    });
+
+    const arr = [...map.entries()]
+      .map(([k,v])=>({ key:k, ...v }))
+      .sort((a,b)=> (a.y*100+a.m) - (b.y*100+b.m));
+
+    const ctx = el("cEvolucao").getContext("2d");
+    charts["cEvolucao"] = new Chart(ctx, {
+      type:"line",
+      data:{
+        labels: arr.map(x=>x.label),
+        datasets:[
+          { label:"Agendado", data:arr.map(x=>x.ag), borderColor:"#3b82f6", backgroundColor:"rgba(59,130,246,.10)", tension:.35, fill:true, borderWidth:2.5, pointRadius:4 },
+          { label:"Recepcionado", data:arr.map(x=>x.rec), borderColor:"#10b981", backgroundColor:"rgba(16,185,129,.08)", tension:.35, fill:false, borderWidth:2.5, pointRadius:4 },
+          { label:"APAC", data:arr.map(x=>x.apac), borderColor:"#f59e0b", backgroundColor:"rgba(245,158,11,.10)", tension:.35, fill:false, borderWidth:2.5, pointRadius:4 },
+          { label:"Faturado", data:arr.map(x=>x.fat), borderColor:"#ef4444", backgroundColor:"rgba(239,68,68,.08)", tension:.35, fill:false, borderWidth:2.5, pointRadius:4 }
+        ]
+      },
+      options: {
+        ...baseOptions(),
+        plugins:{
+          ...baseOptions().plugins,
+          legend:{ position:"top", labels:{ font:{ size:12, weight:"800" } } }
+        }
+      }
+    });
+  }
+
+  // 2) Top especialidades (só faz sentido quando Especialidade = Todas)
+  function buildTop(esp, mes){
+    destroy("cTop");
+
+    const ctx = el("cTop").getContext("2d");
+
+    if(esp){
+      // Se escolheu especialidade, mostra comparação interna por idade (Agendado vs Faturado)
+      const map = new Map(); // idade -> {ag,fat}
+      dataF.forEach(x=>{
+        const k = x.idade || "Não informado";
+        if(!map.has(k)) map.set(k, { ag:0, fat:0 });
+        const o = map.get(k);
+        o.ag += x.agendado;
+        o.fat += x.faturado;
+      });
+      const arr = [...map.entries()]
+        .map(([k,v])=>({ idade:k, ...v }))
+        .sort((a,b)=> idadeKey(a.idade)-idadeKey(b.idade));
+
+      charts["cTop"] = new Chart(ctx, {
+        type:"bar",
+        data:{
+          labels: arr.map(x=>x.idade),
+          datasets:[
+            { label:"Agendado", data:arr.map(x=>x.ag), backgroundColor:"rgba(59,130,246,.85)", borderRadius:8 },
+            { label:"Faturado", data:arr.map(x=>x.fat), backgroundColor:"rgba(239,68,68,.85)", borderRadius:8 }
+          ]
+        },
+        options:{
+          ...baseOptions(),
+          plugins:{ ...baseOptions().plugins, legend:{ position:"top" } }
+        }
+      });
+
+      el("subTop").textContent = "Como você selecionou uma especialidade, aqui mostramos Agendado vs Faturado por faixa etária.";
+      return;
+    }
+
+    // Especialidade = Todas: top 10 do período (ou do mês, se filtrou)
+    const source = dataF;
+    const map = new Map(); // esp -> {ag,fat}
+    source.forEach(x=>{
+      const k = x.especialidade;
+      if(!map.has(k)) map.set(k, { ag:0, fat:0 });
+      const o = map.get(k);
+      o.ag += x.agendado;
+      o.fat += x.faturado;
+    });
+
+    const arr = [...map.entries()]
+      .map(([k,v])=>({ esp:k, ...v }))
+      .sort((a,b)=> (b.ag - a.ag))
+      .slice(0,10);
+
+    charts["cTop"] = new Chart(ctx, {
+      type:"bar",
+      data:{
+        labels: arr.map(x=> x.esp.length>26 ? (x.esp.slice(0,26)+"…") : x.esp),
+        datasets:[
+          { label:"Agendado", data:arr.map(x=>x.ag), backgroundColor:"rgba(26,58,107,.90)", borderRadius:8 },
+          { label:"Faturado", data:arr.map(x=>x.fat), backgroundColor:"rgba(239,68,68,.75)", borderRadius:8 }
+        ]
+      },
+      options:{
+        ...baseOptions(),
+        indexAxis:"y",
+        plugins:{ ...baseOptions().plugins, legend:{ position:"top" } },
+        scales:{
+          x:{ beginAtZero:true, ticks:{ font:{ size:11, weight:"800" } }, grid:{ color:"rgba(2,6,23,.06)" } },
+          y:{ ticks:{ font:{ size:11, weight:"800" } }, grid:{ display:false } }
+        }
+      }
+    });
+
+    el("subTop").textContent = mes ? `Top 10 no mês ${labelMes(mes)}.` : "Top 10 no período selecionado (todos os meses).";
+  }
+
+  // 3) Funil do mês: só “aparece” com mês selecionado, senão mostra mensagem de “selecione um mês”
+  function buildFunil(esp, mes){
+    destroy("cFunil");
+    const ctx = el("cFunil").getContext("2d");
+
+    if(!mes){
+      charts["cFunil"] = new Chart(ctx, {
+        type:"bar",
+        data:{ labels:["Selecione um Mês/Ano"], datasets:[{ label:"", data:[1], backgroundColor:"rgba(100,116,139,.25)", borderRadius:10 }]},
+        options:{
+          responsive:true, maintainAspectRatio:false,
+          plugins:{ legend:{ display:false }, tooltip:{ enabled:false }, datalabels:{ display:false } },
+          scales:{ x:{ grid:{ display:false } }, y:{ display:false } }
+        }
+      });
+      return;
+    }
+
+    const ag = sum("agendado");
+    const rec = sum("recepcionado");
+    const ap = sum("apac");
+    const fat = sum("faturado");
+
+    charts["cFunil"] = new Chart(ctx, {
+      type:"bar",
+      data:{
+        labels:["Agendado","Recepcionado","APAC","Faturado"],
+        datasets:[{
+          label: "Quantidade",
+          data:[ag,rec,ap,fat],
+          backgroundColor:["rgba(59,130,246,.85)","rgba(16,185,129,.85)","rgba(245,158,11,.88)","rgba(239,68,68,.85)"],
+          borderRadius:10
+        }]
+      },
+      options:{
+        ...baseOptions(),
+        plugins:{
+          ...baseOptions().plugins,
+          legend:{ display:false },
+          datalabels:{
+            display:true,
+            anchor:"end",
+            align:"top",
+            color:"#0f172a",
+            font:{ size:11, weight:"900" },
+            formatter:(v)=> v.toLocaleString("pt-BR")
+          }
+        }
+      }
+    });
+  }
+
+  // 4) Distribuição rápida (donut) — participação das métricas no total do “funil”
+  function buildDistrib(esp, mes){
+    destroy("cDistrib");
+    const ctx = el("cDistrib").getContext("2d");
+
+    const ag = sum("agendado");
+    const rec = sum("recepcionado");
+    const ap = sum("apac");
+    const fat = sum("faturado");
+
+    charts["cDistrib"] = new Chart(ctx, {
+      type:"doughnut",
+      data:{
+        labels:["Agendado","Recepcionado","APAC","Faturado"],
+        datasets:[{
+          data:[ag,rec,ap,fat],
+          backgroundColor:["#3b82f6","#10b981","#f59e0b","#ef4444"],
+          borderColor:"#fff",
+          borderWidth:3
+        }]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{
+          legend:{ position:"right", labels:{ font:{ size:12, weight:"800" }, boxWidth:12 } },
+          datalabels:{
+            color:"#fff",
+            font:{ size:10, weight:"900" },
+            formatter:(v,ctx)=>{
+              const t = ctx.dataset.data.reduce((a,b)=>a+b,0);
+              if(!t) return "";
+              const p = (v/t)*100;
+              return p>=6 ? p.toFixed(0)+"%" : "";
+            }
+          }
+        },
+        cutout:"55%"
+      }
+    });
+  }
+
+  // 5) Qtd por idade (4 métricas)
+  function buildIdadeQtd(esp, mes){
+    destroy("cIdadeQtd");
+    const ctx = el("cIdadeQtd").getContext("2d");
+
+    // Se não escolheu mês, usa o último mês disponível automaticamente (para manter útil)
+    let useMes = mes;
+    if(!useMes){
+      const last = [...new Set(allData.filter(x=>x.mesKey).map(x=>x.mesKey))]
+        .map(k=>{
+          const any = allData.find(x=>x.mesKey===k);
+          return { k, y:any?.mesY||0, m:any?.mesM||0 };
+        })
+        .sort((a,b)=> (a.y*100+a.m)-(b.y*100+b.m))
+        .pop();
+      useMes = last?.k || "";
+    }
+
+    const source = allData.filter(x=>{
+      if(useMes && x.mesKey !== useMes) return false;
+      if(esp && x.especialidade !== esp) return false;
+      if(!esp) return false; // sem especialidade, isso vira bagunça
+      return true;
+    });
+
+    if(!esp){
+      charts["cIdadeQtd"] = new Chart(ctx, {
+        type:"bar",
+        data:{ labels:["Selecione uma Especialidade"], datasets:[{ label:"", data:[1], backgroundColor:"rgba(100,116,139,.25)", borderRadius:10 }]},
+        options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ enabled:false } }, scales:{ x:{ grid:{ display:false } }, y:{ display:false } } }
+      });
+      return;
+    }
+
+    const map = new Map();
+    source.forEach(x=>{
+      const k = x.idade || "Não informado";
+      if(!map.has(k)) map.set(k, { ag:0, rec:0, ap:0, fat:0 });
+      const o = map.get(k);
+      o.ag += x.agendado;
+      o.rec += x.recepcionado;
+      o.ap += x.apac;
+      o.fat += x.faturado;
+    });
+
+    const arr = [...map.entries()]
+      .map(([k,v])=>({ idade:k, ...v }))
+      .sort((a,b)=> idadeKey(a.idade)-idadeKey(b.idade));
+
+    charts["cIdadeQtd"] = new Chart(ctx, {
+      type:"bar",
+      data:{
+        labels: arr.map(x=>x.idade),
+        datasets:[
+          { label:"Agendado", data:arr.map(x=>x.ag), backgroundColor:"rgba(59,130,246,.85)", borderRadius:8 },
+          { label:"Recepcionado", data:arr.map(x=>x.rec), backgroundColor:"rgba(16,185,129,.85)", borderRadius:8 },
+          { label:"APAC", data:arr.map(x=>x.ap), backgroundColor:"rgba(245,158,11,.90)", borderRadius:8 },
+          { label:"Faturado", data:arr.map(x=>x.fat), backgroundColor:"rgba(239,68,68,.85)", borderRadius:8 }
+        ]
+      },
+      options:{
+        ...baseOptions(),
+        plugins:{ ...baseOptions().plugins, legend:{ position:"top" } }
+      }
+    });
+  }
+
+  // 6) Taxas por idade
+  function buildIdadeTaxas(esp, mes){
+    destroy("cIdadeTaxas");
+    const ctx = el("cIdadeTaxas").getContext("2d");
+
+    // Mesma lógica: se não tem mês, usa último
+    let useMes = mes;
+    if(!useMes){
+      const last = [...new Set(allData.filter(x=>x.mesKey).map(x=>x.mesKey))]
+        .map(k=>{
+          const any = allData.find(x=>x.mesKey===k);
+          return { k, y:any?.mesY||0, m:any?.mesM||0 };
+        })
+        .sort((a,b)=> (a.y*100+a.m)-(b.y*100+b.m))
+        .pop();
+      useMes = last?.k || "";
+    }
+
+    if(!esp){
+      charts["cIdadeTaxas"] = new Chart(ctx, {
+        type:"bar",
+        data:{ labels:["Selecione uma Especialidade"], datasets:[{ label:"", data:[1], backgroundColor:"rgba(100,116,139,.25)", borderRadius:10 }]},
+        options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ enabled:false } }, scales:{ x:{ grid:{ display:false } }, y:{ display:false } } }
+      });
+      return;
+    }
+
+    const source = allData.filter(x=>{
+      if(useMes && x.mesKey !== useMes) return false;
+      if(esp && x.especialidade !== esp) return false;
+      return true;
+    });
+
+    const map = new Map();
+    source.forEach(x=>{
+      const k = x.idade || "Não informado";
+      if(!map.has(k)) map.set(k, { ag:0, rec:0, ap:0, fat:0 });
+      const o = map.get(k);
+      o.ag += x.agendado;
+      o.rec += x.recepcionado;
+      o.ap += x.apac;
+      o.fat += x.faturado;
+    });
+
+    const arr = [...map.entries()]
+      .map(([k,v])=>({
+        idade:k,
+        recPct: pct(v.rec, v.ag),
+        apPct: pct(v.ap, v.rec),
+        fatPct: pct(v.fat, v.rec)
+      }))
+      .sort((a,b)=> idadeKey(a.idade)-idadeKey(b.idade));
+
+    charts["cIdadeTaxas"] = new Chart(ctx, {
+      type:"line",
+      data:{
+        labels: arr.map(x=>x.idade),
+        datasets:[
+          { label:"Recepção% (Rec/Ag)", data: arr.map(x=>x.recPct), borderColor:"#10b981", backgroundColor:"rgba(16,185,129,.10)", borderWidth:2.5, pointRadius:4, tension:.35 },
+          { label:"APAC% (APAC/Rec)", data: arr.map(x=>x.apPct), borderColor:"#f59e0b", backgroundColor:"rgba(245,158,11,.10)", borderWidth:2.5, pointRadius:4, tension:.35 },
+          { label:"Faturamento% (Fat/Rec)", data: arr.map(x=>x.fatPct), borderColor:"#ef4444", backgroundColor:"rgba(239,68,68,.10)", borderWidth:2.5, pointRadius:4, tension:.35 }
+        ]
+      },
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{
+          legend:{ position:"top", labels:{ font:{ size:12, weight:"800" } } },
+          datalabels:{ display:false },
+          tooltip:{
+            callbacks:{
+              label:(ctx)=> `${ctx.dataset.label}: ${Number(ctx.raw||0).toFixed(1)}%`
+            }
+          }
+        },
+        scales:{
+          x:{ ticks:{ font:{ size:11, weight:"800" } }, grid:{ display:false } },
+          y:{
+            beginAtZero:true,
+            suggestedMax:100,
+            ticks:{ callback:(v)=>v+"%", font:{ size:11, weight:"800" } },
+            grid:{ color:"rgba(2,6,23,.06)" }
+          }
+        }
+      }
+    });
+  }
+
+  // ===== TABLE =====
+  function renderTable(){
+    const q = normStr(el("tSearch").value).toLowerCase();
+    const rows = dataF.filter(x=>{
+      if(!q) return true;
+      return (x.especialidade||"").toLowerCase().includes(q) ||
+             (x.idade||"").toLowerCase().includes(q) ||
+             (x.mesLabel||x.mesRaw||"").toLowerCase().includes(q);
+    });
+
+    el("tInfo").textContent = `${rows.length.toLocaleString("pt-BR")} registro(s)`;
+
+    const body = el("tBody");
+    if(!rows.length){
+      body.innerHTML = `<tr><td colspan="7" class="muted">Nenhum dado para os filtros selecionados.</td></tr>`;
+      return;
+    }
+
+    body.innerHTML = rows.slice(0, 2000).map(x=>`
+      <tr>
+        <td title="${x.especialidade}">${x.especialidade}</td>
+        <td>${x.idade || "Não informado"}</td>
+        <td>${x.mesLabel || x.mesRaw}</td>
+        <td>${x.agendado.toLocaleString("pt-BR")}</td>
+        <td>${x.recepcionado.toLocaleString("pt-BR")}</td>
+        <td>${x.apac.toLocaleString("pt-BR")}</td>
+        <td>${x.faturado.toLocaleString("pt-BR")}</td>
+      </tr>
+    `).join("");
+  }
+
+  // ===== EXPORT EXCEL =====
+  function exportExcel(){
+    if(!dataF.length){
+      toast("Sem dados para exportar com os filtros atuais.", "error");
+      return;
+    }
+
+    const wsData = [
+      ["ESPECIALIDADE","IDADE","MÊS/ANO","AGENDADO","RECEPCIONADO","APAC GERADAS","FATURADO"],
+      ...dataF.map(x=>[
+        x.especialidade,
+        x.idade,
+        x.mesLabel || x.mesRaw,
+        x.agendado,
+        x.recepcionado,
+        x.apac,
+        x.faturado
+      ])
+    ];
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    ws["!cols"] = [{wch:44},{wch:18},{wch:12},{wch:12},{wch:14},{wch:12},{wch:12}];
+    XLSX.utils.book_append_sheet(wb, ws, "OCI");
+
+    const now = new Date();
+    const stamp = now.toLocaleDateString("pt-BR").replaceAll("/","-");
+    XLSX.writeFile(wb, `OCI_${stamp}.xlsx`);
+    toast("Excel exportado com sucesso.", "success");
+  }
+
+  // ===== TABS =====
+  function switchTab(id, btn){
+    document.querySelectorAll(".tabContent").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+    el("tab-"+id).classList.add("active");
+    btn.classList.add("active");
+
+    // Redimensiona charts ao trocar abas
+    setTimeout(()=>{
+      Object.values(charts).forEach(c=>c?.resize?.());
+    }, 80);
+  }
+
+  // ===== INIT =====
+  window.addEventListener("DOMContentLoaded", ()=> loadData(false));
 </script>
+
 </body>
 </html>
