@@ -579,7 +579,7 @@
           Gráficos inteligentes (adaptam conforme o filtro)
         </div>
 
-        <!-- 1) Agendamentos por Mês por Situação — PRIMEIRO, sozinho, largura total -->
+        <!-- 1) Agendamentos por Mês por Situação -->
         <div class="fullrow">
           <div class="chartCard">
             <div class="chartHead">
@@ -594,7 +594,7 @@
           </div>
         </div>
 
-        <!-- 2) Evolução Mensal — SEGUNDO, sozinho, largura total -->
+        <!-- 2) Evolução Mensal -->
         <div class="fullrow" style="margin-top:14px;">
           <div class="chartCard">
             <div class="chartHead">
@@ -609,7 +609,7 @@
           </div>
         </div>
 
-        <!-- 3) Top Especialidades | Distribuição Rosca — LADO A LADO -->
+        <!-- 3) Top Especialidades | Distribuição Rosca -->
         <div class="row2eq align-start" style="margin-top:14px;">
 
           <div class="chartCard">
@@ -711,7 +711,6 @@
   let allData = [];
   let dataF = [];
   let tableSort = { col: null, dir: "asc" };
-  // Multi-select state
   let selectedEspecialidades = new Set();
   let allEspecialidades = [];
 
@@ -727,7 +726,6 @@
   el("fMesAno").addEventListener("change", applyFilters);
   el("tSearch").addEventListener("input", renderTable);
 
-  // Fecha dropdown ao clicar fora
   document.addEventListener("click", function(e){
     const wrapper = el("msWrapper");
     if(wrapper && !wrapper.contains(e.target)){
@@ -735,7 +733,7 @@
     }
   });
 
-  // ===== MULTI-SELECT FUNCTIONS =====
+  // ===== MULTI-SELECT =====
   function toggleMsDropdown(e){
     e.stopPropagation();
     const dd = el("msDropdown");
@@ -750,12 +748,10 @@
       el("msSearch").focus();
     }
   }
-
   function closeMsDropdown(){
     el("msDropdown").classList.remove("open");
     el("msTrigger").classList.remove("open");
   }
-
   function buildMsList(){
     const list = el("msList");
     list.innerHTML = "";
@@ -791,7 +787,6 @@
       list.appendChild(item);
     });
   }
-
   function filterMsList(){
     const q = (el("msSearch").value || "").toLowerCase().trim();
     const items = el("msList").querySelectorAll(".ms-item");
@@ -801,7 +796,6 @@
       item.style.display = match ? "" : "none";
       if(match) visible++;
     });
-    // show empty msg
     let emptyEl = el("msList").querySelector(".ms-empty");
     if(!visible){
       if(!emptyEl){
@@ -815,17 +809,14 @@
       emptyEl.style.display = "none";
     }
   }
-
   function selectAllEsp(e){
     if(e) e.stopPropagation();
     selectedEspecialidades.clear();
     allEspecialidades.forEach(esp => selectedEspecialidades.add(esp));
-    // update checkboxes
     el("msList").querySelectorAll("input[type='checkbox']").forEach(cb => { cb.checked = true; });
     updateMsLabel();
     applyFilters();
   }
-
   function clearEspSelection(e){
     if(e) e.stopPropagation();
     selectedEspecialidades.clear();
@@ -833,7 +824,6 @@
     updateMsLabel();
     applyFilters();
   }
-
   function updateMsLabel(){
     const lbl = el("msLabel");
     const n = selectedEspecialidades.size;
@@ -944,7 +934,6 @@
     while(sMes.options.length>1) sMes.remove(1);
     meses.forEach(([k,label])=>{ const o=document.createElement("option"); o.value=k; o.textContent=label; sMes.appendChild(o); });
     if(curMes) sMes.value=curMes;
-    // rebuild multiselect list
     buildMsList();
     updateMsLabel();
   }
@@ -1002,13 +991,11 @@
     };
   }
 
-  // ===== GET ACTIVE ESP (single or empty) =====
   function getActiveEsp(){
     if(selectedEspecialidades.size===1) return [...selectedEspecialidades][0];
     return "";
   }
 
-  // ===== CHARTS =====
   function updateCharts(){
     const esp = getActiveEsp();
     const mes=el("fMesAno").value;
@@ -1028,8 +1015,11 @@
     return found?found.mesLabel:key;
   }
 
-  // 1) Evolução Mensal — linha, full width
-  function buildEvolucao(esp,mes){
+  // ============================================================
+  // 1) EVOLUÇÃO MENSAL — valores fixos ACIMA de cada bolinha
+  //    *** ÚNICA FUNÇÃO ALTERADA ***
+  // ============================================================
+  function buildEvolucao(esp, mes){
     destroy("cEvolucao");
     const source = mes ? allData.filter(x=>{
       if(selectedEspecialidades.size>0&&selectedEspecialidades.size<allEspecialidades.length){
@@ -1045,6 +1035,10 @@
       o.ag+=x.agendado; o.rec+=x.recepcionado; o.apac+=x.apac; o.fat+=x.faturado;
     });
     const arr=[...map.entries()].map(([k,v])=>({key:k,...v})).sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m));
+
+    // Cores de cada série (mesma ordem dos datasets)
+    const serieColors = ["#3b82f6","#10b981","#f59e0b","#ef4444"];
+
     const ctx=el("cEvolucao").getContext("2d");
     charts["cEvolucao"]=new Chart(ctx,{
       type:"line",
@@ -1059,21 +1053,30 @@
       },
       options:{
         ...baseOptions(),
+        layout:{ padding:{ top: 28 } },   // espaço extra no topo para os rótulos
         plugins:{
           ...baseOptions().plugins,
-          legend:{position:"top",labels:{font:{size:13,weight:"800"},padding:18}}
+          legend:{ position:"top", labels:{ font:{ size:13, weight:"800" }, padding:18 } },
+          // *** MUDANÇA: exibe valores acima de cada ponto ***
+          datalabels:{
+            display: true,
+            anchor: "end",
+            align: "top",
+            offset: 4,
+            color: (ctx) => serieColors[ctx.datasetIndex] || "#0f172a",
+            font: { size: 11, weight: "900" },
+            formatter: (v) => (v != null && v !== 0) ? v.toLocaleString("pt-BR") : ""
+          }
         }
       }
     });
   }
 
-  // 2) Top Especialidades — barras horizontais, TODAS as especialidades
+  // 2) Top Especialidades
   function buildTop(esp,mes){
     destroy("cTop");
     const ctx=el("cTop").getContext("2d");
-
     if(esp){
-      // com especialidade selecionada: mostra por faixa etária
       const map=new Map();
       dataF.forEach(x=>{
         const k=x.idade||"Não informado";
@@ -1112,8 +1115,6 @@
       el("cTopWrap").style.height="360px";
       return;
     }
-
-    // Especialidade = Todas: mostra TODAS as especialidades
     const source=dataF;
     const map=new Map();
     source.forEach(x=>{
@@ -1122,11 +1123,8 @@
       const o=map.get(k); o.ag+=x.agendado; o.fat+=x.faturado;
     });
     const arr=[...map.entries()].map(([k,v])=>({esp:k,...v})).sort((a,b)=>b.ag-a.ag);
-
-    // Ajusta altura dinamicamente: ~44px por especialidade (barras mais grossas) + margem
     const dynamicH = Math.max(400, arr.length * 48 + 80);
     el("cTopWrap").style.height = dynamicH + "px";
-
     charts["cTop"]=new Chart(ctx,{
       type:"bar",
       data:{
@@ -1167,16 +1165,13 @@
       : "Todas as especialidades no período selecionado (do maior para o menor Agendado).";
   }
 
-  // 3) Agendamentos por Mês por Situação — barras agrupadas, BARRAS LARGAS, valores DENTRO em branco/negrito
+  // 3) Agendamentos por Mês por Situação
   function buildMesSit(esp, mes){
     destroy("cMesSit");
     const ctx = el("cMesSit").getContext("2d");
-
-    // Usa a seleção múltipla corretamente
     const source = (selectedEspecialidades.size > 0 && selectedEspecialidades.size < allEspecialidades.length)
       ? allData.filter(x => selectedEspecialidades.has(x.especialidade))
       : allData;
-
     const map = new Map();
     source.forEach(x=>{
       if(!x.mesKey) return;
@@ -1184,55 +1179,24 @@
       const o=map.get(x.mesKey);
       o.ag+=x.agendado; o.rec+=x.recepcionado; o.apac+=x.apac; o.fat+=x.faturado;
     });
-
     const arr=[...map.entries()].map(([k,v])=>({key:k,...v})).sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m));
-
     charts["cMesSit"]=new Chart(ctx,{
       type:"bar",
       data:{
         labels:arr.map(x=>x.label),
         datasets:[
-          {
-            label:"Agendados",
-            data:arr.map(x=>x.ag),
-            backgroundColor:"#1a3a6b",
-            borderRadius:6,
-            borderSkipped:false
-          },
-          {
-            label:"Recepcionados",
-            data:arr.map(x=>x.rec),
-            backgroundColor:"#3b82f6",
-            borderRadius:6,
-            borderSkipped:false
-          },
-          {
-            label:"APAC",
-            data:arr.map(x=>x.apac),
-            backgroundColor:"#f59e0b",
-            borderRadius:6,
-            borderSkipped:false
-          },
-          {
-            label:"Faturado",
-            data:arr.map(x=>x.fat),
-            backgroundColor:"#ef4444",
-            borderRadius:6,
-            borderSkipped:false
-          }
+          {label:"Agendados",    data:arr.map(x=>x.ag),  backgroundColor:"#1a3a6b", borderRadius:6, borderSkipped:false},
+          {label:"Recepcionados",data:arr.map(x=>x.rec), backgroundColor:"#3b82f6", borderRadius:6, borderSkipped:false},
+          {label:"APAC",         data:arr.map(x=>x.apac),backgroundColor:"#f59e0b", borderRadius:6, borderSkipped:false},
+          {label:"Faturado",     data:arr.map(x=>x.fat), backgroundColor:"#ef4444", borderRadius:6, borderSkipped:false}
         ]
       },
       options:{
         responsive:true, maintainAspectRatio:false,
-        // Barras mais largas: barPercentage e categoryPercentage altos
         barPercentage: 0.92,
         categoryPercentage: 0.85,
         plugins:{
-          legend:{
-            position:"bottom",
-            labels:{font:{size:12,weight:"800"},padding:16,boxWidth:14}
-          },
-          // Valores DENTRO das barras — branco, negrito, tamanho maior
+          legend:{position:"bottom",labels:{font:{size:12,weight:"800"},padding:16,boxWidth:14}},
           datalabels:{
             display: (ctx) => {
               const v = ctx.dataset.data[ctx.dataIndex];
@@ -1252,21 +1216,14 @@
           }
         },
         scales:{
-          x:{
-            ticks:{font:{size:11,weight:"700"}},
-            grid:{display:false}
-          },
-          y:{
-            beginAtZero:true,
-            ticks:{font:{size:11,weight:"700"}},
-            grid:{color:"rgba(2,6,23,.06)"}
-          }
+          x:{ticks:{font:{size:11,weight:"700"}},grid:{display:false}},
+          y:{beginAtZero:true,ticks:{font:{size:11,weight:"700"}},grid:{color:"rgba(2,6,23,.06)"}}
         }
       }
     });
   }
 
-  // 4) Distribuição donut — números maiores
+  // 4) Distribuição donut
   function buildDistrib(esp,mes){
     destroy("cDistrib");
     const ctx=el("cDistrib").getContext("2d");
@@ -1284,11 +1241,7 @@
       options:{
         responsive:true, maintainAspectRatio:false,
         plugins:{
-          legend:{
-            position:"bottom",
-            labels:{font:{size:12,weight:"800"},padding:16,boxWidth:14}
-          },
-          // Números maiores dentro da rosca
+          legend:{position:"bottom",labels:{font:{size:12,weight:"800"},padding:16,boxWidth:14}},
           datalabels:{
             color:"#fff",
             font:{ size:15, weight:"900" },
