@@ -21,13 +21,11 @@
       --success:#10b981;
       --warning:#f59e0b;
       --danger:#ef4444;
-
       --bg:#f3f6fb;
       --card:#ffffff;
       --text:#0f172a;
       --muted:#64748b;
       --border:#e2e8f0;
-
       --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
       --shadow2: 0 8px 20px rgba(2,6,23,.10);
       --r:14px;
@@ -41,53 +39,55 @@
       font-size:14px;
     }
 
-    /* HEADER (maior, como você pediu) */
+    /* ===== HEADER ===== */
     .header{
       position:sticky; top:0; z-index:50;
       background:linear-gradient(135deg, #081a36 0%, var(--primary) 40%, #2a5298 100%);
       color:#fff;
-      box-shadow: 0 10px 24px rgba(0,0,0,.18);
-      padding:16px 22px;
-      display:flex; gap:14px; align-items:center;
+      box-shadow: 0 10px 24px rgba(0,0,0,.22);
+      padding:22px 28px;
+      display:flex; gap:20px; align-items:center;
+      min-height:100px;
     }
     .h-icon{
-      width:58px; height:58px;
-      border-radius:14px;
+      width:72px; height:72px;
+      border-radius:18px;
       background:rgba(255,255,255,.14);
-      border:1px solid rgba(255,255,255,.18);
+      border:1.5px solid rgba(255,255,255,.22);
       display:flex; align-items:center; justify-content:center;
-      font-size:26px;
+      font-size:32px;
       flex:0 0 auto;
     }
     .h-info{flex:1; min-width:240px}
     .h-title{
-      font-size:22px;
+      font-size:28px;
       font-weight:800;
-      letter-spacing:.2px;
-      line-height:1.1;
+      letter-spacing:.3px;
+      line-height:1.15;
     }
     .h-sub{
-      margin-top:6px;
-      font-size:13px;
-      opacity:.9;
-      font-weight:500;
+      margin-top:7px;
+      font-size:16px;
+      opacity:.92;
+      font-weight:600;
     }
     .h-meta{
-      margin-top:6px;
-      font-size:11px;
-      opacity:.75;
+      margin-top:7px;
+      font-size:13px;
+      opacity:.80;
+      font-weight:500;
     }
     .h-actions{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
     }
     .btn{
       border:none;
       cursor:pointer;
-      border-radius:10px;
-      padding:10px 12px;
+      border-radius:12px;
+      padding:12px 16px;
       font-weight:700;
-      font-size:12px;
-      display:inline-flex; align-items:center; gap:8px;
+      font-size:13px;
+      display:inline-flex; align-items:center; gap:9px;
       transition:.18s ease;
       white-space:nowrap;
     }
@@ -104,27 +104,23 @@
     }
     .btn-excel:hover{background:rgba(16,185,129,.26)}
     .pill{
-      display:inline-flex; align-items:center; gap:8px;
-      padding:10px 12px;
+      display:inline-flex; align-items:center; gap:9px;
+      padding:12px 16px;
       border-radius:999px;
-      font-size:12px;
+      font-size:13px;
       background:rgba(16,185,129,.14);
       border:1px solid rgba(16,185,129,.32);
       color:#bbf7d0;
       font-weight:800;
     }
     .dot{
-      width:9px; height:9px; border-radius:50%;
+      width:10px; height:10px; border-radius:50%;
       background:var(--success);
       box-shadow:0 0 10px rgba(16,185,129,.9);
     }
-    .lastUpdate{margin-top:4px; font-size:11px; opacity:.70}
+    .lastUpdate{margin-top:5px; font-size:12px; opacity:.72}
 
     .wrap{max-width:1600px; margin:0 auto; padding:18px 22px;}
-    .grid{
-      display:grid;
-      gap:14px;
-    }
 
     /* FILTERS */
     .card{
@@ -133,9 +129,7 @@
       border-radius:var(--r);
       box-shadow:var(--shadow);
     }
-    .filters{
-      padding:14px 16px;
-    }
+    .filters{padding:14px 16px;}
     .filtersTop{
       display:flex; align-items:center; justify-content:space-between;
       gap:10px; flex-wrap:wrap;
@@ -192,6 +186,137 @@
       background:#fff5f5;
     }
 
+    /* ===== MULTI-SELECT CUSTOM ===== */
+    .multiselect-wrapper{
+      position:relative;
+      width:100%;
+    }
+    .ms-trigger{
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1.5px solid var(--border);
+      background:#f8fafc;
+      font-weight:700;
+      color:var(--text);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:8px;
+      user-select:none;
+      transition:.15s ease;
+    }
+    .ms-trigger:hover{
+      border-color:rgba(59,130,246,.65);
+      background:#fff;
+    }
+    .ms-trigger.open{
+      border-color:rgba(59,130,246,.65);
+      box-shadow:0 0 0 3px rgba(59,130,246,.14);
+      background:#fff;
+    }
+    .ms-arrow{
+      font-size:11px;
+      color:var(--muted);
+      transition:transform .2s;
+      flex-shrink:0;
+    }
+    .ms-trigger.open .ms-arrow{transform:rotate(180deg);}
+    .ms-label-text{
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      flex:1;
+    }
+    .ms-dropdown{
+      display:none;
+      position:absolute;
+      top:calc(100% + 6px);
+      left:0; right:0;
+      background:#fff;
+      border:1.5px solid var(--border);
+      border-radius:14px;
+      box-shadow: 0 8px 28px rgba(2,6,23,.13);
+      z-index:200;
+      overflow:hidden;
+    }
+    .ms-dropdown.open{display:block;}
+    .ms-actions{
+      display:flex;
+      gap:6px;
+      padding:10px 10px 8px;
+      border-bottom:1px solid var(--border);
+    }
+    .ms-btn-all, .ms-btn-clr{
+      flex:1;
+      padding:7px 10px;
+      border-radius:8px;
+      border:none;
+      font-weight:800;
+      font-size:12px;
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .ms-btn-all{
+      background:rgba(59,130,246,.12);
+      color:var(--accent);
+      border:1px solid rgba(59,130,246,.28);
+    }
+    .ms-btn-all:hover{background:rgba(59,130,246,.22);}
+    .ms-btn-clr{
+      background:rgba(239,68,68,.09);
+      color:#b91c1c;
+      border:1px solid rgba(239,68,68,.25);
+    }
+    .ms-btn-clr:hover{background:rgba(239,68,68,.18);}
+    .ms-search-box{
+      padding:8px 10px;
+      border-bottom:1px solid var(--border);
+    }
+    .ms-search-box input{
+      width:100%;
+      padding:7px 10px;
+      border-radius:9px;
+      border:1.5px solid var(--border);
+      font-weight:600;
+      font-size:12px;
+      outline:none;
+      background:#f8fafc;
+    }
+    .ms-search-box input:focus{
+      border-color:rgba(59,130,246,.55);
+      background:#fff;
+    }
+    .ms-list{
+      max-height:220px;
+      overflow-y:auto;
+      padding:6px 4px;
+    }
+    .ms-list::-webkit-scrollbar{width:5px;}
+    .ms-list::-webkit-scrollbar-track{background:transparent;}
+    .ms-list::-webkit-scrollbar-thumb{background:#cbd5e1; border-radius:99px;}
+    .ms-item{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      padding:7px 10px;
+      border-radius:8px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:13px;
+      transition:.12s ease;
+    }
+    .ms-item:hover{background:#f0f7ff;}
+    .ms-item input[type="checkbox"]{
+      width:15px; height:15px;
+      accent-color:var(--accent);
+      cursor:pointer;
+      flex-shrink:0;
+    }
+    .ms-item span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+    .ms-empty{padding:12px 14px; color:var(--muted); font-size:12px; font-weight:700; text-align:center;}
+
     /* KPI */
     .kpis{
       display:grid;
@@ -213,51 +338,20 @@
       font-size:22px;
       flex:0 0 auto;
     }
-    .kpi .label{
-      font-size:11px;
-      color:var(--muted);
-      font-weight:900;
-      letter-spacing:.45px;
-      text-transform:uppercase;
-    }
-    .kpi .val{
-      font-size:28px;
-      font-weight:900;
-      margin-top:3px;
-      line-height:1;
-    }
-    .kpi .sub{
-      font-size:11px;
-      color:var(--muted);
-      margin-top:6px;
-      font-weight:700;
-    }
-
+    .kpi .label{font-size:11px; color:var(--muted); font-weight:900; letter-spacing:.45px; text-transform:uppercase;}
+    .kpi .val{font-size:28px; font-weight:900; margin-top:3px; line-height:1;}
+    .kpi .sub{font-size:11px; color:var(--muted); margin-top:6px; font-weight:700;}
     .kpi.ag .kpiIcon{background:rgba(59,130,246,.12); color:var(--accent)}
     .kpi.rec .kpiIcon{background:rgba(16,185,129,.12); color:var(--success)}
     .kpi.apac .kpiIcon{background:rgba(245,158,11,.12); color:var(--warning)}
     .kpi.fat .kpiIcon{background:rgba(239,68,68,.10); color:var(--danger)}
 
     /* Charts */
-    .section{
-      padding:16px;
-    }
+    .section{padding:16px;}
     .sectionTitle{
       display:flex; align-items:center; gap:10px;
-      font-weight:900;
-      color:var(--primary2);
-      margin-bottom:12px;
-      font-size:14px;
-    }
-    .row2{
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:14px;
-    }
-    .row2eq{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:14px;
+      font-weight:900; color:var(--primary2);
+      margin-bottom:12px; font-size:14px;
     }
     .chartCard{
       padding:14px;
@@ -268,110 +362,80 @@
     }
     .chartHead{
       display:flex; align-items:center; justify-content:space-between;
-      gap:10px;
-      margin-bottom:10px;
+      gap:10px; margin-bottom:10px;
     }
-    .chartHead h3{
-      margin:0;
-      font-size:13px;
-      color:var(--text);
-      font-weight:900;
-    }
-    .chartSub{
-      font-size:11px;
-      color:var(--muted);
-      font-weight:700;
-      margin-top:4px;
-    }
-    .chartWrap{position:relative; height:320px;}
-    .chartWrap.sm{height:260px;}
+    .chartHead h3{margin:0; font-size:13px; color:var(--text); font-weight:900;}
+    .chartSub{font-size:11px; color:var(--muted); font-weight:700; margin-top:4px;}
+
+    /* Alturas dos charts */
+    .chartWrap{position:relative; height:360px;}
+    .chartWrap.tall{position:relative; height:520px;}
+    .chartWrap.md{position:relative; height:420px;}
+    .chartWrap.sm{position:relative; height:280px;}
     canvas{max-width:100%}
+
+    /* Layout charts */
+    .row2eq{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+    .row2eq.align-start{align-items:start;}
+    .fullrow{display:grid; grid-template-columns:1fr; gap:14px;}
 
     /* Tabs */
     .tabs{
-      display:flex; gap:6px;
-      padding:6px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background:var(--card);
-      box-shadow:var(--shadow);
-      overflow:auto;
+      display:flex; gap:6px; padding:6px;
+      border-radius:999px; border:1px solid var(--border);
+      background:var(--card); box-shadow:var(--shadow); overflow:auto;
     }
     .tab{
-      border:none;
-      background:transparent;
-      cursor:pointer;
-      padding:10px 14px;
-      border-radius:999px;
-      font-weight:900;
-      color:var(--muted);
-      font-size:12px;
-      display:flex; align-items:center; gap:8px;
-      white-space:nowrap;
+      border:none; background:transparent; cursor:pointer;
+      padding:10px 14px; border-radius:999px;
+      font-weight:900; color:var(--muted); font-size:12px;
+      display:flex; align-items:center; gap:8px; white-space:nowrap;
     }
-    .tab.active{
-      background:var(--primary2);
-      color:#fff;
-      box-shadow:var(--shadow);
-    }
+    .tab.active{background:var(--primary2); color:#fff; box-shadow:var(--shadow);}
     .tabContent{display:none}
     .tabContent.active{display:block}
 
     /* Table */
     .tableTop{
       display:flex; align-items:center; justify-content:space-between;
-      gap:10px; flex-wrap:wrap;
-      margin-bottom:10px;
+      gap:10px; flex-wrap:wrap; margin-bottom:10px;
     }
     .search{
       display:flex; align-items:center; gap:8px;
-      padding:10px 12px;
-      border-radius:12px;
-      border:1.5px solid var(--border);
-      background:#f8fafc;
-      min-width:260px;
+      padding:10px 12px; border-radius:12px;
+      border:1.5px solid var(--border); background:#f8fafc; min-width:260px;
     }
-    .search input{
-      border:none; outline:none; background:transparent;
-      width:100%;
-      font-weight:700;
-    }
+    .search input{border:none; outline:none; background:transparent; width:100%; font-weight:700;}
     table{width:100%; border-collapse:collapse; font-size:12px;}
     thead th{
-      text-align:left;
-      padding:10px 12px;
+      text-align:left; padding:10px 12px;
       background:linear-gradient(135deg, #0b2246, #1a3a6b);
       color:#fff;
-      position:sticky;
-      top:0;
-      font-size:11px;
-      letter-spacing:.35px;
-      text-transform:uppercase;
-    }
-    tbody td{
-      padding:10px 12px;
-      border-bottom:1px solid var(--border);
-      font-weight:650;
+      position:sticky; top:0;
+      font-size:11px; letter-spacing:.35px; text-transform:uppercase;
+      cursor:pointer;
+      user-select:none;
       white-space:nowrap;
+    }
+    thead th:hover{background:linear-gradient(135deg, #0d2b52, #1f4580);}
+    thead th .sort-icon{margin-left:6px; opacity:.65; font-size:10px;}
+    thead th.sort-asc .sort-icon::after{content:"▲"; opacity:1;}
+    thead th.sort-desc .sort-icon::after{content:"▼"; opacity:1;}
+    thead th:not(.sort-asc):not(.sort-desc) .sort-icon::after{content:"⇅";}
+    tbody td{
+      padding:10px 12px; border-bottom:1px solid var(--border);
+      font-weight:650; white-space:nowrap;
     }
     tbody tr:hover{background:#f2f7ff}
     .muted{color:var(--muted); font-weight:800; font-size:12px}
 
-    .toastBox{
-      position:fixed; right:18px; top:92px; z-index:999;
-      display:flex; flex-direction:column; gap:8px;
-    }
+    .toastBox{position:fixed; right:18px; top:110px; z-index:999; display:flex; flex-direction:column; gap:8px;}
     .toast{
-      background:#0b1d3a;
-      color:#fff;
+      background:#0b1d3a; color:#fff;
       border-left:4px solid var(--accent);
-      padding:10px 12px;
-      border-radius:12px;
-      box-shadow:var(--shadow2);
-      font-weight:750;
-      font-size:12px;
-      max-width:340px;
-      display:flex; gap:10px; align-items:flex-start;
+      padding:10px 12px; border-radius:12px;
+      box-shadow:var(--shadow2); font-weight:750; font-size:12px;
+      max-width:340px; display:flex; gap:10px; align-items:flex-start;
     }
     .toast.success{border-left-color:var(--success)}
     .toast.error{border-left-color:var(--danger)}
@@ -384,21 +448,20 @@
       display:none;
     }
     .loading.on{display:block}
-    @keyframes shimmer{0%{background-position:-200% 0} 100%{background-position:200% 0}}
+    @keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
 
-    @media (max-width: 1100px){
-      .row2{grid-template-columns:1fr}
-    }
-    @media (max-width: 900px){
+    @media(max-width:900px){
       .kpis{grid-template-columns:1fr 1fr}
-      .fg{grid-column: span 12;}
-      .header{flex-wrap:wrap}
+      .fg{grid-column:span 12;}
+      .header{flex-wrap:wrap; padding:16px 18px;}
       .h-actions{width:100%; justify-content:flex-start}
+      .row2eq{grid-template-columns:1fr}
     }
-    @media (max-width: 560px){
+    @media(max-width:560px){
       .kpis{grid-template-columns:1fr}
       .wrap{padding:14px 14px;}
-      .h-title{font-size:18px}
+      .h-title{font-size:20px}
+      .h-sub{font-size:14px}
     }
   </style>
 </head>
@@ -409,9 +472,11 @@
 
     <div class="h-info">
       <div class="h-title">DIRETORIA DE REGULAÇÃO DO ACESSO — OCI</div>
-      <div class="h-sub">Painel Inteligente</div>
+      <div class="h-sub">Painel Análise de Dados</div>
       <div class="h-meta">
-        Superintendente: <b style="color:#bfdbfe">Yara Ariane M.S.Souza</b> • Diretora: <b style="color:#bfdbfe">Paloma Morais</b> • Desenvolvido por <b style="color:#bfdbfe">Ana P. A. Silva Matric. 201704</b>
+        Superintendente: <b style="color:#bfdbfe">Yara Ariane M.S.Souza</b>
+        &nbsp;•&nbsp; Diretora: <b style="color:#bfdbfe">Paloma Morais</b>
+        &nbsp;•&nbsp; Desenvolvido por <b style="color:#bfdbfe">Ana P. A. Silva &mdash; Matric. 201704</b>
       </div>
       <div class="lastUpdate" id="lastUpdate">Carregando dados…</div>
     </div>
@@ -433,20 +498,32 @@
         <div class="filtersTitle"><i class="fa-solid fa-filter" style="color:var(--accent)"></i> Filtros</div>
         <button class="btn-clear" id="btnClear"><i class="fa-solid fa-xmark"></i> Limpar</button>
       </div>
-
       <div class="filtersGrid">
+
+        <!-- MULTI-SELECT ESPECIALIDADE -->
         <div class="fg">
           <label><i class="fa-solid fa-stethoscope"></i> Especialidade</label>
-          <select id="fEspecialidade">
-            <option value="">Todas</option>
-          </select>
+          <div class="multiselect-wrapper" id="msWrapper">
+            <div class="ms-trigger" id="msTrigger" onclick="toggleMsDropdown(event)">
+              <span class="ms-label-text" id="msLabel">Todas</span>
+              <i class="fa-solid fa-chevron-down ms-arrow" id="msArrow"></i>
+            </div>
+            <div class="ms-dropdown" id="msDropdown">
+              <div class="ms-actions">
+                <button class="ms-btn-all" onclick="selectAllEsp(event)"><i class="fa-solid fa-check-double"></i> Selecionar Todas</button>
+                <button class="ms-btn-clr" onclick="clearEspSelection(event)"><i class="fa-solid fa-xmark"></i> Limpar</button>
+              </div>
+              <div class="ms-search-box">
+                <input type="text" id="msSearch" placeholder="Buscar especialidade…" oninput="filterMsList()" autocomplete="off"/>
+              </div>
+              <div class="ms-list" id="msList"></div>
+            </div>
+          </div>
         </div>
 
         <div class="fg">
           <label><i class="fa-solid fa-calendar-days"></i> Mês/Ano</label>
-          <select id="fMesAno">
-            <option value="">Todos</option>
-          </select>
+          <select id="fMesAno"><option value="">Todos</option></select>
         </div>
       </div>
     </div>
@@ -494,47 +571,56 @@
       <button class="tab" onclick="switchTab('tabela', this)"><i class="fa-solid fa-table"></i> Tabela</button>
     </div>
 
-    <!-- Tab: Visão -->
+    <!-- Tab: Visão Geral -->
     <section class="tabContent active" id="tab-visao" style="margin-top:14px;">
       <div class="card section">
-        <div class="sectionTitle"><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent)"></i> Gráficos inteligentes (adaptam conforme o filtro)</div>
+        <div class="sectionTitle">
+          <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent)"></i>
+          Gráficos inteligentes (adaptam conforme o filtro)
+        </div>
 
-        <div class="row2">
+        <!-- 1) Agendamentos por Mês por Situação — PRIMEIRO, sozinho, largura total -->
+        <div class="fullrow">
+          <div class="chartCard">
+            <div class="chartHead">
+              <div>
+                <h3 id="titleMesSit">Agendamentos por Mês por Situação</h3>
+                <div class="chartSub">Quantidade de Agendados, Recepcionados, APAC e Faturados por mês</div>
+              </div>
+            </div>
+            <div class="chartWrap" style="height:380px;">
+              <canvas id="cMesSit"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2) Evolução Mensal — SEGUNDO, sozinho, largura total -->
+        <div class="fullrow" style="margin-top:14px;">
           <div class="chartCard">
             <div class="chartHead">
               <div>
                 <h3 id="titleEvolucao">Evolução Mensal (Agendado, Recepcionado, APAC, Faturado)</h3>
-                <div class="chartSub" id="subEvolucao">Selecione uma especialidade para detalhar • Mês/Ano = Todos mostra a linha do tempo</div>
+                <div class="chartSub" id="subEvolucao">Selecione uma especialidade para detalhar • Mês/Ano = Todos mostra a linha do tempo completa</div>
               </div>
             </div>
-            <div class="chartWrap">
+            <div class="chartWrap" style="height:380px;">
               <canvas id="cEvolucao"></canvas>
             </div>
           </div>
+        </div>
+
+        <!-- 3) Top Especialidades | Distribuição Rosca — LADO A LADO -->
+        <div class="row2eq align-start" style="margin-top:14px;">
 
           <div class="chartCard">
             <div class="chartHead">
               <div>
                 <h3 id="titleTop">Top Especialidades (por Agendado e Faturado)</h3>
-                <div class="chartSub" id="subTop">Aparece quando Especialidade = Todas</div>
+                <div class="chartSub" id="subTop">Aparece quando Especialidade = Todas • Mostra todas as especialidades do período</div>
               </div>
             </div>
-            <div class="chartWrap">
+            <div id="cTopWrap" class="chartWrap" style="height:480px;">
               <canvas id="cTop"></canvas>
-            </div>
-          </div>
-        </div>
-
-        <div class="row2eq" style="margin-top:14px;">
-          <div class="chartCard">
-            <div class="chartHead">
-              <div>
-                <h3 id="titleFunil">Funil do Mês (Agendado → Recepcionado → APAC → Faturado)</h3>
-                <div class="chartSub">Aparece quando você seleciona um Mês/Ano específico</div>
-              </div>
-            </div>
-            <div class="chartWrap sm">
-              <canvas id="cFunil"></canvas>
             </div>
           </div>
 
@@ -542,14 +628,16 @@
             <div class="chartHead">
               <div>
                 <h3 id="titleDistrib">Distribuição no Período (participação por métrica)</h3>
-                <div class="chartSub">Ajuda a enxergar “onde está o volume” rapidamente</div>
+                <div class="chartSub">Ajuda a enxergar "onde está o volume" rapidamente</div>
               </div>
             </div>
-            <div class="chartWrap sm">
+            <div class="chartWrap md">
               <canvas id="cDistrib"></canvas>
             </div>
           </div>
+
         </div>
+
       </div>
     </section>
 
@@ -557,7 +645,6 @@
     <section class="tabContent" id="tab-idade" style="margin-top:14px;">
       <div class="card section">
         <div class="sectionTitle"><i class="fa-solid fa-chart-column" style="color:var(--accent)"></i> Especialidade × Faixa Etária (no mês)</div>
-
         <div class="row2eq">
           <div class="chartCard">
             <div class="chartHead">
@@ -566,11 +653,8 @@
                 <div class="chartSub">Para a especialidade selecionada, veja por idade quantos foram agendados/recepcionados/APAC/faturados</div>
               </div>
             </div>
-            <div class="chartWrap">
-              <canvas id="cIdadeQtd"></canvas>
-            </div>
+            <div class="chartWrap"><canvas id="cIdadeQtd"></canvas></div>
           </div>
-
           <div class="chartCard">
             <div class="chartHead">
               <div>
@@ -578,9 +662,7 @@
                 <div class="chartSub">Recepção% (Rec/Ag), APAC% (APAC/Rec) e Faturamento% (Fat/Rec)</div>
               </div>
             </div>
-            <div class="chartWrap">
-              <canvas id="cIdadeTaxas"></canvas>
-            </div>
+            <div class="chartWrap"><canvas id="cIdadeTaxas"></canvas></div>
           </div>
         </div>
       </div>
@@ -602,13 +684,13 @@
           <table>
             <thead>
               <tr>
-                <th>Especialidade</th>
-                <th>Idade</th>
-                <th>Mês/Ano</th>
-                <th>Agendado</th>
-                <th>Recepcionado</th>
-                <th>APAC</th>
-                <th>Faturado</th>
+                <th data-col="especialidade" onclick="sortTable('especialidade', this)">Especialidade<span class="sort-icon"></span></th>
+                <th data-col="idade" onclick="sortTable('idade', this)">Idade<span class="sort-icon"></span></th>
+                <th data-col="mesKey" onclick="sortTable('mesKey', this)">Mês/Ano<span class="sort-icon"></span></th>
+                <th data-col="agendado" onclick="sortTable('agendado', this)">Agendado<span class="sort-icon"></span></th>
+                <th data-col="recepcionado" onclick="sortTable('recepcionado', this)">Recepcionado<span class="sort-icon"></span></th>
+                <th data-col="apac" onclick="sortTable('apac', this)">APAC<span class="sort-icon"></span></th>
+                <th data-col="faturado" onclick="sortTable('faturado', this)">Faturado<span class="sort-icon"></span></th>
               </tr>
             </thead>
             <tbody id="tBody"></tbody>
@@ -621,7 +703,7 @@
 <script>
   Chart.register(ChartDataLabels);
 
-  // ===== CONFIG (seu Sheets) =====
+  // ===== CONFIG =====
   const SHEET_ID = "1BONeij455aKawVr1iyskMLAJMKeBHzWmUZp_E-TDUWo";
   const GID = "2108990586";
   const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
@@ -629,499 +711,596 @@
   // ===== STATE =====
   let allData = [];
   let dataF = [];
+  let tableSort = { col: null, dir: "asc" };
+  // Multi-select state
+  let selectedEspecialidades = new Set();
+  let allEspecialidades = [];
 
   const charts = {};
-  const PT_MONTH = { jan:1, fev:2, mar:3, abr:4, mai:5, jun:6, jul:7, ago:8, set:9, out:10, nov:11, dez:12 };
+  const PT_MONTH = { jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10,nov:11,dez:12 };
   const PT_LABEL = ["","Jan","Fev","Mar","Abr","Mai","Jun","Jul","Ago","Set","Out","Nov","Dez"];
 
-  // ===== UI HOOKS =====
   const el = (id) => document.getElementById(id);
 
   el("btnRefresh").addEventListener("click", () => loadData(true));
   el("btnExcel").addEventListener("click", exportExcel);
   el("btnClear").addEventListener("click", clearFilters);
-  el("fEspecialidade").addEventListener("change", applyFilters);
   el("fMesAno").addEventListener("change", applyFilters);
   el("tSearch").addEventListener("input", renderTable);
+
+  // Fecha dropdown ao clicar fora
+  document.addEventListener("click", function(e){
+    const wrapper = el("msWrapper");
+    if(wrapper && !wrapper.contains(e.target)){
+      closeMsDropdown();
+    }
+  });
+
+  // ===== MULTI-SELECT FUNCTIONS =====
+  function toggleMsDropdown(e){
+    e.stopPropagation();
+    const dd = el("msDropdown");
+    const trigger = el("msTrigger");
+    if(dd.classList.contains("open")){
+      closeMsDropdown();
+    } else {
+      dd.classList.add("open");
+      trigger.classList.add("open");
+      el("msSearch").value = "";
+      filterMsList();
+      el("msSearch").focus();
+    }
+  }
+
+  function closeMsDropdown(){
+    el("msDropdown").classList.remove("open");
+    el("msTrigger").classList.remove("open");
+  }
+
+  function buildMsList(){
+    const list = el("msList");
+    list.innerHTML = "";
+    if(!allEspecialidades.length){
+      list.innerHTML = `<div class="ms-empty">Nenhuma especialidade disponível</div>`;
+      return;
+    }
+    allEspecialidades.forEach(esp => {
+      const item = document.createElement("div");
+      item.className = "ms-item";
+      item.dataset.esp = esp;
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.value = esp;
+      cb.checked = selectedEspecialidades.has(esp);
+      cb.addEventListener("change", () => {
+        if(cb.checked) selectedEspecialidades.add(esp);
+        else selectedEspecialidades.delete(esp);
+        updateMsLabel();
+        applyFilters();
+      });
+      const span = document.createElement("span");
+      span.textContent = esp;
+      span.title = esp;
+      item.appendChild(cb);
+      item.appendChild(span);
+      item.addEventListener("click", (e) => {
+        if(e.target !== cb){
+          cb.checked = !cb.checked;
+          cb.dispatchEvent(new Event("change"));
+        }
+      });
+      list.appendChild(item);
+    });
+  }
+
+  function filterMsList(){
+    const q = (el("msSearch").value || "").toLowerCase().trim();
+    const items = el("msList").querySelectorAll(".ms-item");
+    let visible = 0;
+    items.forEach(item => {
+      const match = item.dataset.esp.toLowerCase().includes(q);
+      item.style.display = match ? "" : "none";
+      if(match) visible++;
+    });
+    // show empty msg
+    let emptyEl = el("msList").querySelector(".ms-empty");
+    if(!visible){
+      if(!emptyEl){
+        emptyEl = document.createElement("div");
+        emptyEl.className = "ms-empty";
+        el("msList").appendChild(emptyEl);
+      }
+      emptyEl.textContent = "Nenhuma especialidade encontrada";
+      emptyEl.style.display = "";
+    } else if(emptyEl){
+      emptyEl.style.display = "none";
+    }
+  }
+
+  function selectAllEsp(e){
+    if(e) e.stopPropagation();
+    selectedEspecialidades.clear();
+    allEspecialidades.forEach(esp => selectedEspecialidades.add(esp));
+    // update checkboxes
+    el("msList").querySelectorAll("input[type='checkbox']").forEach(cb => { cb.checked = true; });
+    updateMsLabel();
+    applyFilters();
+  }
+
+  function clearEspSelection(e){
+    if(e) e.stopPropagation();
+    selectedEspecialidades.clear();
+    el("msList").querySelectorAll("input[type='checkbox']").forEach(cb => { cb.checked = false; });
+    updateMsLabel();
+    applyFilters();
+  }
+
+  function updateMsLabel(){
+    const lbl = el("msLabel");
+    const n = selectedEspecialidades.size;
+    const total = allEspecialidades.length;
+    if(n === 0 || n === total){
+      lbl.textContent = "Todas";
+    } else if(n === 1){
+      lbl.textContent = [...selectedEspecialidades][0];
+    } else {
+      lbl.textContent = `${n} selecionadas`;
+    }
+  }
 
   // ===== TOAST =====
   function toast(msg, type="info"){
     const box = el("toastBox");
     const d = document.createElement("div");
-    const icon = type==="success" ? "circle-check" : type==="error" ? "triangle-exclamation" : "circle-info";
-    d.className = "toast " + (type==="success"?"success":type==="error"?"error":"");
+    const icon = type==="success"?"circle-check":type==="error"?"triangle-exclamation":"circle-info";
+    d.className = "toast "+(type==="success"?"success":type==="error"?"error":"");
     d.innerHTML = `<i class="fa-solid fa-${icon}" style="margin-top:1px"></i><div>${msg}</div>`;
     box.appendChild(d);
-    setTimeout(()=>{ d.style.opacity="0"; d.style.transition="opacity .35s"; setTimeout(()=>d.remove(), 380); }, 3400);
+    setTimeout(()=>{ d.style.opacity="0"; d.style.transition="opacity .35s"; setTimeout(()=>d.remove(),380); }, 3400);
   }
 
   // ===== NORMALIZERS =====
   function normStr(v){
-    if (v === null || v === undefined) return "";
-    return String(v)
-      .normalize("NFC")
-      .replace(/\s+/g, " ")
-      .trim();
+    if(v===null||v===undefined) return "";
+    return String(v).normalize("NFC").replace(/\s+/g," ").trim();
   }
-
-  function normHeader(h){
-    return normStr(h).toUpperCase();
-  }
-
+  function normHeader(h){ return normStr(h).toUpperCase(); }
   function toInt(v){
     const s = normStr(v).toUpperCase();
-    if (!s || s === "SEM DADOS") return 0;
-    const cleaned = s.replace(/[^\d-]/g, "");
-    const n = parseInt(cleaned, 10);
-    return Number.isFinite(n) ? n : 0;
+    if(!s||s==="SEM DADOS") return 0;
+    const n = parseInt(s.replace(/[^\d-]/g,""),10);
+    return Number.isFinite(n)?n:0;
   }
-
-  // "ago.-25" => { key:"2025-08", label:"Ago/2025", y:2025, m:8 }
   function parseMesAno(raw){
     const s = normStr(raw).toLowerCase();
-    if(!s) return { key:"", label:"", y:0, m:0 };
-
-    // pega "ago" e "25" do padrão "ago.-25"
-    const mon = (s.match(/(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)/) || [])[1];
-    const yy = (s.match(/(\d{2})\b/) || [])[1];
-
-    const m = mon ? (PT_MONTH[mon] || 0) : 0;
-    const y = yy ? (2000 + parseInt(yy,10)) : 0;
-
-    if(!m || !y) return { key:s, label:raw, y:0, m:0 };
-
-    const key = `${y}-${String(m).padStart(2,"0")}`;
-    const label = `${PT_LABEL[m]}/${y}`;
-    return { key, label, y, m };
+    if(!s) return {key:"",label:"",y:0,m:0};
+    const mon = (s.match(/(jan|fev|mar|abr|mai|jun|jul|ago|set|out|nov|dez)/)||[])[1];
+    const yy = (s.match(/(\d{2})\b/)||[])[1];
+    const m = mon?(PT_MONTH[mon]||0):0;
+    const y = yy?(2000+parseInt(yy,10)):0;
+    if(!m||!y) return {key:s,label:raw,y:0,m:0};
+    return {key:`${y}-${String(m).padStart(2,"0")}`,label:`${PT_LABEL[m]}/${y}`,y,m};
   }
-
-  function mesSortKey(d){
-    return (d.mesY * 100) + d.mesM;
-  }
-
-  // Ordenação “humana” das faixas etárias
+  function mesSortKey(d){ return (d.mesY*100)+d.mesM; }
   function idadeKey(s){
     const v = normStr(s).toUpperCase();
-    if(!v || v === "SEM DADOS") return 999999;
-
-    // "0 Á 8 ANOS" / "0 A 8" => min = 0
+    if(!v||v==="SEM DADOS") return 999999;
     let m = v.match(/(\d{1,3})\s*(A|Á|À)\s*(\d{1,3})/);
     if(m) return parseInt(m[1],10);
-
-    // "60 ANOS OU MAIS" => 60
     m = v.match(/(\d{1,3})/);
     if(m) return parseInt(m[1],10);
-
     return 999998;
   }
 
   // ===== LOAD DATA =====
   async function loadData(showMsg=false){
     el("loading").classList.add("on");
-    if(showMsg) toast("Sincronizando com Google Sheets…", "info");
-
+    if(showMsg) toast("Sincronizando com Google Sheets…","info");
     try{
-      const res = await fetch(CSV_URL, { cache:"no-cache" });
-      if(!res.ok) throw new Error("HTTP " + res.status);
+      const res = await fetch(CSV_URL,{cache:"no-cache"});
+      if(!res.ok) throw new Error("HTTP "+res.status);
       const csv = await res.text();
-
-      // Parse robusto por header
-      const parsed = Papa.parse(csv, {
-        header: true,
-        skipEmptyLines: true,
-        dynamicTyping: false,
-        transformHeader: normHeader
+      const parsed = Papa.parse(csv,{
+        header:true, skipEmptyLines:true,
+        dynamicTyping:false, transformHeader:normHeader
       });
-
-      // Mapeia campos (considerando nomes reais)
-      allData = (parsed.data || [])
-        .map(r => {
-          const especialidade = normStr(r["ESPECIALIDADE"]);
-          const idade = normStr(r["IDADE"]); // header vem "IDADE " mas normalizamos
-          const mesRaw = normStr(r["MÊS/2025"] || r["MES/2025"] || r["MÊS"] || r["MES"]);
-          const mes = parseMesAno(mesRaw);
-
-          return {
-            especialidade: especialidade.replace(/\s+/g," ").trim(),
-            idade: idade,
-            mesRaw: mesRaw,
-            mesKey: mes.key,
-            mesLabel: mes.label,
-            mesY: mes.y,
-            mesM: mes.m,
-            agendado: toInt(r["AGENDADO"]),
-            recepcionado: toInt(r["RECEPCIONADO"]),
-            apac: toInt(r["APAC GERADAS"] || r["APAC"] || r["APACGERADAS"]),
-            faturado: toInt(r["FATURADO"])
-          };
-        })
-        .filter(x => x.especialidade); // descarta linhas vazias
-
-      // Ordena por tempo (para consistência)
-      allData.sort((a,b)=> mesSortKey(a) - mesSortKey(b) || a.especialidade.localeCompare(b.especialidade));
-
+      allData = (parsed.data||[]).map(r=>{
+        const especialidade = normStr(r["ESPECIALIDADE"]);
+        const idade = normStr(r["IDADE"]);
+        const mesRaw = normStr(r["MÊS/2025"]||r["MES/2025"]||r["MÊS"]||r["MES"]);
+        const mes = parseMesAno(mesRaw);
+        return {
+          especialidade: especialidade.replace(/\s+/g," ").trim(),
+          idade, mesRaw,
+          mesKey:mes.key, mesLabel:mes.label, mesY:mes.y, mesM:mes.m,
+          agendado:toInt(r["AGENDADO"]),
+          recepcionado:toInt(r["RECEPCIONADO"]),
+          apac:toInt(r["APAC GERADAS"]||r["APAC"]||r["APACGERADAS"]),
+          faturado:toInt(r["FATURADO"])
+        };
+      }).filter(x=>x.especialidade);
+      allData.sort((a,b)=>mesSortKey(a)-mesSortKey(b)||a.especialidade.localeCompare(b.especialidade));
       fillFilters();
       applyFilters();
-
       const now = new Date();
       el("lastUpdate").textContent = `Última atualização: ${now.toLocaleDateString("pt-BR")} às ${now.toLocaleTimeString("pt-BR")}`;
-      toast(`Dados carregados: ${allData.length.toLocaleString("pt-BR")} registros.`, "success");
+      toast(`Dados carregados: ${allData.length.toLocaleString("pt-BR")} registros.`,"success");
     }catch(err){
       console.error(err);
-      toast("Falha ao carregar o CSV do Sheets. Verifique permissões/compartilhamento.", "error");
-      allData = [];
-      dataF = [];
-      fillFilters();
-      applyFilters();
+      toast("Falha ao carregar o CSV do Sheets. Verifique permissões/compartilhamento.","error");
+      allData=[]; dataF=[];
+      fillFilters(); applyFilters();
     }finally{
       el("loading").classList.remove("on");
     }
   }
 
   function fillFilters(){
-    const especs = [...new Set(allData.map(x=>x.especialidade).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+    allEspecialidades = [...new Set(allData.map(x=>x.especialidade).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
     const meses = [...new Map(
-      allData
-        .filter(x=>x.mesKey)
-        .sort((a,b)=> mesSortKey(a)-mesSortKey(b))
-        .map(x=>[x.mesKey, x.mesLabel])
-    ).entries()]; // [key,label]
-
-    const sEsp = el("fEspecialidade");
-    const sMes = el("fMesAno");
-
-    const curEsp = sEsp.value;
-    const curMes = sMes.value;
-
-    while(sEsp.options.length>1) sEsp.remove(1);
+      allData.filter(x=>x.mesKey).sort((a,b)=>mesSortKey(a)-mesSortKey(b)).map(x=>[x.mesKey,x.mesLabel])
+    ).entries()];
+    const sMes=el("fMesAno");
+    const curMes=sMes.value;
     while(sMes.options.length>1) sMes.remove(1);
-
-    especs.forEach(v=>{
-      const o=document.createElement("option");
-      o.value=v; o.textContent=v;
-      sEsp.appendChild(o);
-    });
-
-    meses.forEach(([k,label])=>{
-      const o=document.createElement("option");
-      o.value=k; o.textContent=label;
-      sMes.appendChild(o);
-    });
-
-    if(curEsp) sEsp.value = curEsp;
-    if(curMes) sMes.value = curMes;
+    meses.forEach(([k,label])=>{ const o=document.createElement("option"); o.value=k; o.textContent=label; sMes.appendChild(o); });
+    if(curMes) sMes.value=curMes;
+    // rebuild multiselect list
+    buildMsList();
+    updateMsLabel();
   }
 
   function clearFilters(){
-    el("fEspecialidade").value = "";
-    el("fMesAno").value = "";
+    selectedEspecialidades.clear();
+    el("msList").querySelectorAll("input[type='checkbox']").forEach(cb=>{ cb.checked=false; });
+    updateMsLabel();
+    el("fMesAno").value="";
     applyFilters();
   }
 
-  // ===== FILTER =====
   function applyFilters(){
-    const esp = el("fEspecialidade").value;
-    const mes = el("fMesAno").value;
-
+    const mes=el("fMesAno").value;
     dataF = allData.filter(x=>{
-      if(esp && x.especialidade !== esp) return false;
-      if(mes && x.mesKey !== mes) return false;
+      if(selectedEspecialidades.size>0 && selectedEspecialidades.size<allEspecialidades.length){
+        if(!selectedEspecialidades.has(x.especialidade)) return false;
+      }
+      if(mes&&x.mesKey!==mes) return false;
       return true;
     });
-
     updateKPIs();
     updateCharts();
     renderTable();
   }
 
   // ===== KPIs =====
-  function sum(col){
-    return dataF.reduce((acc,x)=>acc + (x[col]||0), 0);
-  }
-
-  function pct(a,b){
-    if(!b) return 0;
-    return (a/b)*100;
-  }
-
-  function setNum(id, n){
-    el(id).textContent = (n||0).toLocaleString("pt-BR");
-  }
+  function sum(col){ return dataF.reduce((acc,x)=>acc+(x[col]||0),0); }
+  function pct(a,b){ if(!b) return 0; return (a/b)*100; }
+  function setNum(id,n){ el(id).textContent=(n||0).toLocaleString("pt-BR"); }
 
   function updateKPIs(){
-    const ag = sum("agendado");
-    const rec = sum("recepcionado");
-    const apac = sum("apac");
-    const fat = sum("faturado");
-
-    setNum("kAg", ag);
-    setNum("kRec", rec);
-    setNum("kApac", apac);
-    setNum("kFat", fat);
-
-    el("kAgSub").textContent = `Recepção: ${pct(rec, ag).toFixed(1)}%`;
-    el("kRecSub").textContent = `APAC/Recep.: ${pct(apac, rec).toFixed(1)}%`;
-    el("kApacSub").textContent = `Fat./Recep.: ${pct(fat, rec).toFixed(1)}%`;
-    el("kFatSub").textContent = `Fat./Ag.: ${pct(fat, ag).toFixed(1)}%`;
+    const ag=sum("agendado"), rec=sum("recepcionado"), apac=sum("apac"), fat=sum("faturado");
+    setNum("kAg",ag); setNum("kRec",rec); setNum("kApac",apac); setNum("kFat",fat);
+    el("kAgSub").textContent=`Recepção: ${pct(rec,ag).toFixed(1)}%`;
+    el("kRecSub").textContent=`APAC/Recep.: ${pct(apac,rec).toFixed(1)}%`;
+    el("kApacSub").textContent=`Fat./Recep.: ${pct(fat,rec).toFixed(1)}%`;
+    el("kFatSub").textContent=`Fat./Ag.: ${pct(fat,ag).toFixed(1)}%`;
   }
 
   // ===== CHART HELPERS =====
-  function destroy(id){
-    if(charts[id]){ charts[id].destroy(); delete charts[id]; }
-  }
-
+  function destroy(id){ if(charts[id]){ charts[id].destroy(); delete charts[id]; } }
   function baseOptions(){
     return {
-      responsive:true,
-      maintainAspectRatio:false,
+      responsive:true, maintainAspectRatio:false,
       plugins:{
         legend:{ labels:{ font:{ size:12, weight:"700" } } },
         datalabels:{ display:false },
-        tooltip:{ titleFont:{ size:12, weight:"800" }, bodyFont:{ size:12 } }
+        tooltip:{ titleFont:{ size:12,weight:"800" }, bodyFont:{ size:12 } }
       },
       scales:{
-        x:{ ticks:{ font:{ size:11, weight:"700" } }, grid:{ display:false } },
-        y:{ ticks:{ font:{ size:11, weight:"700" } }, grid:{ color:"rgba(2,6,23,.06)" }, beginAtZero:true }
+        x:{ ticks:{ font:{ size:11,weight:"700" } }, grid:{ display:false } },
+        y:{ ticks:{ font:{ size:11,weight:"700" } }, grid:{ color:"rgba(2,6,23,.06)" }, beginAtZero:true }
       }
     };
   }
 
+  // ===== GET ACTIVE ESP (single or empty) =====
+  function getActiveEsp(){
+    if(selectedEspecialidades.size===1) return [...selectedEspecialidades][0];
+    return "";
+  }
+
   // ===== CHARTS =====
   function updateCharts(){
-    const esp = el("fEspecialidade").value;
-    const mes = el("fMesAno").value;
-
-    buildEvolucao(esp, mes);
-    buildTop(esp, mes);
-    buildFunil(esp, mes);
-    buildDistrib(esp, mes);
-
-    // Tab Idade
-    buildIdadeQtd(esp, mes);
-    buildIdadeTaxas(esp, mes);
-
-    // Ajustes de títulos
-    el("subEvolucao").textContent = esp ? `Especialidade: ${esp} • ${mes ? ("Mês: " + labelMes(mes)) : "Todos os meses"}` :
-                                         `Especialidade: Todas • ${mes ? ("Mês: " + labelMes(mes)) : "Todos os meses"}`;
+    const esp = getActiveEsp();
+    const mes=el("fMesAno").value;
+    buildMesSit(esp,mes);
+    buildEvolucao(esp,mes);
+    buildTop(esp,mes);
+    buildDistrib(esp,mes);
+    buildIdadeQtd(esp,mes);
+    buildIdadeTaxas(esp,mes);
+    el("subEvolucao").textContent = esp
+      ? `Especialidade: ${esp} • ${mes?("Mês: "+labelMes(mes)):"Todos os meses"}`
+      : `Especialidade: Todas • ${mes?("Mês: "+labelMes(mes)):"Todos os meses"}`;
   }
 
   function labelMes(key){
-    const found = allData.find(x=>x.mesKey===key);
-    return found ? found.mesLabel : key;
+    const found=allData.find(x=>x.mesKey===key);
+    return found?found.mesLabel:key;
   }
 
-  // 1) Evolução mensal (sempre baseada nos dados filtrados, mas se mês selecionado vira 1 ponto)
-  function buildEvolucao(esp, mes){
+  // 1) Evolução Mensal — linha, full width
+  function buildEvolucao(esp,mes){
     destroy("cEvolucao");
-
-    // Para evitar gráfico “1 ponto” feio: quando mês selecionado, a evolução ignora o filtro de mês
-    // e mostra a evolução da especialidade no tempo (mantém o painel útil).
-    const source = mes
-      ? allData.filter(x => !esp || x.especialidade === esp)
-      : dataF;
-
-    const map = new Map(); // mesKey -> {label, ag, rec, apac, fat}
+    const source = mes ? allData.filter(x=>{
+      if(selectedEspecialidades.size>0&&selectedEspecialidades.size<allEspecialidades.length){
+        if(!selectedEspecialidades.has(x.especialidade)) return false;
+      }
+      return true;
+    }) : dataF;
+    const map=new Map();
     source.forEach(x=>{
       if(!x.mesKey) return;
-      if(!map.has(x.mesKey)){
-        map.set(x.mesKey, { label:x.mesLabel, y:x.mesY, m:x.mesM, ag:0, rec:0, apac:0, fat:0 });
-      }
-      const o = map.get(x.mesKey);
-      o.ag += x.agendado;
-      o.rec += x.recepcionado;
-      o.apac += x.apac;
-      o.fat += x.faturado;
+      if(!map.has(x.mesKey)) map.set(x.mesKey,{label:x.mesLabel,y:x.mesY,m:x.mesM,ag:0,rec:0,apac:0,fat:0});
+      const o=map.get(x.mesKey);
+      o.ag+=x.agendado; o.rec+=x.recepcionado; o.apac+=x.apac; o.fat+=x.faturado;
     });
-
-    const arr = [...map.entries()]
-      .map(([k,v])=>({ key:k, ...v }))
-      .sort((a,b)=> (a.y*100+a.m) - (b.y*100+b.m));
-
-    const ctx = el("cEvolucao").getContext("2d");
-    charts["cEvolucao"] = new Chart(ctx, {
+    const arr=[...map.entries()].map(([k,v])=>({key:k,...v})).sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m));
+    const ctx=el("cEvolucao").getContext("2d");
+    charts["cEvolucao"]=new Chart(ctx,{
       type:"line",
       data:{
-        labels: arr.map(x=>x.label),
+        labels:arr.map(x=>x.label),
         datasets:[
-          { label:"Agendado", data:arr.map(x=>x.ag), borderColor:"#3b82f6", backgroundColor:"rgba(59,130,246,.10)", tension:.35, fill:true, borderWidth:2.5, pointRadius:4 },
-          { label:"Recepcionado", data:arr.map(x=>x.rec), borderColor:"#10b981", backgroundColor:"rgba(16,185,129,.08)", tension:.35, fill:false, borderWidth:2.5, pointRadius:4 },
-          { label:"APAC", data:arr.map(x=>x.apac), borderColor:"#f59e0b", backgroundColor:"rgba(245,158,11,.10)", tension:.35, fill:false, borderWidth:2.5, pointRadius:4 },
-          { label:"Faturado", data:arr.map(x=>x.fat), borderColor:"#ef4444", backgroundColor:"rgba(239,68,68,.08)", tension:.35, fill:false, borderWidth:2.5, pointRadius:4 }
+          {label:"Agendado",    data:arr.map(x=>x.ag),  borderColor:"#3b82f6",backgroundColor:"rgba(59,130,246,.10)",tension:.35,fill:true, borderWidth:2.5,pointRadius:5,pointHoverRadius:7},
+          {label:"Recepcionado",data:arr.map(x=>x.rec), borderColor:"#10b981",backgroundColor:"rgba(16,185,129,.08)",tension:.35,fill:false,borderWidth:2.5,pointRadius:5,pointHoverRadius:7},
+          {label:"APAC",        data:arr.map(x=>x.apac),borderColor:"#f59e0b",backgroundColor:"rgba(245,158,11,.10)",tension:.35,fill:false,borderWidth:2.5,pointRadius:5,pointHoverRadius:7},
+          {label:"Faturado",    data:arr.map(x=>x.fat), borderColor:"#ef4444",backgroundColor:"rgba(239,68,68,.08)",tension:.35,fill:false,borderWidth:2.5,pointRadius:5,pointHoverRadius:7}
         ]
       },
-      options: {
+      options:{
         ...baseOptions(),
         plugins:{
           ...baseOptions().plugins,
-          legend:{ position:"top", labels:{ font:{ size:12, weight:"800" } } }
+          legend:{position:"top",labels:{font:{size:13,weight:"800"},padding:18}}
         }
       }
     });
   }
 
-  // 2) Top especialidades (só faz sentido quando Especialidade = Todas)
-  function buildTop(esp, mes){
+  // 2) Top Especialidades — barras horizontais, TODAS as especialidades
+  function buildTop(esp,mes){
     destroy("cTop");
-
-    const ctx = el("cTop").getContext("2d");
+    const ctx=el("cTop").getContext("2d");
 
     if(esp){
-      // Se escolheu especialidade, mostra comparação interna por idade (Agendado vs Faturado)
-      const map = new Map(); // idade -> {ag,fat}
+      // com especialidade selecionada: mostra por faixa etária
+      const map=new Map();
       dataF.forEach(x=>{
-        const k = x.idade || "Não informado";
-        if(!map.has(k)) map.set(k, { ag:0, fat:0 });
-        const o = map.get(k);
-        o.ag += x.agendado;
-        o.fat += x.faturado;
+        const k=x.idade||"Não informado";
+        if(!map.has(k)) map.set(k,{ag:0,fat:0});
+        const o=map.get(k); o.ag+=x.agendado; o.fat+=x.faturado;
       });
-      const arr = [...map.entries()]
-        .map(([k,v])=>({ idade:k, ...v }))
-        .sort((a,b)=> idadeKey(a.idade)-idadeKey(b.idade));
-
-      charts["cTop"] = new Chart(ctx, {
+      const arr=[...map.entries()].map(([k,v])=>({idade:k,...v})).sort((a,b)=>idadeKey(a.idade)-idadeKey(b.idade));
+      charts["cTop"]=new Chart(ctx,{
         type:"bar",
         data:{
-          labels: arr.map(x=>x.idade),
+          labels:arr.map(x=>x.idade),
           datasets:[
-            { label:"Agendado", data:arr.map(x=>x.ag), backgroundColor:"rgba(59,130,246,.85)", borderRadius:8 },
-            { label:"Faturado", data:arr.map(x=>x.fat), backgroundColor:"rgba(239,68,68,.85)", borderRadius:8 }
+            {label:"Agendado", data:arr.map(x=>x.ag),  backgroundColor:"rgba(26,58,107,.90)", borderRadius:6, barThickness:22},
+            {label:"Faturado", data:arr.map(x=>x.fat), backgroundColor:"rgba(239,68,68,.80)",  borderRadius:6, barThickness:22}
           ]
         },
         options:{
           ...baseOptions(),
-          plugins:{ ...baseOptions().plugins, legend:{ position:"top" } }
+          indexAxis:"y",
+          plugins:{
+            ...baseOptions().plugins,
+            legend:{position:"top",labels:{font:{size:12,weight:"800"}}},
+            datalabels:{
+              display:true, anchor:"end", align:"right",
+              color:"#0f172a", font:{size:11,weight:"800"},
+              formatter:(v)=>v?v.toLocaleString("pt-BR"):""
+            }
+          },
+          scales:{
+            x:{beginAtZero:true,ticks:{font:{size:11,weight:"700"}},grid:{color:"rgba(2,6,23,.05)"}},
+            y:{ticks:{font:{size:11,weight:"700"}},grid:{display:false}}
+          }
         }
       });
-
-      el("subTop").textContent = "Como você selecionou uma especialidade, aqui mostramos Agendado vs Faturado por faixa etária.";
+      el("subTop").textContent="Agendado vs Faturado por faixa etária para a especialidade selecionada.";
+      el("cTopWrap").style.height="360px";
       return;
     }
 
-    // Especialidade = Todas: top 10 do período (ou do mês, se filtrou)
-    const source = dataF;
-    const map = new Map(); // esp -> {ag,fat}
+    // Especialidade = Todas: mostra TODAS as especialidades
+    const source=dataF;
+    const map=new Map();
     source.forEach(x=>{
-      const k = x.especialidade;
-      if(!map.has(k)) map.set(k, { ag:0, fat:0 });
-      const o = map.get(k);
-      o.ag += x.agendado;
-      o.fat += x.faturado;
+      const k=x.especialidade;
+      if(!map.has(k)) map.set(k,{ag:0,fat:0});
+      const o=map.get(k); o.ag+=x.agendado; o.fat+=x.faturado;
     });
+    const arr=[...map.entries()].map(([k,v])=>({esp:k,...v})).sort((a,b)=>b.ag-a.ag);
 
-    const arr = [...map.entries()]
-      .map(([k,v])=>({ esp:k, ...v }))
-      .sort((a,b)=> (b.ag - a.ag))
-      .slice(0,10);
+    // Ajusta altura dinamicamente: ~44px por especialidade (barras mais grossas) + margem
+    const dynamicH = Math.max(400, arr.length * 48 + 80);
+    el("cTopWrap").style.height = dynamicH + "px";
 
-    charts["cTop"] = new Chart(ctx, {
+    charts["cTop"]=new Chart(ctx,{
       type:"bar",
       data:{
-        labels: arr.map(x=> x.esp.length>26 ? (x.esp.slice(0,26)+"…") : x.esp),
+        labels:arr.map(x=>x.esp),
         datasets:[
-          { label:"Agendado", data:arr.map(x=>x.ag), backgroundColor:"rgba(26,58,107,.90)", borderRadius:8 },
-          { label:"Faturado", data:arr.map(x=>x.fat), backgroundColor:"rgba(239,68,68,.75)", borderRadius:8 }
+          {label:"Agendado", data:arr.map(x=>x.ag),  backgroundColor:"rgba(26,58,107,.88)", borderRadius:6, barThickness:22},
+          {label:"Faturado", data:arr.map(x=>x.fat), backgroundColor:"rgba(59,130,246,.75)", borderRadius:6, barThickness:22}
         ]
       },
       options:{
-        ...baseOptions(),
+        responsive:true, maintainAspectRatio:false,
         indexAxis:"y",
-        plugins:{ ...baseOptions().plugins, legend:{ position:"top" } },
+        plugins:{
+          legend:{position:"top",labels:{font:{size:13,weight:"800"},padding:18}},
+          datalabels:{
+            display:true, anchor:"end", align:"right",
+            color:"#0f172a", font:{size:11,weight:"800"},
+            padding:{right:4},
+            formatter:(v)=>v?v.toLocaleString("pt-BR"):""
+          },
+          tooltip:{titleFont:{size:12,weight:"800"},bodyFont:{size:12}}
+        },
         scales:{
-          x:{ beginAtZero:true, ticks:{ font:{ size:11, weight:"800" } }, grid:{ color:"rgba(2,6,23,.06)" } },
-          y:{ ticks:{ font:{ size:11, weight:"800" } }, grid:{ display:false } }
+          x:{
+            beginAtZero:true,
+            ticks:{font:{size:11,weight:"700"}},
+            grid:{color:"rgba(2,6,23,.05)"}
+          },
+          y:{
+            ticks:{font:{size:11,weight:"700"},padding:6},
+            grid:{display:false}
+          }
         }
       }
     });
-
-    el("subTop").textContent = mes ? `Top 10 no mês ${labelMes(mes)}.` : "Top 10 no período selecionado (todos os meses).";
+    el("subTop").textContent = mes
+      ? `Todas as especialidades — Mês: ${labelMes(mes)}.`
+      : "Todas as especialidades no período selecionado (do maior para o menor Agendado).";
   }
 
-  // 3) Funil do mês: só “aparece” com mês selecionado, senão mostra mensagem de “selecione um mês”
-  function buildFunil(esp, mes){
-    destroy("cFunil");
-    const ctx = el("cFunil").getContext("2d");
+  // 3) Agendamentos por Mês por Situação — barras agrupadas, BARRAS LARGAS, valores DENTRO em branco/negrito
+  function buildMesSit(esp, mes){
+    destroy("cMesSit");
+    const ctx = el("cMesSit").getContext("2d");
 
-    if(!mes){
-      charts["cFunil"] = new Chart(ctx, {
-        type:"bar",
-        data:{ labels:["Selecione um Mês/Ano"], datasets:[{ label:"", data:[1], backgroundColor:"rgba(100,116,139,.25)", borderRadius:10 }]},
-        options:{
-          responsive:true, maintainAspectRatio:false,
-          plugins:{ legend:{ display:false }, tooltip:{ enabled:false }, datalabels:{ display:false } },
-          scales:{ x:{ grid:{ display:false } }, y:{ display:false } }
-        }
-      });
-      return;
-    }
+    // Usa a seleção múltipla corretamente
+    const source = (selectedEspecialidades.size > 0 && selectedEspecialidades.size < allEspecialidades.length)
+      ? allData.filter(x => selectedEspecialidades.has(x.especialidade))
+      : allData;
 
-    const ag = sum("agendado");
-    const rec = sum("recepcionado");
-    const ap = sum("apac");
-    const fat = sum("faturado");
+    const map = new Map();
+    source.forEach(x=>{
+      if(!x.mesKey) return;
+      if(!map.has(x.mesKey)) map.set(x.mesKey,{label:x.mesLabel,y:x.mesY,m:x.mesM,ag:0,rec:0,apac:0,fat:0});
+      const o=map.get(x.mesKey);
+      o.ag+=x.agendado; o.rec+=x.recepcionado; o.apac+=x.apac; o.fat+=x.faturado;
+    });
 
-    charts["cFunil"] = new Chart(ctx, {
+    const arr=[...map.entries()].map(([k,v])=>({key:k,...v})).sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m));
+
+    charts["cMesSit"]=new Chart(ctx,{
       type:"bar",
       data:{
-        labels:["Agendado","Recepcionado","APAC","Faturado"],
-        datasets:[{
-          label: "Quantidade",
-          data:[ag,rec,ap,fat],
-          backgroundColor:["rgba(59,130,246,.85)","rgba(16,185,129,.85)","rgba(245,158,11,.88)","rgba(239,68,68,.85)"],
-          borderRadius:10
-        }]
+        labels:arr.map(x=>x.label),
+        datasets:[
+          {
+            label:"Agendados",
+            data:arr.map(x=>x.ag),
+            backgroundColor:"#1a3a6b",
+            borderRadius:6,
+            borderSkipped:false
+          },
+          {
+            label:"Recepcionados",
+            data:arr.map(x=>x.rec),
+            backgroundColor:"#3b82f6",
+            borderRadius:6,
+            borderSkipped:false
+          },
+          {
+            label:"APAC",
+            data:arr.map(x=>x.apac),
+            backgroundColor:"#f59e0b",
+            borderRadius:6,
+            borderSkipped:false
+          },
+          {
+            label:"Faturado",
+            data:arr.map(x=>x.fat),
+            backgroundColor:"#ef4444",
+            borderRadius:6,
+            borderSkipped:false
+          }
+        ]
       },
       options:{
-        ...baseOptions(),
+        responsive:true, maintainAspectRatio:false,
+        // Barras mais largas: barPercentage e categoryPercentage altos
+        barPercentage: 0.92,
+        categoryPercentage: 0.85,
         plugins:{
-          ...baseOptions().plugins,
-          legend:{ display:false },
+          legend:{
+            position:"bottom",
+            labels:{font:{size:12,weight:"800"},padding:16,boxWidth:14}
+          },
+          // Valores DENTRO das barras — branco, negrito, tamanho maior
           datalabels:{
-            display:true,
-            anchor:"end",
-            align:"top",
-            color:"#0f172a",
-            font:{ size:11, weight:"900" },
-            formatter:(v)=> v.toLocaleString("pt-BR")
+            display: (ctx) => {
+              const v = ctx.dataset.data[ctx.dataIndex];
+              return v > 0;
+            },
+            anchor: "center",
+            align: "center",
+            color: "#ffffff",
+            font: { size: 13, weight: "900" },
+            formatter: (v) => v ? v.toLocaleString("pt-BR") : ""
+          },
+          tooltip:{
+            titleFont:{size:12,weight:"800"}, bodyFont:{size:12},
+            callbacks:{
+              label:(ctx)=>`${ctx.dataset.label}: ${Number(ctx.raw||0).toLocaleString("pt-BR")}`
+            }
+          }
+        },
+        scales:{
+          x:{
+            ticks:{font:{size:11,weight:"700"}},
+            grid:{display:false}
+          },
+          y:{
+            beginAtZero:true,
+            ticks:{font:{size:11,weight:"700"}},
+            grid:{color:"rgba(2,6,23,.06)"}
           }
         }
       }
     });
   }
 
-  // 4) Distribuição rápida (donut) — participação das métricas no total do “funil”
-  function buildDistrib(esp, mes){
+  // 4) Distribuição donut — números maiores
+  function buildDistrib(esp,mes){
     destroy("cDistrib");
-    const ctx = el("cDistrib").getContext("2d");
-
-    const ag = sum("agendado");
-    const rec = sum("recepcionado");
-    const ap = sum("apac");
-    const fat = sum("faturado");
-
-    charts["cDistrib"] = new Chart(ctx, {
+    const ctx=el("cDistrib").getContext("2d");
+    const ag=sum("agendado"),rec=sum("recepcionado"),ap=sum("apac"),fat=sum("faturado");
+    charts["cDistrib"]=new Chart(ctx,{
       type:"doughnut",
       data:{
         labels:["Agendado","Recepcionado","APAC","Faturado"],
         datasets:[{
           data:[ag,rec,ap,fat],
-          backgroundColor:["#3b82f6","#10b981","#f59e0b","#ef4444"],
-          borderColor:"#fff",
-          borderWidth:3
+          backgroundColor:["#1a3a6b","#10b981","#f59e0b","#ef4444"],
+          borderColor:"#fff", borderWidth:3
         }]
       },
       options:{
         responsive:true, maintainAspectRatio:false,
         plugins:{
-          legend:{ position:"right", labels:{ font:{ size:12, weight:"800" }, boxWidth:12 } },
+          legend:{
+            position:"bottom",
+            labels:{font:{size:12,weight:"800"},padding:16,boxWidth:14}
+          },
+          // Números maiores dentro da rosca
           datalabels:{
             color:"#fff",
-            font:{ size:10, weight:"900" },
+            font:{ size:15, weight:"900" },
+            textShadowColor: "rgba(0,0,0,0.4)",
+            textShadowBlur: 4,
             formatter:(v,ctx)=>{
-              const t = ctx.dataset.data.reduce((a,b)=>a+b,0);
-              if(!t) return "";
-              const p = (v/t)*100;
-              return p>=6 ? p.toFixed(0)+"%" : "";
+              const t=ctx.dataset.data.reduce((a,b)=>a+b,0);
+              if(!t||!v) return "";
+              const p=(v/t)*100;
+              if(p < 5) return "";
+              return v.toLocaleString("pt-BR")+"\n"+p.toFixed(1)+"%";
             }
           }
         },
@@ -1130,183 +1309,160 @@
     });
   }
 
-  // 5) Qtd por idade (4 métricas)
-  function buildIdadeQtd(esp, mes){
+  // 5) Qtd por idade
+  function buildIdadeQtd(esp,mes){
     destroy("cIdadeQtd");
-    const ctx = el("cIdadeQtd").getContext("2d");
-
-    // Se não escolheu mês, usa o último mês disponível automaticamente (para manter útil)
-    let useMes = mes;
+    const ctx=el("cIdadeQtd").getContext("2d");
+    let useMes=mes;
     if(!useMes){
-      const last = [...new Set(allData.filter(x=>x.mesKey).map(x=>x.mesKey))]
-        .map(k=>{
-          const any = allData.find(x=>x.mesKey===k);
-          return { k, y:any?.mesY||0, m:any?.mesM||0 };
-        })
-        .sort((a,b)=> (a.y*100+a.m)-(b.y*100+b.m))
-        .pop();
-      useMes = last?.k || "";
+      const last=[...new Set(allData.filter(x=>x.mesKey).map(x=>x.mesKey))]
+        .map(k=>{ const any=allData.find(x=>x.mesKey===k); return {k,y:any?.mesY||0,m:any?.mesM||0}; })
+        .sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m)).pop();
+      useMes=last?.k||"";
     }
-
-    const source = allData.filter(x=>{
-      if(useMes && x.mesKey !== useMes) return false;
-      if(esp && x.especialidade !== esp) return false;
-      if(!esp) return false; // sem especialidade, isso vira bagunça
-      return true;
-    });
-
     if(!esp){
-      charts["cIdadeQtd"] = new Chart(ctx, {
+      charts["cIdadeQtd"]=new Chart(ctx,{
         type:"bar",
-        data:{ labels:["Selecione uma Especialidade"], datasets:[{ label:"", data:[1], backgroundColor:"rgba(100,116,139,.25)", borderRadius:10 }]},
-        options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ enabled:false } }, scales:{ x:{ grid:{ display:false } }, y:{ display:false } } }
+        data:{labels:["Selecione uma Especialidade"],datasets:[{label:"",data:[1],backgroundColor:"rgba(100,116,139,.25)",borderRadius:10}]},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false},datalabels:{display:false}},scales:{x:{grid:{display:false}},y:{display:false}}}
       });
       return;
     }
-
-    const map = new Map();
-    source.forEach(x=>{
-      const k = x.idade || "Não informado";
-      if(!map.has(k)) map.set(k, { ag:0, rec:0, ap:0, fat:0 });
-      const o = map.get(k);
-      o.ag += x.agendado;
-      o.rec += x.recepcionado;
-      o.ap += x.apac;
-      o.fat += x.faturado;
+    const source=allData.filter(x=>{
+      if(useMes&&x.mesKey!==useMes) return false;
+      if(esp&&x.especialidade!==esp) return false;
+      return true;
     });
-
-    const arr = [...map.entries()]
-      .map(([k,v])=>({ idade:k, ...v }))
-      .sort((a,b)=> idadeKey(a.idade)-idadeKey(b.idade));
-
-    charts["cIdadeQtd"] = new Chart(ctx, {
+    const map=new Map();
+    source.forEach(x=>{
+      const k=x.idade||"Não informado";
+      if(!map.has(k)) map.set(k,{ag:0,rec:0,ap:0,fat:0});
+      const o=map.get(k); o.ag+=x.agendado; o.rec+=x.recepcionado; o.ap+=x.apac; o.fat+=x.faturado;
+    });
+    const arr=[...map.entries()].map(([k,v])=>({idade:k,...v})).sort((a,b)=>idadeKey(a.idade)-idadeKey(b.idade));
+    charts["cIdadeQtd"]=new Chart(ctx,{
       type:"bar",
       data:{
-        labels: arr.map(x=>x.idade),
+        labels:arr.map(x=>x.idade),
         datasets:[
-          { label:"Agendado", data:arr.map(x=>x.ag), backgroundColor:"rgba(59,130,246,.85)", borderRadius:8 },
-          { label:"Recepcionado", data:arr.map(x=>x.rec), backgroundColor:"rgba(16,185,129,.85)", borderRadius:8 },
-          { label:"APAC", data:arr.map(x=>x.ap), backgroundColor:"rgba(245,158,11,.90)", borderRadius:8 },
-          { label:"Faturado", data:arr.map(x=>x.fat), backgroundColor:"rgba(239,68,68,.85)", borderRadius:8 }
+          {label:"Agendado",    data:arr.map(x=>x.ag),  backgroundColor:"rgba(59,130,246,.85)",  borderRadius:8},
+          {label:"Recepcionado",data:arr.map(x=>x.rec), backgroundColor:"rgba(16,185,129,.85)",  borderRadius:8},
+          {label:"APAC",        data:arr.map(x=>x.ap),  backgroundColor:"rgba(245,158,11,.90)",  borderRadius:8},
+          {label:"Faturado",    data:arr.map(x=>x.fat), backgroundColor:"rgba(239,68,68,.85)",   borderRadius:8}
         ]
       },
-      options:{
-        ...baseOptions(),
-        plugins:{ ...baseOptions().plugins, legend:{ position:"top" } }
-      }
+      options:{...baseOptions(),plugins:{...baseOptions().plugins,legend:{position:"top"}}}
     });
   }
 
   // 6) Taxas por idade
-  function buildIdadeTaxas(esp, mes){
+  function buildIdadeTaxas(esp,mes){
     destroy("cIdadeTaxas");
-    const ctx = el("cIdadeTaxas").getContext("2d");
-
-    // Mesma lógica: se não tem mês, usa último
-    let useMes = mes;
+    const ctx=el("cIdadeTaxas").getContext("2d");
+    let useMes=mes;
     if(!useMes){
-      const last = [...new Set(allData.filter(x=>x.mesKey).map(x=>x.mesKey))]
-        .map(k=>{
-          const any = allData.find(x=>x.mesKey===k);
-          return { k, y:any?.mesY||0, m:any?.mesM||0 };
-        })
-        .sort((a,b)=> (a.y*100+a.m)-(b.y*100+b.m))
-        .pop();
-      useMes = last?.k || "";
+      const last=[...new Set(allData.filter(x=>x.mesKey).map(x=>x.mesKey))]
+        .map(k=>{ const any=allData.find(x=>x.mesKey===k); return {k,y:any?.mesY||0,m:any?.mesM||0}; })
+        .sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m)).pop();
+      useMes=last?.k||"";
     }
-
     if(!esp){
-      charts["cIdadeTaxas"] = new Chart(ctx, {
+      charts["cIdadeTaxas"]=new Chart(ctx,{
         type:"bar",
-        data:{ labels:["Selecione uma Especialidade"], datasets:[{ label:"", data:[1], backgroundColor:"rgba(100,116,139,.25)", borderRadius:10 }]},
-        options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ display:false }, tooltip:{ enabled:false } }, scales:{ x:{ grid:{ display:false } }, y:{ display:false } } }
+        data:{labels:["Selecione uma Especialidade"],datasets:[{label:"",data:[1],backgroundColor:"rgba(100,116,139,.25)",borderRadius:10}]},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false},datalabels:{display:false}},scales:{x:{grid:{display:false}},y:{display:false}}}
       });
       return;
     }
-
-    const source = allData.filter(x=>{
-      if(useMes && x.mesKey !== useMes) return false;
-      if(esp && x.especialidade !== esp) return false;
+    const source=allData.filter(x=>{
+      if(useMes&&x.mesKey!==useMes) return false;
+      if(esp&&x.especialidade!==esp) return false;
       return true;
     });
-
-    const map = new Map();
+    const map=new Map();
     source.forEach(x=>{
-      const k = x.idade || "Não informado";
-      if(!map.has(k)) map.set(k, { ag:0, rec:0, ap:0, fat:0 });
-      const o = map.get(k);
-      o.ag += x.agendado;
-      o.rec += x.recepcionado;
-      o.ap += x.apac;
-      o.fat += x.faturado;
+      const k=x.idade||"Não informado";
+      if(!map.has(k)) map.set(k,{ag:0,rec:0,ap:0,fat:0});
+      const o=map.get(k); o.ag+=x.agendado; o.rec+=x.recepcionado; o.ap+=x.apac; o.fat+=x.faturado;
     });
-
-    const arr = [...map.entries()]
-      .map(([k,v])=>({
-        idade:k,
-        recPct: pct(v.rec, v.ag),
-        apPct: pct(v.ap, v.rec),
-        fatPct: pct(v.fat, v.rec)
-      }))
-      .sort((a,b)=> idadeKey(a.idade)-idadeKey(b.idade));
-
-    charts["cIdadeTaxas"] = new Chart(ctx, {
+    const arr=[...map.entries()].map(([k,v])=>({
+      idade:k,
+      recPct:pct(v.rec,v.ag), apPct:pct(v.ap,v.rec), fatPct:pct(v.fat,v.rec)
+    })).sort((a,b)=>idadeKey(a.idade)-idadeKey(b.idade));
+    charts["cIdadeTaxas"]=new Chart(ctx,{
       type:"line",
       data:{
-        labels: arr.map(x=>x.idade),
+        labels:arr.map(x=>x.idade),
         datasets:[
-          { label:"Recepção% (Rec/Ag)", data: arr.map(x=>x.recPct), borderColor:"#10b981", backgroundColor:"rgba(16,185,129,.10)", borderWidth:2.5, pointRadius:4, tension:.35 },
-          { label:"APAC% (APAC/Rec)", data: arr.map(x=>x.apPct), borderColor:"#f59e0b", backgroundColor:"rgba(245,158,11,.10)", borderWidth:2.5, pointRadius:4, tension:.35 },
-          { label:"Faturamento% (Fat/Rec)", data: arr.map(x=>x.fatPct), borderColor:"#ef4444", backgroundColor:"rgba(239,68,68,.10)", borderWidth:2.5, pointRadius:4, tension:.35 }
+          {label:"Recepção% (Rec/Ag)",    data:arr.map(x=>x.recPct),borderColor:"#10b981",backgroundColor:"rgba(16,185,129,.10)",borderWidth:2.5,pointRadius:4,tension:.35},
+          {label:"APAC% (APAC/Rec)",       data:arr.map(x=>x.apPct), borderColor:"#f59e0b",backgroundColor:"rgba(245,158,11,.10)",borderWidth:2.5,pointRadius:4,tension:.35},
+          {label:"Faturamento% (Fat/Rec)", data:arr.map(x=>x.fatPct),borderColor:"#ef4444",backgroundColor:"rgba(239,68,68,.10)",borderWidth:2.5,pointRadius:4,tension:.35}
         ]
       },
       options:{
         responsive:true, maintainAspectRatio:false,
         plugins:{
-          legend:{ position:"top", labels:{ font:{ size:12, weight:"800" } } },
-          datalabels:{ display:false },
-          tooltip:{
-            callbacks:{
-              label:(ctx)=> `${ctx.dataset.label}: ${Number(ctx.raw||0).toFixed(1)}%`
-            }
-          }
+          legend:{position:"top",labels:{font:{size:12,weight:"800"}}},
+          datalabels:{display:false},
+          tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: ${Number(ctx.raw||0).toFixed(1)}%`}}
         },
         scales:{
-          x:{ ticks:{ font:{ size:11, weight:"800" } }, grid:{ display:false } },
-          y:{
-            beginAtZero:true,
-            suggestedMax:100,
-            ticks:{ callback:(v)=>v+"%", font:{ size:11, weight:"800" } },
-            grid:{ color:"rgba(2,6,23,.06)" }
-          }
+          x:{ticks:{font:{size:11,weight:"800"}},grid:{display:false}},
+          y:{beginAtZero:true,suggestedMax:100,ticks:{callback:(v)=>v+"%",font:{size:11,weight:"800"}},grid:{color:"rgba(2,6,23,.06)"}}
         }
       }
     });
   }
 
+  // ===== TABLE SORTING =====
+  function sortTable(col, th){
+    if(tableSort.col===col){
+      tableSort.dir = tableSort.dir==="asc"?"desc":"asc";
+    } else {
+      tableSort.col=col;
+      tableSort.dir="asc";
+    }
+    document.querySelectorAll("thead th").forEach(h=>{
+      h.classList.remove("sort-asc","sort-desc");
+    });
+    th.classList.add(tableSort.dir==="asc"?"sort-asc":"sort-desc");
+    renderTable();
+  }
+
   // ===== TABLE =====
   function renderTable(){
-    const q = normStr(el("tSearch").value).toLowerCase();
-    const rows = dataF.filter(x=>{
+    const q=normStr(el("tSearch").value).toLowerCase();
+    let rows=dataF.filter(x=>{
       if(!q) return true;
-      return (x.especialidade||"").toLowerCase().includes(q) ||
-             (x.idade||"").toLowerCase().includes(q) ||
+      return (x.especialidade||"").toLowerCase().includes(q)||
+             (x.idade||"").toLowerCase().includes(q)||
              (x.mesLabel||x.mesRaw||"").toLowerCase().includes(q);
     });
-
-    el("tInfo").textContent = `${rows.length.toLocaleString("pt-BR")} registro(s)`;
-
-    const body = el("tBody");
+    if(tableSort.col){
+      const col=tableSort.col;
+      const dir=tableSort.dir==="asc"?1:-1;
+      rows=[...rows].sort((a,b)=>{
+        let va=a[col], vb=b[col];
+        if(col==="especialidade"||col==="idade"||col==="mesKey"){
+          va=String(va||"").toLowerCase();
+          vb=String(vb||"").toLowerCase();
+          return va.localeCompare(vb,"pt-BR")*dir;
+        } else {
+          return ((va||0)-(vb||0))*dir;
+        }
+      });
+    }
+    el("tInfo").textContent=`${rows.length.toLocaleString("pt-BR")} registro(s)`;
+    const body=el("tBody");
     if(!rows.length){
-      body.innerHTML = `<tr><td colspan="7" class="muted">Nenhum dado para os filtros selecionados.</td></tr>`;
+      body.innerHTML=`<tr><td colspan="7" class="muted">Nenhum dado para os filtros selecionados.</td></tr>`;
       return;
     }
-
-    body.innerHTML = rows.slice(0, 2000).map(x=>`
+    body.innerHTML=rows.slice(0,2000).map(x=>`
       <tr>
         <td title="${x.especialidade}">${x.especialidade}</td>
-        <td>${x.idade || "Não informado"}</td>
-        <td>${x.mesLabel || x.mesRaw}</td>
+        <td>${x.idade||"Não informado"}</td>
+        <td>${x.mesLabel||x.mesRaw}</td>
         <td>${x.agendado.toLocaleString("pt-BR")}</td>
         <td>${x.recepcionado.toLocaleString("pt-BR")}</td>
         <td>${x.apac.toLocaleString("pt-BR")}</td>
@@ -1317,51 +1473,32 @@
 
   // ===== EXPORT EXCEL =====
   function exportExcel(){
-    if(!dataF.length){
-      toast("Sem dados para exportar com os filtros atuais.", "error");
-      return;
-    }
-
-    const wsData = [
+    if(!dataF.length){ toast("Sem dados para exportar com os filtros atuais.","error"); return; }
+    const wsData=[
       ["ESPECIALIDADE","IDADE","MÊS/ANO","AGENDADO","RECEPCIONADO","APAC GERADAS","FATURADO"],
-      ...dataF.map(x=>[
-        x.especialidade,
-        x.idade,
-        x.mesLabel || x.mesRaw,
-        x.agendado,
-        x.recepcionado,
-        x.apac,
-        x.faturado
-      ])
+      ...dataF.map(x=>[x.especialidade,x.idade,x.mesLabel||x.mesRaw,x.agendado,x.recepcionado,x.apac,x.faturado])
     ];
-
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.aoa_to_sheet(wsData);
-    ws["!cols"] = [{wch:44},{wch:18},{wch:12},{wch:12},{wch:14},{wch:12},{wch:12}];
-    XLSX.utils.book_append_sheet(wb, ws, "OCI");
-
-    const now = new Date();
-    const stamp = now.toLocaleDateString("pt-BR").replaceAll("/","-");
-    XLSX.writeFile(wb, `OCI_${stamp}.xlsx`);
-    toast("Excel exportado com sucesso.", "success");
+    const wb=XLSX.utils.book_new();
+    const ws=XLSX.utils.aoa_to_sheet(wsData);
+    ws["!cols"]=[{wch:44},{wch:18},{wch:12},{wch:12},{wch:14},{wch:12},{wch:12}];
+    XLSX.utils.book_append_sheet(wb,ws,"OCI");
+    const now=new Date();
+    const stamp=now.toLocaleDateString("pt-BR").replaceAll("/","-");
+    XLSX.writeFile(wb,`OCI_${stamp}.xlsx`);
+    toast("Excel exportado com sucesso.","success");
   }
 
   // ===== TABS =====
-  function switchTab(id, btn){
+  function switchTab(id,btn){
     document.querySelectorAll(".tabContent").forEach(x=>x.classList.remove("active"));
     document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
     el("tab-"+id).classList.add("active");
     btn.classList.add("active");
-
-    // Redimensiona charts ao trocar abas
-    setTimeout(()=>{
-      Object.values(charts).forEach(c=>c?.resize?.());
-    }, 80);
+    setTimeout(()=>{ Object.values(charts).forEach(c=>c?.resize?.()); },80);
   }
 
   // ===== INIT =====
-  window.addEventListener("DOMContentLoaded", ()=> loadData(false));
+  window.addEventListener("DOMContentLoaded",()=>loadData(false));
 </script>
-
 </body>
 </html>
