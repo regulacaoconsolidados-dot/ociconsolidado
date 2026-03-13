@@ -18,9 +18,9 @@
       --primary:#0f2f5f;
       --primary2:#1a3a6b;
       --accent:#3b82f6;
-      --success:#10b981;
-      --warning:#f59e0b;
-      --danger:#ef4444;
+      --success:#059669;
+      --warning:#d97706;
+      --danger:#991b1b;
       --bg:#f3f6fb;
       --card:#ffffff;
       --text:#0f172a;
@@ -98,25 +98,25 @@
     }
     .btn-primary:hover{background:rgba(59,130,246,.28)}
     .btn-excel{
-      background:rgba(16,185,129,.16);
+      background:rgba(5,150,105,.16);
       color:#d1fae5;
-      border:1px solid rgba(16,185,129,.35);
+      border:1px solid rgba(5,150,105,.35);
     }
-    .btn-excel:hover{background:rgba(16,185,129,.26)}
+    .btn-excel:hover{background:rgba(5,150,105,.26)}
     .pill{
       display:inline-flex; align-items:center; gap:9px;
       padding:12px 16px;
       border-radius:999px;
       font-size:13px;
-      background:rgba(16,185,129,.14);
-      border:1px solid rgba(16,185,129,.32);
+      background:rgba(5,150,105,.14);
+      border:1px solid rgba(5,150,105,.32);
       color:#bbf7d0;
       font-weight:800;
     }
     .dot{
       width:10px; height:10px; border-radius:50%;
       background:var(--success);
-      box-shadow:0 0 10px rgba(16,185,129,.9);
+      box-shadow:0 0 10px rgba(5,150,105,.9);
     }
     .lastUpdate{margin-top:5px; font-size:12px; opacity:.72}
 
@@ -213,8 +213,8 @@
     }
     .ms-btn-all{background:rgba(59,130,246,.12);color:var(--accent);border:1px solid rgba(59,130,246,.28);}
     .ms-btn-all:hover{background:rgba(59,130,246,.22);}
-    .ms-btn-clr{background:rgba(239,68,68,.09);color:#b91c1c;border:1px solid rgba(239,68,68,.25);}
-    .ms-btn-clr:hover{background:rgba(239,68,68,.18);}
+    .ms-btn-clr{background:rgba(185,28,28,.09);color:#b91c1c;border:1px solid rgba(185,28,28,.25);}
+    .ms-btn-clr:hover{background:rgba(185,28,28,.18);}
     .ms-search-box{padding:8px 10px;border-bottom:1px solid var(--border);}
     .ms-search-box input{
       width:100%;padding:7px 10px;border-radius:9px;border:1.5px solid var(--border);
@@ -259,15 +259,15 @@
     .kpi .val{font-size:28px; font-weight:900; margin-top:3px; line-height:1;}
     .kpi .sub{font-size:11px; color:var(--muted); margin-top:6px; font-weight:700;}
     .kpi.ag .kpiIcon{background:rgba(59,130,246,.12); color:var(--accent)}
-    .kpi.rec .kpiIcon{background:rgba(16,185,129,.12); color:var(--success)}
-    .kpi.apac .kpiIcon{background:rgba(245,158,11,.12); color:var(--warning)}
-    .kpi.fat .kpiIcon{background:rgba(239,68,68,.10); color:var(--danger)}
+    .kpi.rec .kpiIcon{background:rgba(5,150,105,.12); color:var(--success)}
+    .kpi.apac .kpiIcon{background:rgba(217,119,6,.12); color:var(--warning)}
+    .kpi.fat .kpiIcon{background:rgba(185,28,28,.10); color:var(--danger)}
 
     /* ===== FINANCIAL KPI ICONS ===== */
     .kpi.fin1 .kpiIcon{background:rgba(14,165,233,.12); color:#0ea5e9;}
-    .kpi.fin2 .kpiIcon{background:rgba(16,185,129,.12); color:var(--success);}
+    .kpi.fin2 .kpiIcon{background:rgba(5,150,105,.12); color:var(--success);}
     .kpi.fin3 .kpiIcon{background:rgba(139,92,246,.12); color:#8b5cf6;}
-    .kpi.fin4 .kpiIcon{background:rgba(245,158,11,.12); color:var(--warning);}
+    .kpi.fin4 .kpiIcon{background:rgba(217,119,6,.12); color:var(--warning);}
     .kpi .val.fin-val{font-size:22px;}
 
     /* Charts */
@@ -300,9 +300,39 @@
     .chartWrap.sm{position:relative; height:280px;}
     canvas{max-width:100%}
 
-    .row2eq{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+    .row2eq{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      align-items:stretch;
+    }
+    .row2eq .chartCard{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+    .row2eq .chartWrap{
+      flex:1;
+      min-height:480px;
+    }
     .row2eq.align-start{align-items:start;}
     .fullrow{display:grid; grid-template-columns:1fr; gap:14px;}
+
+    .bottom-charts{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    .bottom-charts .chartCard{
+      height:100%;
+      display:flex;
+      flex-direction:column;
+    }
+    .bottom-charts .chartWrap{
+      flex:1;
+      min-height:400px;
+    }
 
     /* Tabs */
     .tabs{
@@ -510,11 +540,11 @@
     .btn-filter-apply { background:var(--primary2); color:#fff; }
     .btn-filter-apply:hover { background:var(--primary); }
     .btn-filter-clear {
-      background:rgba(239,68,68,.09);
+      background:rgba(185,28,28,.09);
       color:#b91c1c;
-      border:1px solid rgba(239,68,68,.25);
+      border:1px solid rgba(185,28,28,.25);
     }
-    .btn-filter-clear:hover { background:rgba(239,68,68,.18); }
+    .btn-filter-clear:hover { background:rgba(185,28,28,.18); }
 
     /* Table sorting with filter */
     .th-filter-wrapper {
@@ -541,6 +571,7 @@
       .header{flex-wrap:wrap; padding:16px 18px;}
       .h-actions{width:100%; justify-content:flex-start}
       .row2eq{grid-template-columns:1fr}
+      .bottom-charts{grid-template-columns:1fr}
       .fin-header{flex-wrap:wrap;}
       .fin-header-right{width:100%;}
       .chart-filter-popup { right:auto; left:0; }
@@ -650,7 +681,6 @@
     <!-- Tabs -->
     <div class="tabs" style="margin-top:14px;">
       <button class="tab active" onclick="switchTab('visao', this)"><i class="fa-solid fa-chart-line"></i> Visão Geral</button>
-      <button class="tab" onclick="switchTab('idade', this)"><i class="fa-solid fa-people-group"></i> Faixa Etária</button>
       <button class="tab" onclick="switchTab('tabela', this)"><i class="fa-solid fa-table"></i> Tabela</button>
       <button class="tab" onclick="switchTab('financeiro', this)"><i class="fa-solid fa-coins"></i> Financeiro</button>
     </div>
@@ -664,7 +694,7 @@
             Indicadores (adaptam conforme o filtro)
           </span>
 
-          <!-- NOVO: filtro por mês (aplica às duas gauges) -->
+          <!-- filtro por mês (aplica às duas gauges) -->
           <div class="chart-filter-wrapper" style="margin-left:auto;">
             <div class="chart-filter-badge" onclick="toggleChartFilter('indicadoresFilter', event)">
               <i class="fa-solid fa-filter"></i> Filtrar por mês
@@ -684,7 +714,7 @@
         <div class="row2eq" style="margin-bottom:14px;">
           <div class="gauge-card">
             <div class="gauge-head">
-              <h3><i class="fa-solid fa-circle-dollar-to-slot" style="color:#10b981"></i> Taxa de Faturamento</h3>
+              <h3><i class="fa-solid fa-circle-dollar-to-slot" style="color:#059669"></i> Taxa de Faturamento</h3>
               <div class="gauge-sub">% de Recepcionados que foram Faturados &nbsp;(Faturado ÷ Recepcionado)</div>
             </div>
             <div class="gauge-chart-wrap">
@@ -711,14 +741,14 @@
               </div>
             </div>
             <div class="gauge-zones-row">
-              <span class="gauge-zone-item"><span class="zone-circle" style="background:#10b981"></span>≥ 80% Ótimo</span>
-              <span class="gauge-zone-item"><span class="zone-circle" style="background:#f59e0b"></span>50–79% Regular</span>
-              <span class="gauge-zone-item"><span class="zone-circle" style="background:#ef4444"></span>&lt; 50% Crítico</span>
+              <span class="gauge-zone-item"><span class="zone-circle" style="background:#059669"></span>≥ 80% Ótimo</span>
+              <span class="gauge-zone-item"><span class="zone-circle" style="background:#d97706"></span>50–79% Regular</span>
+              <span class="gauge-zone-item"><span class="zone-circle" style="background:#b91c1c"></span>&lt; 50% crítico</span>
             </div>
           </div>
           <div class="gauge-card">
             <div class="gauge-head">
-              <h3><i class="fa-solid fa-user-xmark" style="color:#ef4444"></i> Índice de Absenteísmo</h3>
+              <h3><i class="fa-solid fa-user-xmark" style="color:#b91c1c"></i> Índice de Absenteísmo</h3>
               <div class="gauge-sub">% de Agendados que não compareceram &nbsp;(Ausências ÷ Agendado)</div>
             </div>
             <div class="gauge-chart-wrap">
@@ -745,10 +775,10 @@
               </div>
             </div>
             <div class="gauge-zones-row">
-              <span class="gauge-zone-item"><span class="zone-circle" style="background:#10b981"></span>≤ 10% Excelente</span>
+              <span class="gauge-zone-item"><span class="zone-circle" style="background:#059669"></span>≤ 10% Excelente</span>
               <span class="gauge-zone-item"><span class="zone-circle" style="background:#3b82f6"></span>11–20% Bom</span>
-              <span class="gauge-zone-item"><span class="zone-circle" style="background:#f59e0b"></span>21–35% Atenção</span>
-              <span class="gauge-zone-item"><span class="zone-circle" style="background:#ef4444"></span>&gt; 35% Crítico</span>
+              <span class="gauge-zone-item"><span class="zone-circle" style="background:#d97706"></span>21–35% Atenção</span>
+              <span class="gauge-zone-item"><span class="zone-circle" style="background:#b91c1c"></span>&gt; 35% Crítico</span>
             </div>
           </div>
         </div>
@@ -761,26 +791,14 @@
                 <div class="chartSub" id="subEvolucao">Selecione uma especialidade para detalhar • Mês/Ano = Todos mostra a linha do tempo completa</div>
               </div>
             </div>
-            <div class="chartWrap" style="height:380px;">
+            <!-- Altura aumentada para 450px e legenda ajustada -->
+            <div class="chartWrap" style="height:450px;">
               <canvas id="cEvolucao"></canvas>
             </div>
           </div>
         </div>
 
-        <div class="fullrow" style="margin-top:14px;">
-          <div class="chartCard">
-            <div class="chartHead">
-              <div>
-                <h3 id="titleMesSit">Agendamentos por Mês por Situação</h3>
-                <div class="chartSub">Quantidade de Agendados, Recepcionados, APAC e Faturados por mês</div>
-              </div>
-            </div>
-            <div class="chartWrap" style="height:380px;">
-              <canvas id="cMesSit"></canvas>
-            </div>
-          </div>
-        </div>
-
+        <!-- PRIMEIRA LINHA DE GRÁFICOS: Top Especialidades e Receita Financeira (alinhados) -->
         <div class="row2eq align-start" style="margin-top:14px;">
           <div class="chartCard">
             <div class="chartHead">
@@ -808,56 +826,63 @@
             </div>
           </div>
 
+          <!-- GRÁFICO DE RECEITA (agora em verde e com dados corrigidos) -->
           <div class="chartCard">
             <div class="chartHead">
               <div>
-                <h3 id="titleDistrib">Distribuição no Período (participação por métrica)</h3>
+                <h3 id="titleReceita">Receita Financeira por Especialidade</h3>
+                <div class="chartSub" id="subReceita">Faturamento total (R$) por especialidade no período (dados da coluna 'Financeiro')</div>
               </div>
               <div class="chart-filter-wrapper">
-                <div class="chart-filter-badge" onclick="toggleChartFilter('distribFilter', event)">
+                <div class="chart-filter-badge" onclick="toggleChartFilter('receitaFilter', event)">
                   <i class="fa-solid fa-filter"></i> Filtrar por mês
                 </div>
-                <div id="distribFilter" class="chart-filter-popup">
-                  <select id="distribMesSelect">
+                <div id="receitaFilter" class="chart-filter-popup">
+                  <select id="receitaMesSelect">
                     <option value="">Todos os meses</option>
                   </select>
                   <div class="filter-actions">
-                    <button class="btn-filter-apply" onclick="applyDistribFilter()">Aplicar</button>
-                    <button class="btn-filter-clear" onclick="clearDistribFilter()">Limpar</button>
+                    <button class="btn-filter-apply" onclick="applyReceitaFilter()">Aplicar</button>
+                    <button class="btn-filter-clear" onclick="clearReceitaFilter()">Limpar</button>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="chartWrap md">
-              <canvas id="cDistrib"></canvas>
+            <div class="chartWrap" style="height:480px;">
+              <canvas id="cReceita"></canvas>
             </div>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Tab: Idade -->
-    <section class="tabContent" id="tab-idade" style="margin-top:14px;">
-      <div class="card section">
-        <div class="sectionTitle"><i class="fa-solid fa-chart-column" style="color:var(--accent)"></i> Especialidade × Faixa Etária (no mês)</div>
-        <div class="row2eq">
+        <!-- SEGUNDA LINHA DE GRÁFICOS: Apenas Distribuição no Período -->
+        <div class="bottom-charts" style="margin-top:14px;">
           <div class="chartCard">
             <div class="chartHead">
               <div>
-                <h3>Quantidade por Faixa Etária (4 métricas)</h3>
-                <div class="chartSub">Para a especialidade selecionada, veja por idade quantos foram agendados/recepcionados/APAC/faturados</div>
+                <h3><i class="fa-solid fa-chart-pie" style="color:#0f2f5f"></i> Distribuição no Período</h3>
+                <div class="chartSub">Participação percentual de cada métrica no total do período selecionado</div>
+              </div>
+              <div class="chart-filter-wrapper">
+                <div class="chart-filter-badge" onclick="toggleChartFilter('distribuicaoFilter', event)">
+                  <i class="fa-solid fa-filter"></i> Filtrar por mês
+                </div>
+                <div id="distribuicaoFilter" class="chart-filter-popup">
+                  <select id="distribuicaoMesSelect">
+                    <option value="">Todos os meses</option>
+                  </select>
+                  <div class="filter-actions">
+                    <button class="btn-filter-apply" onclick="applyDistribuicaoFilter()">Aplicar</button>
+                    <button class="btn-filter-clear" onclick="clearDistribuicaoFilter()">Limpar</button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="chartWrap"><canvas id="cIdadeQtd"></canvas></div>
+            <div class="chartWrap" style="height:400px;">
+              <canvas id="cDistribuicao"></canvas>
+            </div>
           </div>
-          <div class="chartCard">
-            <div class="chartHead">
-              <div>
-                <h3>Taxas por Faixa Etária (eficiência)</h3>
-                <div class="chartSub">Recepção% (Rec/Ag), APAC% (APAC/Rec) e Faturamento% (Fat/Rec)</div>
-              </div>
-            </div>
-            <div class="chartWrap"><canvas id="cIdadeTaxas"></canvas></div>
+          <div class="chartCard" style="visibility:hidden;">
+            <!-- Card invisível para manter o grid 2 colunas -->
           </div>
         </div>
       </div>
@@ -924,6 +949,14 @@
                   <div class="th-filter-wrapper">
                     <span>Faturado</span>
                     <span class="th-filter-icon" onclick="event.stopPropagation();toggleColumnFilter('faturado', event)"><i class="fa-solid fa-filter"></i></span>
+                  </div>
+                  <span class="sort-icon"></span>
+                </th>
+                <!-- NOVA COLUNA FINANCEIRA -->
+                <th data-col="financeiro" onclick="sortTable('financeiro', this)">
+                  <div class="th-filter-wrapper">
+                    <span>Financeiro (R$)</span>
+                    <span class="th-filter-icon" onclick="event.stopPropagation();toggleColumnFilter('financeiro', event)"><i class="fa-solid fa-filter"></i></span>
                   </div>
                   <span class="sort-icon"></span>
                 </th>
@@ -1016,7 +1049,7 @@
           <div class="chartCard">
             <div class="chartHead">
               <div>
-                <h3><i class="fa-solid fa-bars-staggered" style="color:#10b981;margin-right:6px"></i>Receita por Especialidade — Total do Período</h3>
+                <h3><i class="fa-solid fa-bars-staggered" style="color:#059669;margin-right:6px"></i>Receita por Especialidade — Total do Período</h3>
               </div>
               <div class="chart-filter-wrapper">
                 <div class="chart-filter-badge" onclick="toggleChartFilter('receitaEspFilter', event)">
@@ -1045,7 +1078,6 @@
                 <div class="chartSub">Fatia % de cada especialidade sobre a receita total acumulada</div>
               </div>
 
-              <!-- NOVO: filtro por mês no donut financeiro -->
               <div class="chart-filter-wrapper">
                 <div class="chart-filter-badge" onclick="toggleChartFilter('finDonutFilter', event)">
                   <i class="fa-solid fa-filter"></i> Filtrar por mês
@@ -1115,15 +1147,15 @@
 
   // ===== CONFIG =====
   const SHEET_ID = "1BONeij455aKawVr1iyskMLAJMKeBHzWmUZp_E-TDUWo";
-  const GID      = "2108990586";
-  const GID_FIN  = "1538908139";
+  const GID      = "2108990586";  // CONSOLIDADO OCI (COM COLUNA FINANCEIRA)
+  const GID_FIN  = "1538908139";  // FINANCEIRO
   const CSV_URL     = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
   const CSV_FIN_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID_FIN}`;
 
   // ===== FINANCIAL CONSTANTS =====
   const FIN_COLORS = [
     "#0f2f5f","#1a3a6b","#2a5298","#3b82f6",
-    "#10b981","#f59e0b","#8b5cf6","#ef4444"
+    "#059669","#d97706","#8b5cf6","#b91c1c"
   ];
   const FIN_MONTH_MAP = {
     "jan":{m:1,label:"Jan"},"fev":{m:2,label:"Fev"},"mar":{m:3,label:"Mar"},
@@ -1139,14 +1171,15 @@
   let selectedEspecialidades = new Set();
   let allEspecialidades = [];
 
-  // Chart filter states (OCI)
+  // Chart filter states
   let topEspFilterMonth = "";
-  let distribFilterMonth = "";
-  let indicadoresFilterMonth = ""; // NOVO
+  let indicadoresFilterMonth = "";
+  let receitaFilterMonth = "";
+  let distribuicaoFilterMonth = "";
 
   // Chart filter states (Financeiro)
   let receitaEspFilterMonth = "";
-  let finDonutFilterMonth = ""; // NOVO
+  let finDonutFilterMonth = "";
 
   // Column filter states
   let activeColumnFilter = null;
@@ -1155,11 +1188,11 @@
   // Financial column filter states
   let activeFinColumnFilter = null;
   let finColumnFilterValues = [];
-  let finColumnFilterType = null; // 'esp', 'month', 'total'
+  let finColumnFilterType = null;
 
   // ===== FINANCIAL STATE =====
-  let finData   = [];  // [{esp, monthValues:{key:val}, total}]
-  let finMonths = [];  // [{key,label,shortLabel,y,m,header}]
+  let finData   = [];
+  let finMonths = [];
 
   const charts = {};
   const PT_MONTH = { jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10,nov:11,dez:12 };
@@ -1177,19 +1210,16 @@
     const wrapper = el("msWrapper");
     if(wrapper && !wrapper.contains(e.target)) closeMsDropdown();
 
-    // Close column filter popup if clicked outside (CORRIGIDO: considerar clique no <i>)
     const colFilter = el("columnFilterPopup");
     if(colFilter && !colFilter.contains(e.target) && !e.target.closest('.th-filter-icon')) {
       colFilter.classList.remove('show');
     }
 
-    // Close financial column filter popup if clicked outside (CORRIGIDO: considerar clique no <i>)
     const finColFilter = el("finColumnFilterPopup");
     if(finColFilter && !finColFilter.contains(e.target) && !e.target.closest('.fin-filter-icon')) {
       finColFilter.classList.remove('show');
     }
 
-    // Close chart filter popups if clicked outside
     document.querySelectorAll('.chart-filter-popup').forEach(popup => {
       if(!popup.contains(e.target) && !e.target.closest('.chart-filter-badge')) {
         popup.classList.remove('show');
@@ -1250,6 +1280,16 @@
   function normStr(v){ if(v===null||v===undefined) return ""; return String(v).normalize("NFC").replace(/\s+/g," ").trim(); }
   function normHeader(h){ return normStr(h).toUpperCase(); }
   function toInt(v){ const s=normStr(v).toUpperCase(); if(!s||s==="SEM DADOS") return 0; const n=parseInt(s.replace(/[^\d-]/g,""),10); return Number.isFinite(n)?n:0; }
+  
+  // NOVA FUNÇÃO: parse financeiro da nova coluna
+  function parseFinanceiro(v){
+    const s=normStr(v).toUpperCase().trim();
+    if(!s||s==="NT"||s==="-"||s==="N/A"||s==="—"||s==="S/D"||s==="SEM DADOS") return 0;
+    const clean=s.replace(/R\$\s*/g,"").replace(/\./g,"").replace(",",".").trim();
+    const n=parseFloat(clean);
+    return isNaN(n)?0:n;
+  }
+  
   function parseMesAno(raw){
     const s=normStr(raw).toLowerCase();
     if(!s) return {key:"",label:"",y:0,m:0};
@@ -1269,6 +1309,16 @@
     m=v.match(/(\d{1,3})/);
     if(m) return parseInt(m[1],10);
     return 999998;
+  }
+
+  // ===== FUNÇÃO PARA NORMALIZAR NOMES DE ESPECIALIDADES =====
+  function normalizeEspName(esp) {
+    return esp
+      .toLowerCase()
+      .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      .replace(/[^\w\s]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   // ===== FILTER POPUP FUNCTIONS =====
@@ -1295,19 +1345,6 @@
     buildTop(getActiveEsp(), el("fMesAno").value);
   }
 
-  function applyDistribFilter() {
-    distribFilterMonth = el("distribMesSelect").value;
-    el("distribFilter").classList.remove('show');
-    buildDistrib(getActiveEsp(), distribFilterMonth || el("fMesAno").value);
-  }
-  function clearDistribFilter() {
-    distribFilterMonth = "";
-    el("distribMesSelect").value = "";
-    el("distribFilter").classList.remove('show');
-    buildDistrib(getActiveEsp(), el("fMesAno").value);
-  }
-
-  // NOVO: filtro de mês para Indicadores (gauge)
   function applyIndicadoresFilter(){
     indicadoresFilterMonth = el("indicadoresMesSelect").value;
     el("indicadoresFilter").classList.remove('show');
@@ -1318,6 +1355,30 @@
     el("indicadoresMesSelect").value = "";
     el("indicadoresFilter").classList.remove('show');
     updateCharts();
+  }
+
+  function applyReceitaFilter() {
+    receitaFilterMonth = el("receitaMesSelect").value;
+    el("receitaFilter").classList.remove('show');
+    buildReceita();
+  }
+  function clearReceitaFilter() {
+    receitaFilterMonth = "";
+    el("receitaMesSelect").value = "";
+    el("receitaFilter").classList.remove('show');
+    buildReceita();
+  }
+
+  function applyDistribuicaoFilter() {
+    distribuicaoFilterMonth = el("distribuicaoMesSelect").value;
+    el("distribuicaoFilter").classList.remove('show');
+    buildDistribuicao();
+  }
+  function clearDistribuicaoFilter() {
+    distribuicaoFilterMonth = "";
+    el("distribuicaoMesSelect").value = "";
+    el("distribuicaoFilter").classList.remove('show');
+    buildDistribuicao();
   }
 
   function applyReceitaEspFilter() {
@@ -1332,7 +1393,6 @@
     buildFinBarEsp();
   }
 
-  // NOVO: filtro por mês no donut financeiro
   function applyFinDonutFilter() {
     finDonutFilterMonth = el("finDonutMesSelect").value;
     el("finDonutFilter").classList.remove('show');
@@ -1355,7 +1415,7 @@
     if(col === 'especialidade') {
       values = [...new Set(dataF.map(x => x.especialidade))].sort();
     } else if(col === 'idade') {
-      values = [...new Set(dataF.map(x => x.idade || "Não informado"))].sort();
+            values = [...new Set(dataF.map(x => x.idade || "Não informado"))].sort();
     } else if(col === 'mesKey') {
       values = [...new Set(dataF.map(x => x.mesLabel || x.mesRaw))].sort();
     } else {
@@ -1386,7 +1446,7 @@
     renderTable();
   }
 
-  // Financial column filter functions (CORRIGIDO E MELHORADO)
+  // Financial column filter functions
   function toggleFinColumnFilter(type, event) {
     event.stopPropagation();
     const popup = el("finColumnFilterPopup");
@@ -1494,18 +1554,35 @@
         const idade=normStr(r["IDADE"]);
         const mesRaw=normStr(r["MÊS/2025"]||r["MES/2025"]||r["MÊS"]||r["MES"]);
         const mes=parseMesAno(mesRaw);
+        
+        // COLUNA FINANCEIRA - tentar vários nomes possíveis
+        let financeiroVal = 0;
+        if(r["FINANCEIRO"] !== undefined) financeiroVal = parseFinanceiro(r["FINANCEIRO"]);
+        else if(r["VALOR"] !== undefined) financeiroVal = parseFinanceiro(r["VALOR"]);
+        else if(r["RECEITA"] !== undefined) financeiroVal = parseFinanceiro(r["RECEITA"]);
+        else if(r["R$"] !== undefined) financeiroVal = parseFinanceiro(r["R$"]);
+        else {
+          // Tentar a última coluna (se não tiver nome específico)
+          const keys = Object.keys(r);
+          if(keys.length > 0) {
+            const lastKey = keys[keys.length - 1];
+            financeiroVal = parseFinanceiro(r[lastKey]);
+          }
+        }
+        
         return {
           especialidade:especialidade.replace(/\s+/g," ").trim(),
           idade,mesRaw,
           mesKey:mes.key,mesLabel:mes.label,mesY:mes.y,mesM:mes.m,
           agendado:toInt(r["AGENDADO"]),recepcionado:toInt(r["RECEPCIONADO"]),
           apac:toInt(r["APAC GERADAS"]||r["APAC"]||r["APACGERADAS"]),
-          faturado:toInt(r["FATURADO"])
+          faturado:toInt(r["FATURADO"]),
+          financeiro: financeiroVal
         };
       }).filter(x=>x.especialidade);
       allData.sort((a,b)=>mesSortKey(a)-mesSortKey(b)||a.especialidade.localeCompare(b.especialidade));
       fillFilters();
-      populateOciMonthFilterSelects(); // NOVO
+      populateOciMonthFilterSelects();
       applyFilters();
 
       const now=new Date();
@@ -1605,7 +1682,6 @@
   function buildFinCharts(){
     if(!finData.length||!finMonths.length) return;
 
-    // Populate FINANCIAL filter selects (somente os do Financeiro)
     const monthOptions = finMonths.map(m => `<option value="${m.key}">${m.shortLabel}</option>`).join('');
     el("receitaEspMesSelect").innerHTML = '<option value="">Todos os meses</option>' + monthOptions;
     el("finDonutMesSelect").innerHTML = '<option value="">Todos os meses</option>' + monthOptions;
@@ -1640,7 +1716,7 @@
           fill:true,tension:0.38,borderWidth:3,
           pointRadius:monthTotals.map(m=>m.total===maxVal||m.total===minVal?9:6),
           pointHoverRadius:11,
-          pointBackgroundColor:monthTotals.map(m=>m.total===maxVal?"#f59e0b":m.total===minVal?"#ef4444":"#0f2f5f"),
+          pointBackgroundColor:monthTotals.map(m=>m.total===maxVal?"#d97706":m.total===minVal?"#b91c1c":"#0f2f5f"),
           pointBorderColor:"#fff",pointBorderWidth:2.5
         }]
       },
@@ -1650,7 +1726,7 @@
           legend:{display:false},
           datalabels:{
             display:true,anchor:"top",align:"top",offset:6,
-            color:(ctx)=>vals[ctx.dataIndex]===maxVal?"#b45309":vals[ctx.dataIndex]===minVal?"#b91c1c":"#0f172a",
+            color:(ctx)=>vals[ctx.dataIndex]===maxVal?"#92400e":vals[ctx.dataIndex]===minVal?"#b91c1c":"#0f172a",
             font:{size:12,weight:"900"},
             formatter:(v)=>formatBRL(v)
           },
@@ -1662,7 +1738,7 @@
             beginAtZero:true,
             ticks:{
               font:{size:11,weight:"700"},
-              callback:(v)=>formatBRLCompact(v)  // CORRIGIDO: moeda
+              callback:(v)=>formatBRLCompact(v)
             },
             grid:{color:"rgba(2,6,23,.06)"}
           }
@@ -1678,7 +1754,7 @@
         const prev=monthTotals[i-1];
         const delta=prev.total?((m.total-prev.total)/prev.total*100):0;
         const sign=delta>=0?"+":"";
-        const col=delta>=0?"#10b981":"#ef4444";
+        const col=delta>=0?"#059669":"#b91c1c";
         const arr=delta>=0?"↑":"↓";
         return `<div class="fin-mom-pill">${base}<span class="fin-mom-pill-delta" style="color:${col}">${arr} ${sign}${delta.toFixed(1)}%</span></div>`;
       });
@@ -1707,7 +1783,7 @@
         datasets:[{
           label:"Receita",
           data:sorted.map(r=>r.total),
-          backgroundColor:sorted.map((_,i)=>FIN_COLORS[i%FIN_COLORS.length]+"CC"),
+          backgroundColor:sorted.map((_,i)=>FIN_COLORS[i%FIN_COLORS.length]),
           borderRadius:8, barThickness:26
         }]
       },
@@ -1730,7 +1806,7 @@
             beginAtZero:true,
             ticks:{
               font:{size:11,weight:"700"},
-              callback:(v)=>formatBRLCompact(v) // CORRIGIDO: moeda
+              callback:(v)=>formatBRLCompact(v)
             },
             grid:{color:"rgba(2,6,23,.05)"}
           },
@@ -1740,7 +1816,7 @@
     });
   }
 
-  // ===== FIN CHART 3: Donut Participação (COM FILTRO) =====
+  // ===== FIN CHART 3: Donut Participação =====
   function buildFinDonut(){
     destroy("cFinDonut");
     const ctx=el("cFinDonut").getContext("2d");
@@ -1859,7 +1935,7 @@
             beginAtZero:true,
             ticks:{
               font:{size:11,weight:"700"},
-              callback:(v)=>formatBRLCompact(v) // CORRIGIDO: moeda
+              callback:(v)=>formatBRLCompact(v)
             },
             grid:{color:"rgba(2,6,23,.06)"}
           }
@@ -1876,7 +1952,6 @@
       return;
     }
 
-    // Apply filters (CORRIGIDO)
     let dataToShow = [...finData];
 
     if(finColumnFilterValues.length > 0 && finColumnFilterType){
@@ -1922,7 +1997,7 @@
                 <span class="th-filter-icon fin-filter-icon" onclick="event.stopPropagation();toggleFinColumnFilter('month-${m.key}', event)"><i class="fa-solid fa-filter"></i></span>
               </div>
             </th>`).join("")}
-            <th style="${thBase}text-align:right;background:linear-gradient(135deg,#063b25,#0a5c38);color:#d1fae5;z-index:2;">
+            <th style="${thBase}text-align:right;background:linear-gradient(135deg,#065f46,#059669);color:#d1fae5;z-index:2;">
               <div class="th-filter-wrapper">
                 <span>Total</span>
                 <span class="th-filter-icon fin-filter-icon" onclick="event.stopPropagation();toggleFinColumnFilter('total', event)"><i class="fa-solid fa-filter"></i></span>
@@ -1938,7 +2013,7 @@
                 const v=r.monthValues[m.key]||0;
                 return `<td style="padding:9px 14px;text-align:right;font-weight:700;white-space:nowrap;border-bottom:1px solid #e2e8f0;color:${v>0?"#0f172a":"#94a3b8"};">${v>0?formatBRL(v):"<span style='font-size:10px;color:#94a3b8;font-weight:800;'>NT</span>"}</td>`;
               }).join("")}
-              <td style="padding:9px 14px;text-align:right;font-weight:900;white-space:nowrap;border-bottom:1px solid #e2e8f0;color:#047857;background:rgba(16,185,129,.07);">${formatBRL(r.total)}</td>
+              <td style="padding:9px 14px;text-align:right;font-weight:900;white-space:nowrap;border-bottom:1px solid #e2e8f0;color:#047857;background:rgba(5,150,105,.07);">${formatBRL(r.total)}</td>
             </tr>
           `).join("")}
           <tr style="background:linear-gradient(135deg,rgba(8,26,54,.96),rgba(26,58,107,.96));">
@@ -1962,7 +2037,6 @@
     buildMsList(); updateMsLabel();
   }
 
-  // NOVO: preencher selects de filtro por mês do OCI (Visão Geral)
   function populateOciMonthFilterSelects(){
     const meses = [...new Map(
       allData
@@ -1974,8 +2048,9 @@
     const html = `<option value="">Todos os meses</option>` + meses.map(m=>`<option value="${m.key}">${m.label}</option>`).join("");
 
     if(el("topEspMesSelect")) el("topEspMesSelect").innerHTML = html;
-    if(el("distribMesSelect")) el("distribMesSelect").innerHTML = html;
     if(el("indicadoresMesSelect")) el("indicadoresMesSelect").innerHTML = html;
+    if(el("receitaMesSelect")) el("receitaMesSelect").innerHTML = html;
+    if(el("distribuicaoMesSelect")) el("distribuicaoMesSelect").innerHTML = html;
   }
 
   function clearFilters(){
@@ -2028,9 +2103,8 @@
   function getActiveEsp(){ return selectedEspecialidades.size===1?[...selectedEspecialidades][0]:""; }
   function labelMes(key){ const found=allData.find(x=>x.mesKey===key); return found?found.mesLabel:key; }
 
-  // NOVO: retorna dados OCI respeitando filtro de especialidade atual e um mês específico
   function getOciDataForMonth(monthKey){
-    if(!monthKey) return dataF; // respeita filtro global de mês (se houver)
+    if(!monthKey) return dataF;
     const globalMes = el("fMesAno").value;
     if(globalMes && globalMes === monthKey) return dataF;
 
@@ -2046,19 +2120,16 @@
   function updateCharts(){
     const esp=getActiveEsp(), mes=el("fMesAno").value;
 
-    buildMesSit(esp,mes);
     buildEvolucao(esp,mes);
-
     buildTop(esp, topEspFilterMonth || mes);
-    buildDistrib(esp, distribFilterMonth || mes);
 
-    buildIdadeQtd(esp,mes);
-    buildIdadeTaxas(esp,mes);
-
-    // Gauges agora respeitam o filtro de Indicadores (se preenchido)
     const indMes = indicadoresFilterMonth || mes;
     buildGaugeFatRec(indMes);
     buildGaugeAbsenteismo(indMes);
+
+    // GRÁFICOS COM FILTROS
+    buildReceita();  
+    buildDistribuicao(); 
 
     el("subEvolucao").textContent=esp
       ?`Especialidade: ${esp} • ${mes?("Mês: "+labelMes(mes)):"Todos os meses"}`
@@ -2075,13 +2146,13 @@
 
     const pctVal=rec>0?Math.min((fat/rec)*100,100):0;
     let color,badgeBg,badgeColor,badgeText;
-    if(pctVal>=80){color="#10b981";badgeBg="rgba(16,185,129,.30)";badgeColor="#064e3b";badgeText="✓ Ótimo";}
-    else if(pctVal>=50){color="#f59e0b";badgeBg="rgba(245,158,11,.28)";badgeColor="#78350f";badgeText="⚠ Regular";}
-    else{color="#ef4444";badgeBg="rgba(239,68,68,.26)";badgeColor="#7f1d1d";badgeText="✗ Crítico";}
+    if(pctVal>=80){color="#059669";badgeBg="rgba(5,150,105,.30)";badgeColor="#064e3b";badgeText="✓ Ótimo";}
+    else if(pctVal>=50){color="#d97706";badgeBg="rgba(217,119,6,.28)";badgeColor="#78350f";badgeText="⚠ Regular";}
+    else{color="#b91c1c";badgeBg="rgba(185,28,28,.26)";badgeColor="#7f1d1d";badgeText="✗ Crítico";}
     el("gaugeFatRecPct").textContent=pctVal.toFixed(1)+"%"; el("gaugeFatRecPct").style.color=color;
     const badge=el("gaugeFatRecBadge"); badge.textContent=badgeText; badge.style.background=badgeBg; badge.style.color=badgeColor; badge.style.border=`1px solid ${color}99`;
     el("gFatRecRec").textContent=rec.toLocaleString("pt-BR"); el("gFatRecFat").textContent=fat.toLocaleString("pt-BR"); el("gFatRecDiff").textContent=Math.max(0,rec-fat).toLocaleString("pt-BR");
-    charts["cGaugeFatRec"]=new Chart(ctx,{type:"doughnut",data:{datasets:[{data:[50,30,20],backgroundColor:["rgba(239,68,68,.50)","rgba(245,158,11,.50)","rgba(16,185,129,.50)"],borderWidth:0,hoverOffset:0,weight:1},{data:[pctVal,100-pctVal],backgroundColor:[color,"rgba(226,232,240,0.0)"],borderWidth:0,borderRadius:8,hoverOffset:0,weight:2}]},options:{rotation:-90,circumference:180,cutout:"68%",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false},datalabels:{display:false}},animation:{animateRotate:true,duration:900}}});
+    charts["cGaugeFatRec"]=new Chart(ctx,{type:"doughnut",data:{datasets:[{data:[50,30,20],backgroundColor:["rgba(185,28,28,.50)","rgba(217,119,6,.50)","rgba(5,150,105,.50)"],borderWidth:0,hoverOffset:0,weight:1},{data:[pctVal,100-pctVal],backgroundColor:[color,"rgba(226,232,240,0.0)"],borderWidth:0,borderRadius:8,hoverOffset:0,weight:2}]},options:{rotation:-90,circumference:180,cutout:"68%",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false},datalabels:{display:false}},animation:{animateRotate:true,duration:900}}});
   }
 
   // ===== GAUGE 2: Índice de Absenteísmo =====
@@ -2094,19 +2165,20 @@
 
     const absPct=ag>0?Math.min((ausencias/ag)*100,100):0;
     let color,badgeBg,badgeColor,badgeText;
-    if(absPct<=10){color="#10b981";badgeBg="rgba(16,185,129,.30)";badgeColor="#064e3b";badgeText="✓ Excelente";}
+    if(absPct<=10){color="#059669";badgeBg="rgba(5,150,105,.30)";badgeColor="#064e3b";badgeText="✓ Excelente";}
     else if(absPct<=20){color="#3b82f6";badgeBg="rgba(59,130,246,.28)";badgeColor="#1e3a8a";badgeText="✓ Bom";}
-    else if(absPct<=35){color="#f59e0b";badgeBg="rgba(245,158,11,.28)";badgeColor="#78350f";badgeText="⚠ Atenção";}
-    else{color="#ef4444";badgeBg="rgba(239,68,68,.26)";badgeColor="#7f1d1d";badgeText="✗ Crítico";}
+    else if(absPct<=35){color="#d97706";badgeBg="rgba(217,119,6,.28)";badgeColor="#78350f";badgeText="⚠ Atenção";}
+    else{color="#b91c1c";badgeBg="rgba(185,28,28,.26)";badgeColor="#7f1d1d";badgeText="✗ Crítico";}
     el("gaugeAbsPct").textContent=absPct.toFixed(1)+"%"; el("gaugeAbsPct").style.color=color;
     const badge=el("gaugeAbsBadge"); badge.textContent=badgeText; badge.style.background=badgeBg; badge.style.color=badgeColor; badge.style.border=`1px solid ${color}99`;
     el("gAbsAg").textContent=ag.toLocaleString("pt-BR"); el("gAbsRec").textContent=rec.toLocaleString("pt-BR"); el("gAbsAus").textContent=ausencias.toLocaleString("pt-BR");
-    charts["cGaugeAbs"]=new Chart(ctx,{type:"doughnut",data:{datasets:[{data:[10,10,15,65],backgroundColor:["rgba(16,185,129,.50)","rgba(59,130,246,.50)","rgba(245,158,11,.50)","rgba(239,68,68,.50)"],borderWidth:0,hoverOffset:0,weight:1},{data:[absPct,100-absPct],backgroundColor:[color,"rgba(226,232,240,0.0)"],borderWidth:0,borderRadius:8,hoverOffset:0,weight:2}]},options:{rotation:-90,circumference:180,cutout:"68%",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false},datalabels:{display:false}},animation:{animateRotate:true,duration:900}}});
+    charts["cGaugeAbs"]=new Chart(ctx,{type:"doughnut",data:{datasets:[{data:[10,10,15,65],backgroundColor:["rgba(5,150,105,.50)","rgba(59,130,246,.50)","rgba(217,119,6,.50)","rgba(185,28,28,.50)"],borderWidth:0,hoverOffset:0,weight:1},{data:[absPct,100-absPct],backgroundColor:[color,"rgba(226,232,240,0.0)"],borderWidth:0,borderRadius:8,hoverOffset:0,weight:2}]},options:{rotation:-90,circumference:180,cutout:"68%",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false},datalabels:{display:false}},animation:{animateRotate:true,duration:900}}});
   }
 
   // ===== CHART: Evolução Mensal OCI =====
   function buildEvolucao(esp,mes){
     destroy("cEvolucao");
+    const ctx=el("cEvolucao").getContext("2d");
     const source=mes
       ? allData.filter(x=>{
           if(selectedEspecialidades.size>0&&selectedEspecialidades.size<allEspecialidades.length){
@@ -2124,36 +2196,49 @@
       o.ag+=x.agendado; o.rec+=x.recepcionado; o.apac+=x.apac; o.fat+=x.faturado;
     });
     const arr=[...map.entries()].map(([k,v])=>({key:k,...v})).sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m));
-    const ctx=el("cEvolucao").getContext("2d");
-    const datasetColors=["#3b82f6","#10b981","#f59e0b","#ef4444"];
+    const datasetColors=["#3b82f6","#059669","#d97706","#b91c1c"];
     charts["cEvolucao"]=new Chart(ctx,{
       type:"line",
       data:{
         labels:arr.map(x=>x.label),
         datasets:[
           {label:"Agendado",data:arr.map(x=>x.ag),borderColor:"#3b82f6",backgroundColor:"rgba(59,130,246,.10)",tension:.35,fill:true,borderWidth:2.5,pointRadius:5,pointHoverRadius:7},
-          {label:"Recepcionado",data:arr.map(x=>x.rec),borderColor:"#10b981",backgroundColor:"rgba(16,185,129,.08)",tension:.35,fill:false,borderWidth:2.5,pointRadius:5,pointHoverRadius:7},
-          {label:"APAC",data:arr.map(x=>x.apac),borderColor:"#f59e0b",backgroundColor:"rgba(245,158,11,.10)",tension:.35,fill:false,borderWidth:2.5,pointRadius:5,pointHoverRadius:7},
-          {label:"Faturado",data:arr.map(x=>x.fat),borderColor:"#ef4444",backgroundColor:"rgba(239,68,68,.08)",tension:.35,fill:false,borderWidth:2.5,pointRadius:5,pointHoverRadius:7}
+          {label:"Recepcionado",data:arr.map(x=>x.rec),borderColor:"#059669",backgroundColor:"rgba(5,150,105,.08)",tension:.35,fill:false,borderWidth:2.5,pointRadius:5,pointHoverRadius:7},
+          {label:"APAC",data:arr.map(x=>x.apac),borderColor:"#d97706",backgroundColor:"rgba(217,119,6,.10)",tension:.35,fill:false,borderWidth:2.5,pointRadius:5,pointHoverRadius:7},
+          {label:"Faturado",data:arr.map(x=>x.fat),borderColor:"#b91c1c",backgroundColor:"rgba(185,28,28,.08)",tension:.35,fill:false,borderWidth:2.5,pointRadius:5,pointHoverRadius:7}
         ]
       },
       options:{
         ...baseOptions(),
         plugins:{
           ...baseOptions().plugins,
-          legend:{position:"top",labels:{font:{size:13,weight:"800"},padding:18}},
+          legend:{
+            position:"top",
+            labels:{
+              font:{size:13,weight:"800"},
+              padding:10,  // Aumentado padding para dar mais espaço
+              usePointStyle: true,
+              pointStyle: "circle"
+            }
+          },
           datalabels:{
-            display:true,anchor:"end",align:"top",offset:4,
+            display:true,anchor:"end",align:"top",offset:6, // Aumentado offset para afastar da linha
             color:(ctx)=>datasetColors[ctx.datasetIndex]||"#0f172a",
             font:{size:11,weight:"800"},
             formatter:(v)=>v?v.toLocaleString("pt-BR"):""
+          }
+        },
+        layout: {
+          padding: {
+            top: 10,    // Aumentado padding superior para afastar a legenda
+            bottom: 20
           }
         }
       }
     });
   }
 
-  // ===== CHART: Top Especialidades (CORRIGIDO filtro por mês) =====
+  // ===== CHART: Top Especialidades =====
   function buildTop(esp,mes){
     destroy("cTop");
     const ctx=el("cTop").getContext("2d");
@@ -2176,8 +2261,8 @@
       charts["cTop"]=new Chart(ctx,{
         type:"bar",
         data:{labels:arr.map(x=>x.idade),datasets:[
-          {label:"Recepcionado",data:arr.map(x=>x.rec),backgroundColor:"#10b981",borderRadius:6,barThickness:22},
-          {label:"Faturado",data:arr.map(x=>x.fat),backgroundColor:"#ef4444",borderRadius:6,barThickness:22}
+          {label:"Recepcionado",data:arr.map(x=>x.rec),backgroundColor:"#059669",borderRadius:6,barThickness:22},
+          {label:"Faturado",data:arr.map(x=>x.fat),backgroundColor:"#b91c1c",borderRadius:6,barThickness:22}
         ]},
         options:{
           ...baseOptions(),
@@ -2210,14 +2295,14 @@
     });
 
     const arr=[...map.entries()].map(([k,v])=>({esp:k,...v})).sort((a,b)=>b.rec-a.rec);
-    const dynamicH=Math.max(400,arr.length*48+80);
+    const dynamicH=Math.max(480,arr.length*48+80); // Garantir altura mínima de 480px
     el("cTopWrap").style.height=dynamicH+"px";
 
     charts["cTop"]=new Chart(ctx,{
       type:"bar",
       data:{labels:arr.map(x=>x.esp),datasets:[
-        {label:"Recepcionado",data:arr.map(x=>x.rec),backgroundColor:"#10b981",borderRadius:6,barThickness:22},
-        {label:"Faturado",data:arr.map(x=>x.fat),backgroundColor:"#ef4444",borderRadius:6,barThickness:22}
+        {label:"Recepcionado",data:arr.map(x=>x.rec),backgroundColor:"#059669",borderRadius:6,barThickness:22},
+        {label:"Faturado",data:arr.map(x=>x.fat),backgroundColor:"#b91c1c",borderRadius:6,barThickness:22}
       ]},
       options:{
         responsive:true,maintainAspectRatio:false,indexAxis:"y",
@@ -2238,179 +2323,213 @@
       : "Todas as especialidades no período selecionado (do maior para o menor Recepcionado).";
   }
 
-  // ===== CHART: Agendamentos por Mês por Situação =====
-  function buildMesSit(esp,mes){
-    destroy("cMesSit");
-    const ctx=el("cMesSit").getContext("2d");
-    const source=(selectedEspecialidades.size>0&&selectedEspecialidades.size<allEspecialidades.length)
-      ? allData.filter(x=>selectedEspecialidades.has(x.especialidade))
-      : allData;
+  // ===== GRÁFICO: Receita por Especialidade =====
+  function buildReceita(){
+    destroy("cReceita");
+    const ctx=el("cReceita").getContext("2d");
 
-    const map=new Map();
-    source.forEach(x=>{
-      if(!x.mesKey) return;
-      if(!map.has(x.mesKey)) map.set(x.mesKey,{label:x.mesLabel,y:x.mesY,m:x.mesM,ag:0,rec:0,apac:0,fat:0});
-      const o=map.get(x.mesKey);
-      o.ag+=x.agendado; o.rec+=x.recepcionado; o.apac+=x.apac; o.fat+=x.faturado;
-    });
-    const arr=[...map.entries()].map(([k,v])=>({key:k,...v})).sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m));
-    charts["cMesSit"]=new Chart(ctx,{
-      type:"bar",
-      data:{labels:arr.map(x=>x.label),datasets:[
-        {label:"Agendados",data:arr.map(x=>x.ag),backgroundColor:"#1a3a6b",borderRadius:6,borderSkipped:false},
-        {label:"Recepcionados",data:arr.map(x=>x.rec),backgroundColor:"#3b82f6",borderRadius:6,borderSkipped:false},
-        {label:"APAC",data:arr.map(x=>x.apac),backgroundColor:"#f59e0b",borderRadius:6,borderSkipped:false},
-        {label:"Faturado",data:arr.map(x=>x.fat),backgroundColor:"#ef4444",borderRadius:6,borderSkipped:false}
-      ]},
-      options:{
-        responsive:true,maintainAspectRatio:false,
-        barPercentage:0.92,categoryPercentage:0.85,
-        plugins:{
-          legend:{position:"bottom",labels:{font:{size:12,weight:"800"},padding:16,boxWidth:14}},
-          datalabels:{
-            display:(ctx)=>{const v=ctx.dataset.data[ctx.dataIndex];return v>0;},
-            anchor:"center",align:"center",color:"#ffffff",
-            font:{size:13,weight:"900"},
-            formatter:(v)=>v?v.toLocaleString("pt-BR"):""
-          },
-          tooltip:{
-            titleFont:{size:12,weight:"800"},bodyFont:{size:12},
-            callbacks:{label:(ctx)=>`${ctx.dataset.label}: ${Number(ctx.raw||0).toLocaleString("pt-BR")}`}
-          }
-        },
-        scales:{
-          x:{ticks:{font:{size:11,weight:"700"}},grid:{display:false}},
-          y:{beginAtZero:true,ticks:{font:{size:11,weight:"700"}},grid:{color:"rgba(2,6,23,.06)"}}
-        }
+    if(!allData.length) {
+      ctx.font = "14px Inter";
+      ctx.fillStyle = "#64748b";
+      ctx.textAlign = "center";
+      ctx.fillText("Carregando dados...", ctx.canvas.width/2, ctx.canvas.height/2);
+      return;
+    }
+
+    // Usar filtro de mês específico do gráfico OU filtro global
+    const mesFiltro = receitaFilterMonth || el("fMesAno").value;
+    
+    // Obter os dados com base no mês filtrado e nas especialidades selecionadas
+    const source = getOciDataForMonth(mesFiltro);
+
+    // Agrupar por especialidade e somar a coluna 'financeiro'
+    const mapFinanceiro = new Map();
+    source.forEach(item => {
+      const esp = item.especialidade;
+      if (!esp) return;
+      
+      const valor = item.financeiro || 0;
+      if (valor <= 0) return; // Ignorar valores zero ou nulos para este gráfico
+      
+      if (!mapFinanceiro.has(esp)) {
+        mapFinanceiro.set(esp, 0);
       }
+      mapFinanceiro.set(esp, mapFinanceiro.get(esp) + valor);
     });
-  }
 
-  // ===== CHART: Distribuição Donut OCI (agora usa helper) =====
-  function buildDistrib(esp,mes){
-    destroy("cDistrib");
-    const ctx=el("cDistrib").getContext("2d");
+    if (mapFinanceiro.size === 0) {
+      ctx.font = "14px Inter";
+      ctx.fillStyle = "#64748b";
+      ctx.textAlign = "center";
+      ctx.fillText("Sem dados financeiros para o período selecionado", ctx.canvas.width/2, ctx.canvas.height/2);
+      return;
+    }
 
-    const source = getOciDataForMonth(mes);
+    // Converter para array e ordenar por valor (maior para menor)
+    const dadosArray = Array.from(mapFinanceiro, ([esp, valor]) => ({ esp, valor }))
+                              .sort((a, b) => b.valor - a.valor);
+    
+    // Limitar a 15 itens para não poluir o gráfico
+    const dadosLimitados = dadosArray.slice(0, 15);
+    const labels = dadosLimitados.map(d => d.esp);
+    const valores = dadosLimitados.map(d => d.valor);
 
-    const ag=source.reduce((acc,x)=>acc+(x.agendado||0),0);
-    const rec=source.reduce((acc,x)=>acc+(x.recepcionado||0),0);
-    const ap=source.reduce((acc,x)=>acc+(x.apac||0),0);
-    const fat=source.reduce((acc,x)=>acc+(x.faturado||0),0);
-
-    charts["cDistrib"]=new Chart(ctx,{
-      type:"doughnut",
-      data:{
-        labels:["Agendado","Recepcionado","APAC","Faturado"],
-        datasets:[{data:[ag,rec,ap,fat],backgroundColor:["#1a3a6b","#10b981","#f59e0b","#ef4444"],borderColor:"#fff",borderWidth:3}]
+    charts["cReceita"] = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels,
+        datasets: [{
+          label: "Receita (R$)",
+          data: valores,
+          backgroundColor: "#059669", // Verde
+          borderRadius: 6,
+          barThickness: 22
+        }]
       },
-      options:{
-        responsive:true,maintainAspectRatio:false,cutout:"55%",
-        plugins:{
-          legend:{position:"bottom",labels:{font:{size:12,weight:"800"},padding:16,boxWidth:14}},
-          datalabels:{
-            color:"#fff",font:{size:15,weight:"900"},
-            textShadowColor:"rgba(0,0,0,0.4)",textShadowBlur:4,
-            formatter:(v,ctx)=>{
-              const t=ctx.dataset.data.reduce((a,b)=>a+b,0);
-              if(!t||!v) return "";
-              const p=(v/t)*100;
-              if(p<5) return "";
-              return v.toLocaleString("pt-BR")+"\n"+p.toFixed(1)+"%";
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        indexAxis: "y",
+        plugins: {
+          legend: {
+            display: false
+          },
+          datalabels: {
+            display: true,
+            anchor: "end",
+            align: "right",
+            color: "#0f172a",
+            font: { size: 11, weight: "800" },
+            formatter: (v) => formatBRL(v)
+          },
+          tooltip: {
+            callbacks: {
+              title: (items) => {
+                const i = items[0]?.dataIndex;
+                return i !== undefined ? dadosLimitados[i]?.esp || "" : "";
+              },
+              label: (ctx) => ` Receita: ${formatBRL(ctx.raw || 0)}`
             }
           }
-        }
-      }
-    });
-  }
-
-  // ===== CHARTS: Faixa Etária =====
-  function buildIdadeQtd(esp,mes){
-    destroy("cIdadeQtd");
-    const ctx=el("cIdadeQtd").getContext("2d");
-    let useMes=mes;
-    if(!useMes){
-      const last=[...new Set(allData.filter(x=>x.mesKey).map(x=>x.mesKey))]
-        .map(k=>{const any=allData.find(x=>x.mesKey===k);return{k,y:any?.mesY||0,m:any?.mesM||0};})
-        .sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m)).pop();
-      useMes=last?.k||"";
-    }
-    if(!esp){
-      charts["cIdadeQtd"]=new Chart(ctx,{type:"bar",data:{labels:["Selecione uma Especialidade"],datasets:[{label:"",data:[1],backgroundColor:"rgba(100,116,139,.25)",borderRadius:10}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false},datalabels:{display:false}},scales:{x:{grid:{display:false}},y:{display:false}}}});
-      return;
-    }
-    const source=allData.filter(x=>{ if(useMes&&x.mesKey!==useMes) return false; if(esp&&x.especialidade!==esp) return false; return true; });
-    const map=new Map();
-    source.forEach(x=>{
-      const k=x.idade||"Não informado";
-      if(!map.has(k)) map.set(k,{ag:0,rec:0,ap:0,fat:0});
-      const o=map.get(k);
-      o.ag+=x.agendado; o.rec+=x.recepcionado; o.ap+=x.apac; o.fat+=x.faturado;
-    });
-    const arr=[...map.entries()].map(([k,v])=>({idade:k,...v})).sort((a,b)=>idadeKey(a.idade)-idadeKey(b.idade));
-    charts["cIdadeQtd"]=new Chart(ctx,{
-      type:"bar",
-      data:{labels:arr.map(x=>x.idade),datasets:[
-        {label:"Agendado",data:arr.map(x=>x.ag),backgroundColor:"rgba(59,130,246,.85)",borderRadius:8},
-        {label:"Recepcionado",data:arr.map(x=>x.rec),backgroundColor:"rgba(16,185,129,.85)",borderRadius:8},
-        {label:"APAC",data:arr.map(x=>x.ap),backgroundColor:"rgba(245,158,11,.90)",borderRadius:8},
-        {label:"Faturado",data:arr.map(x=>x.fat),backgroundColor:"rgba(239,68,68,.85)",borderRadius:8}
-      ]},
-      options:{
-        ...baseOptions(),
-        plugins:{
-          ...baseOptions().plugins,
-          legend:{position:"top"},
-          datalabels:{
-            display:(ctx)=>{const v=ctx.dataset.data[ctx.dataIndex];return v>0;},
-            anchor:"center",align:"center",color:"#ffffff",font:{size:12,weight:"900"},
-            formatter:(v)=>v?v.toLocaleString("pt-BR"):""
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            ticks: {
+              font: { size: 11, weight: "700" },
+              callback: (v) => formatBRLCompact(v)
+            },
+            grid: { color: "rgba(2,6,23,.05)" }
+          },
+          y: {
+            ticks: {
+              font: { size: 10, weight: "700" },
+              padding: 4
+            },
+            grid: { display: false }
           }
         }
       }
     });
+
+    el("subReceita").textContent = mesFiltro && mesFiltro !== ""
+      ? `Faturamento (R$) por especialidade • Mês: ${labelMes(mesFiltro)}`
+      : "Faturamento total (R$) acumulado por especialidade (dados da coluna 'Financeiro')";
   }
 
-  function buildIdadeTaxas(esp,mes){
-    destroy("cIdadeTaxas");
-    const ctx=el("cIdadeTaxas").getContext("2d");
-    let useMes=mes;
-    if(!useMes){
-      const last=[...new Set(allData.filter(x=>x.mesKey).map(x=>x.mesKey))]
-        .map(k=>{const any=allData.find(x=>x.mesKey===k);return{k,y:any?.mesY||0,m:any?.mesM||0};})
-        .sort((a,b)=>(a.y*100+a.m)-(b.y*100+b.m)).pop();
-      useMes=last?.k||"";
-    }
-    if(!esp){
-      charts["cIdadeTaxas"]=new Chart(ctx,{type:"bar",data:{labels:["Selecione uma Especialidade"],datasets:[{label:"",data:[1],backgroundColor:"rgba(100,116,139,.25)",borderRadius:10}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false},datalabels:{display:false}},scales:{x:{grid:{display:false}},y:{display:false}}}});
+  // ===== GRÁFICO: Distribuição no Período =====
+  function buildDistribuicao(){
+    destroy("cDistribuicao");
+    const ctx=el("cDistribuicao").getContext("2d");
+
+    const mesFiltro = distribuicaoFilterMonth || el("fMesAno").value;
+    const rows = getOciDataForMonth(mesFiltro);
+
+    const ag = sum("agendado", rows);
+    const rec = sum("recepcionado", rows);
+    const apac = sum("apac", rows);
+    const fat = sum("faturado", rows);
+
+    if(ag === 0 && rec === 0 && apac === 0 && fat === 0) {
+      ctx.font = "14px Inter";
+      ctx.fillStyle = "#64748b";
+      ctx.textAlign = "center";
+      ctx.fillText("Sem dados para o período selecionado", ctx.canvas.width/2, ctx.canvas.height/2);
       return;
     }
-    const source=allData.filter(x=>{ if(useMes&&x.mesKey!==useMes) return false; if(esp&&x.especialidade!==esp) return false; return true; });
-    const map=new Map();
-    source.forEach(x=>{
-      const k=x.idade||"Não informado";
-      if(!map.has(k)) map.set(k,{ag:0,rec:0,ap:0,fat:0});
-      const o=map.get(k);
-      o.ag+=x.agendado; o.rec+=x.recepcionado; o.ap+=x.apac; o.fat+=x.faturado;
-    });
-    const arr=[...map.entries()].map(([k,v])=>({idade:k,recPct:pct(v.rec,v.ag),apPct:pct(v.ap,v.rec),fatPct:pct(v.fat,v.rec)})).sort((a,b)=>idadeKey(a.idade)-idadeKey(b.idade));
-    charts["cIdadeTaxas"]=new Chart(ctx,{
-      type:"line",
-      data:{labels:arr.map(x=>x.idade),datasets:[
-        {label:"Recepção% (Rec/Ag)",data:arr.map(x=>x.recPct),borderColor:"#10b981",backgroundColor:"rgba(16,185,129,.10)",borderWidth:2.5,pointRadius:4,tension:.35},
-        {label:"APAC% (APAC/Rec)",data:arr.map(x=>x.apPct),borderColor:"#f59e0b",backgroundColor:"rgba(245,158,11,.10)",borderWidth:2.5,pointRadius:4,tension:.35},
-        {label:"Faturamento% (Fat/Rec)",data:arr.map(x=>x.fatPct),borderColor:"#ef4444",backgroundColor:"rgba(239,68,68,.10)",borderWidth:2.5,pointRadius:4,tension:.35}
-      ]},
-      options:{
-        responsive:true,maintainAspectRatio:false,
-        plugins:{
-          legend:{position:"top",labels:{font:{size:12,weight:"800"}}},
-          datalabels:{display:false},
-          tooltip:{callbacks:{label:(ctx)=>`${ctx.dataset.label}: ${Number(ctx.raw||0).toFixed(1)}%`}}
-        },
-        scales:{
-          x:{ticks:{font:{size:11,weight:"800"}},grid:{display:false}},
-          y:{beginAtZero:true,suggestedMax:100,ticks:{callback:(v)=>v+"%",font:{size:11,weight:"800"}},grid:{color:"rgba(2,6,23,.06)"}}
+
+    charts["cDistribuicao"] = new Chart(ctx, {
+      type: "doughnut",
+      data: {
+        labels: ["Agendados", "Recepcionados", "APAC Geradas", "Faturados"],
+        datasets: [{
+          data: [ag, rec, apac, fat],
+          backgroundColor: [
+            "#3b82f6",  // Azul
+            "#059669",  // Verde
+            "#d97706",  // Laranja
+            "#b91c1c"   // Vermelho sangue
+          ],
+          borderColor: "#ffffff",
+          borderWidth: 3,
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: "65%",
+        plugins: {
+          legend: {
+            position: "bottom",
+            labels: {
+              font: { size: 12, weight: "700" },
+              padding: 15,
+              usePointStyle: true,
+              pointStyle: "circle",
+              color: "#0f172a",
+              generateLabels: (chart) => {
+                const data = chart.data;
+                if (!data.labels || !data.datasets) return [];
+                const { labels, datasets } = data;
+                const dataset = datasets[0];
+                const total = dataset.data.reduce((a, b) => a + b, 0);
+                
+                return labels.map((label, i) => ({
+                  text: `${label}: ${dataset.data[i].toLocaleString("pt-BR")} (${((dataset.data[i]/total)*100).toFixed(1)}%)`,
+                  fillStyle: dataset.backgroundColor[i],
+                  strokeStyle: dataset.backgroundColor[i],
+                  lineWidth: 2,
+                  hidden: false,
+                  index: i,
+                  fontColor: "#0f172a"
+                }));
+              }
+            }
+          },
+          datalabels: {
+            color: "#fff",
+            font: { size: 13, weight: "900" },
+            textShadowColor: "rgba(0,0,0,0.5)",
+            textShadowBlur: 4,
+            formatter: (value, context) => {
+              const total = context.dataset.data.reduce((a, b) => a + b, 0);
+              if (!total || !value) return "";
+              const pct = (value / total) * 100;
+              return pct < 8 ? "" : pct.toFixed(1) + "%";
+            }
+          },
+          tooltip: {
+            callbacks: {
+              label: (ctx) => {
+                const label = ctx.label || "";
+                const value = ctx.raw || 0;
+                const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
+                const pct = ((value / total) * 100).toFixed(1);
+                return ` ${label}: ${value.toLocaleString("pt-BR")} (${pct}%)`;
+              }
+            }
+          }
         }
       }
     });
@@ -2425,7 +2544,7 @@
     renderTable();
   }
 
-  // ===== TABLE RENDER =====
+  // ===== TABLE RENDER (AGORA COM COLUNA FINANCEIRA) =====
   function renderTable(){
     const q=normStr(el("tSearch").value).toLowerCase();
     let rows=dataF.filter(x=>{
@@ -2448,6 +2567,9 @@
         if(col==="especialidade"||col==="idade"||col==="mesKey"){
           va=String(va||"").toLowerCase(); vb=String(vb||"").toLowerCase();
           return va.localeCompare(vb,"pt-BR")*dir;
+        } else if(col==="financeiro") {
+          // Para a coluna financeira, ordenar numericamente
+          return ((a.financeiro||0) - (b.financeiro||0)) * dir;
         } else {
           return ((va||0)-(vb||0))*dir;
         }
@@ -2457,7 +2579,7 @@
     el("tInfo").textContent=`${rows.length.toLocaleString("pt-BR")} registro(s)`;
     const body=el("tBody");
     if(!rows.length){
-      body.innerHTML=`<tr><td colspan="7" class="muted">Nenhum dado para os filtros selecionados.</td></tr>`;
+      body.innerHTML=`<tr><td colspan="8" class="muted">Nenhum dado para os filtros selecionados.</td></tr>`;
       return;
     }
     body.innerHTML=rows.slice(0,2000).map(x=>`
@@ -2469,15 +2591,17 @@
         <td>${x.recepcionado.toLocaleString("pt-BR")}</td>
         <td>${x.apac.toLocaleString("pt-BR")}</td>
         <td>${x.faturado.toLocaleString("pt-BR")}</td>
+        <td style="font-weight:800; color:${x.financeiro>0?'#059669':'#94a3b8'};">${x.financeiro>0?formatBRL(x.financeiro):'—'}</td>
       </tr>`).join("");
   }
 
   // ===== EXPORT EXCEL =====
   function exportExcel(){
     if(!dataF.length){ toast("Sem dados para exportar com os filtros atuais.","error"); return; }
-    const wsData=[["ESPECIALIDADE","IDADE","MÊS/ANO","AGENDADO","RECEPCIONADO","APAC GERADAS","FATURADO"],...dataF.map(x=>[x.especialidade,x.idade,x.mesLabel||x.mesRaw,x.agendado,x.recepcionado,x.apac,x.faturado])];
+    const wsData=[["ESPECIALIDADE","IDADE","MÊS/ANO","AGENDADO","RECEPCIONADO","APAC GERADAS","FATURADO","FINANCEIRO (R$)"],
+      ...dataF.map(x=>[x.especialidade,x.idade,x.mesLabel||x.mesRaw,x.agendado,x.recepcionado,x.apac,x.faturado,x.financeiro?x.financeiro.toFixed(2).replace('.',','):0])];
     const wb=XLSX.utils.book_new(),ws=XLSX.utils.aoa_to_sheet(wsData);
-    ws["!cols"]=[{wch:44},{wch:18},{wch:12},{wch:12},{wch:14},{wch:12},{wch:12}];
+    ws["!cols"]=[{wch:44},{wch:18},{wch:12},{wch:12},{wch:14},{wch:12},{wch:12},{wch:18}];
     XLSX.utils.book_append_sheet(wb,ws,"OCI");
     const now=new Date(),stamp=now.toLocaleDateString("pt-BR").replaceAll("/","-");
     XLSX.writeFile(wb,`OCI_${stamp}.xlsx`);
