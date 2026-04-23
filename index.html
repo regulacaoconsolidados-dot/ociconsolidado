@@ -1195,7 +1195,11 @@
         mesesDisponiveis.sort((a, b) => { if (a.ano !== b.ano) return a.ano - b.ano; const meses = {jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10,nov:11,dez:12}; return meses[a.mes] - meses[b.mes]; });
         window.mesesRanking = mesesDisponiveis;
         window.ultimoMes = mesesDisponiveis[mesesDisponiveis.length - 1];
-        rankingFisicoData = parsed.data.slice(2).map(row => {
+        rankingFisicoData = parsed.data.slice(2).filter(row => {
+        const primeiroCampo = row[0]?.trim() || '';
+        // Ignora linhas de TOTAL e linhas vazias
+        return primeiroCampo && primeiroCampo.toUpperCase() !== 'TOTAL';
+        }).map(row => {
           const municipio = row[0]?.trim() || '';
           const meses = {};
           mesesDisponiveis.forEach(m => { const valor = String(row[m.coluna] || '0').replace(/\./g, '').replace(',', '.'); meses[m.nome] = parseInt(valor) || 0; });
@@ -1228,7 +1232,11 @@
         mesesDisponiveis.sort((a, b) => { if (a.ano !== b.ano) return a.ano - b.ano; const meses = {jan:1,fev:2,mar:3,abr:4,mai:5,jun:6,jul:7,ago:8,set:9,out:10,nov:11,dez:12}; return meses[a.mes] - meses[b.mes]; });
         window.mesesRankingFinanceiro = mesesDisponiveis;
         window.ultimoMesFinanceiro = mesesDisponiveis[mesesDisponiveis.length - 1];
-        rankingFinanceiroData = parsed.data.slice(2).map(row => {
+        rankingFinanceiroData = parsed.data.slice(2).filter(row => {
+        const primeiroCampo = row[0]?.trim() || '';
+        // Ignora linhas de TOTAL e linhas vazias
+        return primeiroCampo && primeiroCampo.toUpperCase() !== 'TOTAL';
+        }).map(row => {
           const municipio = row[0]?.trim() || '';
           const meses = {};
           mesesDisponiveis.forEach(m => { const valor = String(row[m.coluna] || '0').replace('R$', '').replace(/\./g, '').replace(',', '.'); meses[m.nome] = parseFloat(valor) || 0; });
