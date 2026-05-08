@@ -1069,24 +1069,54 @@
     function mesSortKey(d){ return (d.mesY*100)+d.mesM; }
     function idadeKey(s){ const v=normStr(s).toUpperCase(); if(!v||v==="SEM DADOS") return 999999; let m=v.match(/(\d{1,3})\s*(A|Á|À)\s*(\d{1,3})/); if(m) return parseInt(m[1],10); m=v.match(/(\d{1,3})/); if(m) return parseInt(m[1],10); return 999998; }
     
-    function abbreviateEspName(esp, maxLength = 30) {
-      if (!esp) return "";
-      const abbreviations = {
-        "09.01.01.001-4": "CA Mama Inicial", "09.01.01.002-2": "CA Mama Progressão", "09.01.01.003-0": "CA Próstata Inicial",
-        "09.01.01.004-9": "CA Próstata Progressão", "09.01.01.005-7": "CA Colo Investigação", "09.01.01.006-5": "CA Colo Terapêutica",
-        "09.01.01.007-3": "CA Gástrico", "09.01.01.008-1": "CA Colorretal", "09.01.01.009-0": "CA Mama Prog I",
-        "09.01.01.010-3": "CA Mama Prog II", "09.01.01.011-1": "CA Colo Terap I", "09.01.01.012-0": "CA Colo Terap II",
-        "09.02.01.001-8": "Risco Cirúrgico", "09.02.01.002-6": "Avaliação Cardio", "09.02.01.003-4": "SCC Inicial",
-        "09.02.01.004-2": "SCC Prog I", "09.02.01.005-0": "SCC Prog II", "09.02.01.006-9": "Insuf Cardíaca",
-        "09.05.01.001-9": "Oftalmo 0-8a", "09.05.01.002-7": "Estrabismo", "09.05.01.003-5": "Oftalmo 9a+",
-        "09.05.01.004-3": "Retinopatia Diab", "09.05.01.005-1": "Onco Oftalmo", "09.05.01.006-0": "Neuro Oftalmo",
-        "09.05.01.007-8": "Exames c/ Sedação"
-      };
-      for (const [codigo, abrev] of Object.entries(abbreviations)) { if (esp.includes(codigo)) return abrev; }
-      let abbr = esp.replace(/^OCI\s*/i, "").replace(/AVALIAÇÃO\s*/gi, "AVAL. ").replace(/DIAGNÓSTICA\s*/gi, "DIAG. ").replace(/INICIAL\s*/gi, "INIC. ").replace(/PROGRESSÃO\s*/gi, "PROG. ").replace(/TERAPÊUTICA\s*/gi, "TERAP. ").replace(/CÂNCER DE\s*/gi, "CA ").replace(/\s+/g, " ").trim();
-      if (abbr.length <= maxLength) return abbr;
-      return abbr.substring(0, maxLength - 3) + "...";
-    }
+function abbreviateEspName(esp, maxLength = 30) {
+  if (!esp) return "";
+  const abbreviations = {
+    "09.01.01.001-4": "CA Mama Inicial",
+    "09.01.01.002-2": "CA Mama Progressão",
+    "09.01.01.003-0": "CA Próstata Inicial",
+    "09.01.01.004-9": "CA Próstata Progressão",
+    "09.01.01.005-7": "CA Colo Investigação",
+    "09.01.01.006-5": "CA Colo Terapêutica",
+    "09.01.01.007-3": "CA Gástrico",
+    "09.01.01.008-1": "CA Colorretal",
+    "09.01.01.009-0": "CA Mama Prog I",
+    "09.01.01.010-3": "CA Mama Prog II",
+    "09.01.01.011-1": "CA Colo Terap I",
+    "09.01.01.012-0": "CA Colo Terap II",
+    "09.02.01.001-8": "Risco Cirúrgico",
+    "09.02.01.002-6": "Avaliação Cardio",
+    "09.02.01.003-4": "SCC Inicial",
+    "09.02.01.004-2": "SCC Prog I",
+    "09.02.01.005-0": "SCC Prog II",
+    "09.02.01.006-9": "Insuf Cardíaca",
+    "09.03.01.001-1": "Ortop c/ Radio",
+    "09.03.01.002-0": "Ortop c/ Radio+USG",
+    "09.03.01.003-8": "Ortop c/ Radio+TC",
+    "09.03.01.004-6": "Ortop c/ Radio+RM",
+    "09.04.01.001-5": "Déficit Auditivo Ini",
+    "09.04.01.002-3": "Déficit Auditivo Prog",
+    "09.04.01.003-1": "Naso/Orofaringe",
+    "09.05.01.001-9": "Oftalmo 0-8a",
+    "09.05.01.002-7": "Estrabismo",
+    "09.05.01.003-5": "Oftalmo 9a+",
+    "09.05.01.004-3": "Retinopatia Diab",
+    "09.05.01.005-1": "Onco Oftalmo",
+    "09.05.01.006-0": "Neuro Oftalmo",
+    "09.05.01.007-8": "Exames c/ Sedação",
+    "09.06.01.001-2": "GIN1 - Saúde Mulher I",
+    "09.06.01.002-0": "GIN1 - Saúde Mulher II",
+    "09.06.01.003-9": "GIN2 - SUA I",
+    "09.06.01.004-7": "GIN2 - SUA II",
+    "09.06.01.005-5": "GIN3 - Endometriose"
+  };
+  for (const [codigo, abrev] of Object.entries(abbreviations)) {
+    if (esp.includes(codigo)) return abrev;
+  }
+  let abbr = esp.replace(/^OCI\s*/i, "").replace(/AVALIAÇÃO\s*/gi, "AVAL. ").replace(/DIAGNÓSTICA\s*/gi, "DIAG. ").replace(/INICIAL\s*/gi, "INIC. ").replace(/PROGRESSÃO\s*/gi, "PROG. ").replace(/TERAPÊUTICA\s*/gi, "TERAP. ").replace(/CÂNCER DE\s*/gi, "CA ").replace(/\s+/g, " ").trim();
+  if (abbr.length <= maxLength) return abbr;
+  return abbr.substring(0, maxLength - 3) + "...";
+}
     
     function toggleChartFilter(id, event) { if(event) event.stopPropagation(); const popup = el(id); if(popup) { document.querySelectorAll('.chart-filter-popup').forEach(p => { if(p.id !== id) p.classList.remove('show'); }); popup.classList.toggle('show'); } }
     function applyTopEspFilter() { topEspFilterMonth = el("topEspMesSelect")?.value || ""; if(el("topEspFilter")) el("topEspFilter").classList.remove('show'); buildTop(topEspFilterMonth || null); }
