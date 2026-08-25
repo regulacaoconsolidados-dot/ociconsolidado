@@ -941,58 +941,96 @@
 
         
     const GRUPOS = {
-      "01": { nome: "01 - Atenção em Oncologia", subgrupos: [
-    { codigo: "09.01.01.001-4", nome: "OCI Avaliação Diagnóstica Inicial de Câncer de Mama" },
-    { codigo: "09.01.01.002-2", nome: "OCI Progressão da Avaliação Diagnóstica de Câncer de Mama" },
-    { codigo: "09.01.01.003-0", nome: "OCI Avaliação Diagnóstica Inicial de Câncer de Próstata" },
-    { codigo: "09.01.01.004-9", nome: "OCI Progressão da Avaliação Diagnóstica de Câncer de Próstata" },
-    { codigo: "09.01.01.005-7", nome: "OCI Investigação Diagnóstica de Câncer de Colo do Útero" },
-    { codigo: "09.01.01.006-5", nome: "OCI Avaliação Diagnóstica e Terapêutica de Câncer de Colo do Útero" },
-    { codigo: "09.01.01.007-3", nome: "OCI Avaliação Diagnóstica de Câncer Gástrico" },
-    { codigo: "09.01.01.008-1", nome: "OCI Avaliação Diagnóstica de Câncer Colorretal" },
-    { codigo: "09.01.01.009-0", nome: "OCI Progressão da Avaliação Diagnóstica de Câncer de Mama - I" },
-    { codigo: "09.01.01.010-3", nome: "OCI Progressão da Avaliação Diagnóstica de Câncer de Mama - II" },
-    { codigo: "09.01.01.011-1", nome: "OCI Avaliação Diagnóstica e Terapêutica de Câncer de Colo do Útero - I" },
-    { codigo: "09.01.01.012-0", nome: "OCI Avaliação Diagnóstica e Terapêutica de Câncer de Colo do Útero - II" },
-    { codigo: "09.01.01.013-8", nome: "Oci de Imunohistoquímica de Neoplasia Maligna de Mama" }
-  ] },
-  "02": { nome: "02 - Atenção em Cardiologia", subgrupos: [
-    { codigo: "09.02.01.001-8", nome: "OCI Avaliação de Risco Cirúrgico" },
-    { codigo: "09.02.01.002-6", nome: "OCI Avaliação Cardiológica" },
-    { codigo: "09.02.01.003-4", nome: "OCI Avaliação Diagnóstica Inicial - Síndrome Coronariana Crônica" },
-    { codigo: "09.02.01.004-2", nome: "OCI Progressão da Avaliação Diagnóstica I - Síndrome Coronariana Crônica" },
-    { codigo: "09.02.01.005-0", nome: "OCI Progressão da Avaliação Diagnóstica II - Síndrome Coronariana Crônica" },
-    { codigo: "09.02.01.006-9", nome: "OCI Avaliação Diagnóstica - Insuficiência Cardíaca" },
-    { codigo: "09.02.01.007-7", nome: "Oci Gestão do Pré-Operatório" }
-  ] },
-  "03": { nome: "03 - Atenção em Ortopedia", subgrupos: [
-    { codigo: "09.03.01.001-1", nome: "OCI Avaliação Diagnóstica em Ortopedia com Recursos de Radiologia" },
-    { codigo: "09.03.01.002-0", nome: "OCI Avaliação Diagnóstica em Ortopedia com Recursos de Radiologia e Ultrassonografia" },
-    { codigo: "09.03.01.003-8", nome: "OCI Avaliação Diagnóstica em Ortopedia com Recursos de Radiologia e Tomografia Computadorizada" },
-    { codigo: "09.03.01.004-6", nome: "OCI Avaliação Diagnóstica em Ortopedia com Recursos de Radiologia e Ressonância Magnética" }
-  ] },
-  "04": { nome: "04 - Atenção em Otorrinolaringologia", subgrupos: [
-    { codigo: "09.04.01.001-5", nome: "OCI Avaliação Inicial Diagnóstica de Déficit Auditivo" },
-    { codigo: "09.04.01.002-3", nome: "OCI Progressão da Avaliação Diagnóstica de Déficit Auditivo" },
-    { codigo: "09.04.01.003-1", nome: "OCI Avaliação Diagnóstica de Nasofaringe e de Orofaringe" }
-  ] },
-  "05": { nome: "05 - Atenção em Oftalmologia", subgrupos: [
-    { codigo: "09.05.01.001-9", nome: "OCI Avaliação Inicial em Oftalmologia - 0 a 8 Anos" },
-    { codigo: "09.05.01.002-7", nome: "OCI Avaliação de Estrabismo" },
-    { codigo: "09.05.01.003-5", nome: "OCI Avaliação Inicial em Oftalmologia - a Partir de 9 Anos" },
-    { codigo: "09.05.01.004-3", nome: "OCI Avaliação de Retinopatia Diabética" },
-    { codigo: "09.05.01.005-1", nome: "OCI Avaliação Inicial para Oncologia Oftalmológica" },
-    { codigo: "09.05.01.006-0", nome: "OCI Avaliação Diagnóstica em Neuro Oftalmologia" },
-    { codigo: "09.05.01.007-8", nome: "OCI Exames Oftalmológicos Sob Sedação" }
-  ] },
-  "06": { nome: "06 - Atenção em Saúde da Mulher", subgrupos: [
-    { codigo: "09.06.01.001-2", nome: "GIN1 - Avaliação Diagnóstica Inicial de Saúde da Mulher (Ginecologia) I" },
-    { codigo: "09.06.01.002-0", nome: "OCI - GIN1 - Avaliação Diagnóstica Inicial de Saúde da Mulher (Ginecologia) II" },
-    { codigo: "09.06.01.003-9", nome: "OCI - GIN2 - Progressão da Avaliação Diagnóstica de Saúde da Mulher (Ginecologia) - Sangramento Uterino Anormal I" },
-    { codigo: "09.06.01.004-7", nome: "OCI - GIN2 - Progressão da Avaliação Diagnóstica de Saúde da Mulher (Ginecologia) - Sangramento Uterino Anormal II" },
-    { codigo: "09.06.01.005-5", nome: "OCI - GIN3 - Progressão da Avaliação Diagnóstica de Saúde da Mulher (Ginecologia) - Endometriose Profunda - Casos Complexos e Programação Cirúrgica" }
-  ] }
-};
+      "01": { 
+        nome: "01 - Atenção em Oncologia", 
+        subgrupos: [
+          { codigo: "09.01.01.001-4", nome: "OCI Avaliação Diagnóstica Inicial de Câncer de Mama" },
+          { codigo: "09.01.01.002-2", nome: "OCI Progressão da Avaliação Diagnóstica de Câncer de Mama" },
+          { codigo: "09.01.01.003-0", nome: "OCI Avaliação Diagnóstica Inicial de Câncer de Próstata" },
+          { codigo: "09.01.01.004-9", nome: "OCI Progressão da Avaliação Diagnóstica de Câncer de Próstata" },
+          { codigo: "09.01.01.005-7", nome: "OCI Investigação Diagnóstica de Câncer de Colo do Útero" },
+          { codigo: "09.01.01.006-5", nome: "OCI Avaliação Diagnóstica e Terapêutica de Câncer de Colo do Útero" },
+          { codigo: "09.01.01.007-3", nome: "OCI Avaliação Diagnóstica de Câncer Gástrico" },
+          { codigo: "09.01.01.008-1", nome: "OCI Avaliação Diagnóstica de Câncer Colorretal" },
+          { codigo: "09.01.01.009-0", nome: "OCI Progressão da Avaliação Diagnóstica de Câncer de Mama - I" },
+          { codigo: "09.01.01.010-3", nome: "OCI Progressão da Avaliação Diagnóstica de Câncer de Mama - II" },
+          { codigo: "09.01.01.011-1", nome: "OCI Avaliação Diagnóstica e Terapêutica de Câncer de Colo do Útero - I" },
+          { codigo: "09.01.01.012-0", nome: "OCI Avaliação Diagnóstica e Terapêutica de Câncer de Colo do Útero - II" },
+          { codigo: "09.01.01.013-8", nome: "Oci de Imunohistoquímica de Neoplasia Maligna de Mama" }
+        ] 
+      },
+      "02": { 
+        nome: "02 - Atenção em Cardiologia", 
+        subgrupos: [
+          { codigo: "09.02.01.001-8", nome: "OCI Avaliação de Risco Cirúrgico" },
+          { codigo: "09.02.01.002-6", nome: "OCI Avaliação Cardiológica" },
+          { codigo: "09.02.01.003-4", nome: "OCI Avaliação Diagnóstica Inicial - Síndrome Coronariana Crônica" },
+          { codigo: "09.02.01.004-2", nome: "OCI Progressão da Avaliação Diagnóstica I - Síndrome Coronariana Crônica" },
+          { codigo: "09.02.01.005-0", nome: "OCI Progressão da Avaliação Diagnóstica II - Síndrome Coronariana Crônica" },
+          { codigo: "09.02.01.006-9", nome: "OCI Avaliação Diagnóstica - Insuficiência Cardíaca" },
+          { codigo: "09.02.01.007-7", nome: "Oci Gestão do Pré-Operatório" }
+        ] 
+      },
+      "03": { 
+        nome: "03 - Atenção em Ortopedia", 
+        subgrupos: [
+          { codigo: "09.03.01.001-1", nome: "OCI Avaliação Diagnóstica em Ortopedia com Recursos de Radiologia" },
+          { codigo: "09.03.01.002-0", nome: "OCI Avaliação Diagnóstica em Ortopedia com Recursos de Radiologia e Ultrassonografia" },
+          { codigo: "09.03.01.003-8", nome: "OCI Avaliação Diagnóstica em Ortopedia com Recursos de Radiologia e Tomografia Computadorizada" },
+          { codigo: "09.03.01.004-6", nome: "OCI Avaliação Diagnóstica em Ortopedia com Recursos de Radiologia e Ressonância Magnética" }
+        ] 
+      },
+      "04": { 
+        nome: "04 - Atenção em Otorrinolaringologia", 
+        subgrupos: [
+          { codigo: "09.04.01.001-5", nome: "OCI Avaliação Inicial Diagnóstica de Déficit Auditivo" },
+          { codigo: "09.04.01.002-3", nome: "OCI Progressão da Avaliação Diagnóstica de Déficit Auditivo" },
+          { codigo: "09.04.01.003-1", nome: "OCI Avaliação Diagnóstica de Nasofaringe e de Orofaringe" }
+        ] 
+      },
+      "05": { 
+        nome: "05 - Atenção em Oftalmologia", 
+        subgrupos: [
+          { codigo: "09.05.01.001-9", nome: "OCI Avaliação Inicial em Oftalmologia - 0 a 8 Anos" },
+          { codigo: "09.05.01.002-7", nome: "OCI Avaliação de Estrabismo" },
+          { codigo: "09.05.01.003-5", nome: "OCI Avaliação Inicial em Oftalmologia - a Partir de 9 Anos" },
+          { codigo: "09.05.01.004-3", nome: "OCI Avaliação de Retinopatia Diabética" },
+          { codigo: "09.05.01.005-1", nome: "OCI Avaliação Inicial para Oncologia Oftalmológica" },
+          { codigo: "09.05.01.006-0", nome: "OCI Avaliação Diagnóstica em Neuro Oftalmologia" },
+          { codigo: "09.05.01.007-8", nome: "OCI Exames Oftalmológicos Sob Sedação" }
+        ] 
+      },
+      "06": { 
+        nome: "06 - Atenção em Saúde da Mulher", 
+        subgrupos: [
+          { codigo: "09.06.01.001-2", nome: "GIN1 - Avaliação Diagnóstica Inicial de Saúde da Mulher (Ginecologia) I" },
+          { codigo: "09.06.01.002-0", nome: "OCI - GIN1 - Avaliação Diagnóstica Inicial de Saúde da Mulher (Ginecologia) II" },
+          { codigo: "09.06.01.003-9", nome: "OCI - GIN2 - Progressão da Avaliação Diagnóstica de Saúde da Mulher (Ginecologia) - Sangramento Uterino Anormal I" },
+          { codigo: "09.06.01.004-7", nome: "OCI - GIN2 - Progressão da Avaliação Diagnóstica de Saúde da Mulher (Ginecologia) - Sangramento Uterino Anormal II" },
+          { codigo: "09.06.01.005-5", nome: "OCI - GIN3 - Progressão da Avaliação Diagnóstica de Saúde da Mulher (Ginecologia) - Endometriose Profunda - Casos Complexos e Programação Cirúrgica" }
+        ] 
+      },
+      "07": { 
+        nome: "07 - Atenção em Saúde Bucal", 
+        subgrupos: [
+          { codigo: "09.07.01.001-6", nome: "OCI - ATENÇÃO EM SAÚDE BUCAL NA ATENÇÃO ESPECIALIZADA PARA MULHERES EM SITUAÇÃO DE VIOLÊNCIA" },
+          { codigo: "09.07.01.002-4", nome: "OCI- REABILITAÇÃO PROTÉTICA EM SAÚDE BUCAL NA ATENÇÃO ESPECIALIZADA PARA MULHERES EM SITUAÇÃO DE VIOLÊNCIA" }
+        ] 
+      },
+      "08": { 
+        nome: "08 - Atenção em Infectologia", 
+        subgrupos: [
+          { codigo: "09.08.01.001-0", nome: "OCI AVALIAÇÃO DIAGNÓSTICA INICIAL DE SÍNDROMES RESPIRATÓRIAS" },
+          { codigo: "09.08.01.002-8", nome: "OCI PROGRESSÃO DA AVALIAÇÃO DIAGNÓSTICA DE SÍNDROMES RESPIRATÓRIAS" },
+          { codigo: "09.08.01.003-6", nome: "OCI AVALIAÇÃO DIAGNÓSTICA INICIAL DE SÍNDROME NEUROLÓGICA" },
+          { codigo: "09.08.01.004-4", nome: "OCI PROGRESSÃO DA AVALIAÇÃO DIAGNÓSTICA DE SÍNDROME NEUROLÓGICA" },
+          { codigo: "09.08.01.005-2", nome: "OCI AVALIAÇÃO DIAGNÓSTICA INICIAL DE SÍNDROME MUCOCUTÂNEA" },
+          { codigo: "09.08.01.006-0", nome: "OCI PROGRESSÃO DA AVALIAÇÃO DIAGNÓSTICA DE SÍNDROME MUCOCUTÂNEA" },
+          { codigo: "09.08.01.007-9", nome: "OCI AVALIAÇÃO DIAGNÓSTICA INICIAL DE SÍNDROME CONSUMPTIVA" },
+          { codigo: "09.08.01.008-7", nome: "OCI PROGRESSÃO DA AVALIAÇÃO DIAGNÓSTICA DE SÍNDROME CONSUMPTIVA" }
+        ] 
+      }
+    };
     
     let allData = [], dataF = [], tableSort = { col: null, dir: "asc" };
     let selectedSubgrupos = new Set(), selectedMeses = new Set(), allMeses = [];
@@ -1084,48 +1122,58 @@
     function idadeKey(s){ const v=normStr(s).toUpperCase(); if(!v||v==="SEM DADOS") return 999999; let m=v.match(/(\d{1,3})\s*(A|Á|À)\s*(\d{1,3})/); if(m) return parseInt(m[1],10); m=v.match(/(\d{1,3})/); if(m) return parseInt(m[1],10); return 999998; }
     
 function abbreviateEspName(esp, maxLength = 30) {
-  if (!esp) return "";
-  const abbreviations = {
-    "09.01.01.001-4": "CA Mama Inicial",
-    "09.01.01.002-2": "CA Mama Progressão",
-    "09.01.01.003-0": "CA Próstata Inicial",
-    "09.01.01.004-9": "CA Próstata Progressão",
-    "09.01.01.005-7": "CA Colo Investigação",
-    "09.01.01.006-5": "CA Colo Terapêutica",
-    "09.01.01.007-3": "CA Gástrico",
-    "09.01.01.008-1": "CA Colorretal",
-    "09.01.01.009-0": "CA Mama Prog I",
-    "09.01.01.010-3": "CA Mama Prog II",
-    "09.01.01.011-1": "CA Colo Terap I",
-    "09.01.01.012-0": "CA Colo Terap II",
-    "09.01.01.013-8": "Imunohistoquímica Mama",
-    "09.02.01.001-8": "Risco Cirúrgico",
-    "09.02.01.002-6": "Avaliação Cardio",
-    "09.02.01.003-4": "SCC Inicial",
-    "09.02.01.004-2": "SCC Prog I",
-    "09.02.01.005-0": "SCC Prog II",
-    "09.02.01.006-9": "Insuf Cardíaca",
-    "09.02.01.007-7": "Gestão Pré-Operatório",
-    "09.03.01.001-1": "Ortop c/ Radio",
-    "09.03.01.002-0": "Ortop c/ Radio+USG",
-    "09.03.01.003-8": "Ortop c/ Radio+TC",
-    "09.03.01.004-6": "Ortop c/ Radio+RM",
-    "09.04.01.001-5": "Déficit Auditivo Ini",
-    "09.04.01.002-3": "Déficit Auditivo Prog",
-    "09.04.01.003-1": "Naso/Orofaringe",
-    "09.05.01.001-9": "Oftalmo 0-8a",
-    "09.05.01.002-7": "Estrabismo",
-    "09.05.01.003-5": "Oftalmo 9a+",
-    "09.05.01.004-3": "Retinopatia Diab",
-    "09.05.01.005-1": "Onco Oftalmo",
-    "09.05.01.006-0": "Neuro Oftalmo",
-    "09.05.01.007-8": "Exames c/ Sedação",
-    "09.06.01.001-2": "GIN1 - Saúde Mulher I",
-    "09.06.01.002-0": "GIN1 - Saúde Mulher II",
-    "09.06.01.003-9": "GIN2 - SUA I",
-    "09.06.01.004-7": "GIN2 - SUA II",
-    "09.06.01.005-5": "GIN3 - Endometriose"
-  };
+      if (!esp) return "";
+      const abbreviations = {
+        "09.01.01.001-4": "CA Mama Inicial",
+        "09.01.01.002-2": "CA Mama Progressão",
+        "09.01.01.003-0": "CA Próstata Inicial",
+        "09.01.01.004-9": "CA Próstata Progressão",
+        "09.01.01.005-7": "CA Colo Investigação",
+        "09.01.01.006-5": "CA Colo Terapêutica",
+        "09.01.01.007-3": "CA Gástrico",
+        "09.01.01.008-1": "CA Colorretal",
+        "09.01.01.009-0": "CA Mama Prog I",
+        "09.01.01.010-3": "CA Mama Prog II",
+        "09.01.01.011-1": "CA Colo Terap I",
+        "09.01.01.012-0": "CA Colo Terap II",
+        "09.01.01.013-8": "Imunohistoquímica Mama",
+        "09.02.01.001-8": "Risco Cirúrgico",
+        "09.02.01.002-6": "Avaliação Cardio",
+        "09.02.01.003-4": "SCC Inicial",
+        "09.02.01.004-2": "SCC Prog I",
+        "09.02.01.005-0": "SCC Prog II",
+        "09.02.01.006-9": "Insuf Cardíaca",
+        "09.02.01.007-7": "Gestão Pré-Operatório",
+        "09.03.01.001-1": "Ortop c/ Radio",
+        "09.03.01.002-0": "Ortop c/ Radio+USG",
+        "09.03.01.003-8": "Ortop c/ Radio+TC",
+        "09.03.01.004-6": "Ortop c/ Radio+RM",
+        "09.04.01.001-5": "Déficit Auditivo Ini",
+        "09.04.01.002-3": "Déficit Auditivo Prog",
+        "09.04.01.003-1": "Naso/Orofaringe",
+        "09.05.01.001-9": "Oftalmo 0-8a",
+        "09.05.01.002-7": "Estrabismo",
+        "09.05.01.003-5": "Oftalmo 9a+",
+        "09.05.01.004-3": "Retinopatia Diab",
+        "09.05.01.005-1": "Onco Oftalmo",
+        "09.05.01.006-0": "Neuro Oftalmo",
+        "09.05.01.007-8": "Exames c/ Sedação",
+        "09.06.01.001-2": "GIN1 - Saúde Mulher I",
+        "09.06.01.002-0": "GIN1 - Saúde Mulher II",
+        "09.06.01.003-9": "GIN2 - SUA I",
+        "09.06.01.004-7": "GIN2 - SUA II",
+        "09.06.01.005-5": "GIN3 - Endometriose",
+        "09.07.01.001-6": "Saúde Bucal - Violência",
+        "09.07.01.002-4": "Reab. Protética - Violência",
+        "09.08.01.001-0": "Sínd. Respiratória - Inicial",
+        "09.08.01.002-8": "Sínd. Respiratória - Prog",
+        "09.08.01.003-6": "Sínd. Neurológica - Inicial",
+        "09.08.01.004-4": "Sínd. Neurológica - Prog",
+        "09.08.01.005-2": "Sínd. Mucocutânea - Inicial",
+        "09.08.01.006-0": "Sínd. Mucocutânea - Prog",
+        "09.08.01.007-9": "Sínd. Consuptiva - Inicial",
+        "09.08.01.008-7": "Sínd. Consuptiva - Prog"
+      };
   for (const [codigo, abrev] of Object.entries(abbreviations)) {
     if (esp.includes(codigo)) return abrev;
   }
